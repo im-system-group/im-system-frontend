@@ -3,24 +3,19 @@
 
     <div id="nav">
         <router-link to="/">Home</router-link> |
-        <router-link to="/post">Post</router-link> |
-        <router-link to="/about">About</router-link>
+        <router-link to="/list">List</router-link> |
+        <router-link to="/login">login</router-link>
     </div>
 
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>頁面整理</h1>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+  name: 'Home'
 }
 </script>
 
