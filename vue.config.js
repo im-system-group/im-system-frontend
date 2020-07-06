@@ -6,16 +6,16 @@ module.exports = {
     productionSourceMap: false,
     pwa: {
         name: 'iM System',
-        themeColor: '#197BE0',
+        themeColor: '#3d403f',
         manifestOptions: {
-            background_color: '#197BE0',
+            background_color: '#3d403f',
         },
-        msTileColor: '#197BE0',
+        msTileColor: '#3d403f',
         assetsVersion: '0.2201',
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
-        extract: true,
+        //extract: true,
         // 開啟 CSS source maps?
         sourceMap: false,
         // css預設器配置項

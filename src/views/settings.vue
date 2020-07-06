@@ -6,7 +6,7 @@
 
         <div class="container mx-auto" style="max-width: 1028px;margin-top:8vh;min-height: 100vh">
             <div class="im-card">
-                <div class="im-card__text">
+                <div class="im-card__content">
                     <h2>SnowFireWolf</h2>
                     <h2>
                         {{ $t('screen_lang' )}}

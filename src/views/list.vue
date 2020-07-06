@@ -11,7 +11,7 @@
                 <span class="mdi mdi-cog-outline"></span>
             </router-link>
 
-            <div class="container mx-auto" style="max-width: 1028px;margin-top:8vh;min-height: 100vh">
+            <div class="container mx-auto" style="max-width: 1028px;margin-top:8vh;min-height: 100vh;" :class="{'overflow-hidden': open_compose}">
 
                 <div class="post-control" v-for="(item, index) in post_list" :key="index">
 
@@ -59,21 +59,58 @@
 
 
 
-        <div class="im-modal" :class="{'active': open_compose}">
+        <div class="im-modal" style="overflow-y: scroll" :class="{'active': open_compose}">
             <div class="im-modal-bg">
             </div>
             <div class="im-modal__card">
                 <div class="im-card">
 
-                    <div class="im-card__text" style="min-height: 50vh">
+                    <div class="im-card__content" style="min-height: 50vh">
                         <h2>新文章</h2>
-                        <textarea class="im-textarea mt-2" name="w3review" rows="4" cols="50">
-                        At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.
+
+                        <input
+                            v-model="compose_title"
+                            class="im-textarea mt-2"
+                            placeholder="標題"
+                        />
+
+                        <textarea
+                            v-model="compose_content"
+                            class="im-textarea mt-2"
+                            rows="4"
+                            cols="50"
+                            placeholder="在想些什麼？"
+                        >
                         </textarea>
 
-                        <div class="im-file"></div>
+                        <div class="file-preview text-center" v-if="previewUrl">
+                            <div>
+                                <img :src="previewUrl" style="width: 100%; max-width: 420px;"/>
+                            </div>
+                            <button class="button mt-1" @click="removeFile">刪除</button>
+                        </div>
 
-                        <button class="button im-post-button mt-2">POST</button>
+                        <div
+                            :class="['dropZone', dragging ? 'dropping' : '']"
+                            @dragenter="dragging = true"
+                            @dragleave="dragging = false"
+                            class="im-file mx-auto mt-2"
+                            style="max-width: 220px;"
+                        >
+                            <div class="im-file__content">
+                                <input type="file" @change="fileOnChange"/>
+                                <div class="im-file__info text-center">
+                                    <span class="mdi mdi-plus" style="font-size: 2em"></span>
+                                    <!--<p>拖動檔案或是點擊此處上傳檔案</p>
+                                    <p>最大檔案大小： 5MB</p>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mb-1">上傳檔案</div>
+
+                        <div class="d-flex">
+                            <button class="button im-post-button mt-2 ml-auto">POST</button>
+                        </div>
                     </div>
 
                 </div>
@@ -91,11 +128,75 @@ export default {
         loading: false,
         error: false,
         post_list: null,
-        open_compose: false
+        open_compose: false,
+        compose_title: '',
+        compose_content: '',
+        dragging: false,
+        previewUrl: ''
     }),
     methods: {
         compose_m() {
             this.open_compose = !this.open_compose;
+        },
+        fileOnChange(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            console.log(files)
+            if (!files.length) {
+                this.dragging = false;
+                return;
+            }
+
+            this.createFile(files[0]);
+        },
+        createFile(file) {
+            console.log(file.type)
+            if (file.type.match('image/png.*')) {
+                this.dragging = false;
+
+            }else if (file.type.match('image/jpeg.*')) {
+                this.dragging = false;
+
+            }else {
+                alert('不支援此類型檔案')
+                return
+            }
+
+            if (file.size > 5000000) {
+                alert('please check file size no over 5 MB.')
+                this.dragging = false;
+                return;
+            }
+
+            this.file = file;
+            console.log(this.file);
+
+            let reader = new FileReader()
+            let self = this
+            reader.onload = function (e) {
+                self.previewUrl = e.target.result
+                console.log(e)
+            }
+            reader.readAsDataURL(file)
+
+
+            this.dragging = false;
+        },
+        removeFile() {
+            this.file = '';
+            this.previewUrl = ''
+        }
+    },
+    computed: {
+        extension() {
+            return (this.file) ? this.file.name.split('.').pop() : '';
+        }
+    },
+    watch: {
+        open_compose(value) {
+            if(value)
+                document.body.style = 'overflow-y: hidden;'
+            else
+                document.body.style = 'overflow-y: scroll;'
         }
     },
     mounted() {
@@ -113,8 +214,6 @@ export default {
             .then(function () {
                 // always executed
             });
-    },
-    watch: {
     }
 }
 </script>
@@ -126,8 +225,14 @@ export default {
     background: rgba(119, 119, 119, 0.2);
     border: 1px solid #fff;
     border-radius: 8px;
+    margin-bottom: 1em;
     padding: 1em 1em;
     outline: 0;
+}
+
+.im-textarea::placeholder {
+  color: rgb(145, 255, 193);
+  opacity: 1;
 }
 
 .im-post-button {
@@ -136,57 +241,59 @@ export default {
     box-shadow: none;
     transition: .2s;
 }
+
+.im-post-button:hover {
+    background: rgba(177, 177, 177, 0.2);
+}
+
 .im-post-button:active {
+    background: rgba(119, 119, 119, 0.2);
     transform: scale(.95);
 }
 
 
+
+
 .im-file {
+    display: block;
+    margin-bottom: .7em;
     color: #fff;
     width: 100%;
-    height: 10vh;
-    border: 2px solid #fff;
+    min-width: 0;
+    min-height: 10vh;
+    border: 1px solid #fff;
     border-radius: 8px;
     background: rgba(119, 119, 119, 0.2);
+    transition: .1s;
 }
 
-
-
-.user-avator {
-    margin: 0 auto;
-    margin-right: 16px;
+.im-file:hover {
+    background: rgba(119, 119, 119, 0.4);
 }
 
-.user-avator .name {
-    margin-top: 6px;
-    color: #FFFFFF;
-    font-size:12px;
-    letter-spacing: .05em;
-    font-family: 'Electrolize', sans-serif;
+.im-file.dropping {
+    color:rgb(217, 221, 226);
+    background: rgba(119, 119, 119, 0.5);
+    border-color: rgb(171, 216, 253);
 }
-
-.user-avator__container {
-    align-items: center;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    line-height: normal;
+.im-file__content {
     position: relative;
-    text-align: center;
-    vertical-align: middle;
-    overflow: hidden;
-    align-self: flex-start;
 }
 
-.user-avator__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
+.im-file__info {
+    padding: 1em;
 }
+
+
+.im-file input {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    min-height: 100%;
+    opacity: 0;
+}
+
+/** compose ui **/
 
 
 
