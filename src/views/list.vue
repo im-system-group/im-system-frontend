@@ -11,9 +11,19 @@
                 <span class="mdi mdi-cog-outline"></span>
             </router-link>
 
-            <div class="container mx-auto" style="max-width: 1028px;margin-top:8vh;min-height: 100vh;" :class="{'overflow-hidden': open_compose}">
+            <div class="container mx-auto" style="max-width: 1028px;margin-top:8vh;min-height: 100vh;">
 
-                <div class="post-control" v-for="(item, index) in post_list" :key="index">
+                <div v-if="loading" class="post-control">
+                    <div class="post-card">
+                        <div class="driver"></div>
+
+                        <div class="post-card__content" style="display: flex">
+                            <loading-spinner style="margin-top: 5vh;margin-bottom: 5vh;"></loading-spinner>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-else class="post-control" v-for="(item, index) in post_list" :key="index">
 
                     <div class="user-avator" style="max-width: 60px">
                         <div class="user-avator__container" style="height: 60px;min-width: 60px;width: 60px;">
@@ -125,9 +135,10 @@
 <script>
 export default {
     data: () => ({
-        loading: false,
+        loading: true,
         error: false,
         post_list: null,
+
         open_compose: false,
         compose_title: '',
         compose_content: '',
@@ -193,6 +204,7 @@ export default {
     },
     watch: {
         open_compose(value) {
+            //如果打開 post modal 鎖定滾動
             if(value)
                 document.body.style = 'overflow-y: hidden;'
             else
@@ -202,11 +214,13 @@ export default {
     mounted() {
         let self = this;
 
-        this.axios.get('/api/post.json')
+        this.axios.get('/api/list.json')
             .then(function (response) {
-                console.log(response.data)
+                let data = response.data
+
                 self.loading = false
-                self.post_list = response.data
+                self.post_list = data
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -314,6 +328,7 @@ export default {
     width: 100%;
     margin-bottom: 24px;
     background: rgba(255,255,255,0.2);
+    backdrop-filter: saturate(180%) blur(20px);
     cursor: pointer;
     transition: .2s cubic-bezier(0.39, 0.575, 0.565, 1);
 }

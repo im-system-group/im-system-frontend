@@ -5,52 +5,51 @@ import Home from '../views/Home.vue'
 Vue.use(VueRouter)
 
     const routes = [
-    {
-        path: '/',
-        name: 'home',
-        component: Home
-    },
-    {
-        path: '/login',
-        name: 'login',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "main" */ '../views/login.vue')
-    },
-    {
-        path: '/list',
-        name: 'list',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "main" */ '../views/list.vue'),
-        children: [
-            {
-                path: 'compose',
-                name: 'Compose'
-            }
-        ]
-    },
-    {
-        path: '/post/:id',
-        name: 'post',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "main" */ '../views/post.vue')
-    },
-    {
-        path: '/settings',
-        name: 'settings',
-        component: () => import(/* webpackChunkName: "main" */ '../views/settings.vue')
-    },
-    {
-        path: '/*',
-        name: '*',
-        component: () => import(/* webpackChunkName: "main" */ '../views/404.vue')
-    }
-]
+        {
+            path: '/',
+            name: 'home',
+            component: Home
+        },
+        {
+            path: '/list',
+            name: 'list',
+            // route level code-splitting
+            // this generates a separate chunk (about.[hash].js) for this route
+            // which is lazy-loaded when the route is visited.
+            component: () => import(/* webpackChunkName: "main" */ '../views/list.vue'),
+            children: [
+                {
+                    path: 'compose',
+                    name: 'Compose'
+                }
+            ]
+        },
+        {
+            path: '/post/:id',
+            name: 'post',
+            component: () => import(/* webpackChunkName: "main" */ '../views/post.vue')
+        },
+        {
+            path: '/settings',
+            name: 'settings',
+            component: () => import(/* webpackChunkName: "main" */ '../views/settings.vue')
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import(/* webpackChunkName: "main" */ '../views/Login.vue')
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: () => import(/* webpackChunkName: "main" */ '../views/register.vue')
+        },
+        {
+            path: '/*',
+            name: '*',
+            component: () => import(/* webpackChunkName: "main" */ '../views/404.vue')
+        }
+    ]
 
 const router = new VueRouter({
     mode: 'history',
