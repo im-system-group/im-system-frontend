@@ -32,6 +32,12 @@ button:focus {
     transform: scale(.95);
 }
 
+.button.outlined {
+    background: transparent;
+    color: white;
+    border: 2px solid #fff;
+}
+
 .button.icon {
     padding: .5em .5em;
     border-radius: 50%;
@@ -43,6 +49,31 @@ button:focus {
 .button.icon:active {
     transform: scale(.9);
 }
+
+
+
+
+
+
+/*
+ * im-textarea
+ */
+.im-textarea {
+    width: 100%;
+    color: #fff;
+    background: rgba(119, 119, 119, 0.2);
+    border: 2px solid #fff;
+    border-radius: 8px;
+    margin-bottom: 1em;
+    padding: 1em 1em;
+    outline: 0;
+}
+
+.im-textarea::placeholder {
+  color: rgb(145, 255, 193);
+  opacity: 1;
+}
+
 
 
 
@@ -189,7 +220,7 @@ button:focus {
     position: relative;
     text-decoration: none;
     padding-right: 1em;
-    padding-left: 1em;
+    padding-left: 2em;
 }
 
 .im-card .im-card__content {
@@ -218,7 +249,7 @@ button:focus {
     align-self: center;
     overflow: hidden;
     line-height: 1.8;
-    letter-spacing: 0.07em;
+    letter-spacing: .02em;
 }
 
 .im-card-dot {

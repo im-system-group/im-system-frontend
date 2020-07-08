@@ -1,21 +1,21 @@
 <template>
-  <div class="home">
+    <div class="home">
 
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/list">List</router-link> |
-        <router-link to="/login">login</router-link>
+        <div id="nav">
+            <router-link to="/">Home</router-link> |
+            <router-link to="/list">List</router-link> |
+            <router-link to="/login">login</router-link>
+        </div>
+
+        <h1>頁面整理</h1>
     </div>
-
-    <h1>頁面整理</h1>
-  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
 export default {
-  name: 'Home'
+    name: 'home'
 }
 </script>
 

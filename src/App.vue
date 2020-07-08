@@ -31,6 +31,15 @@ export default {
             });
     },
     mounted() {
+        document.title = 'iM'
     }
 }
 </script>
+
+<style>
+* {
+    font-family: "Noto Sans CJK TC", BlinkMacSystemFont, -apple-system"Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica",
+  "Arial", "微軟正黑體", sans-serif;
+}
+</style>

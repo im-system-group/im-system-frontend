@@ -147,7 +147,14 @@ export default {
     }),
     methods: {
         compose_m() {
-            this.open_compose = !this.open_compose;
+            let open_compose = this.open_compose;
+            this.open_compose = !open_compose;
+
+            //如果打開 新文章 modal 鎖定滾動
+            if(open_compose)
+                document.body.style = 'overflow-y: scroll;'
+            else
+                document.body.style = 'overflow-y: hidden;'
         },
         fileOnChange(e) {
             let files = e.target.files || e.dataTransfer.files;
@@ -202,15 +209,6 @@ export default {
             return (this.file) ? this.file.name.split('.').pop() : '';
         }
     },
-    watch: {
-        open_compose(value) {
-            //如果打開 post modal 鎖定滾動
-            if(value)
-                document.body.style = 'overflow-y: hidden;'
-            else
-                document.body.style = 'overflow-y: scroll;'
-        }
-    },
     mounted() {
         let self = this;
 
@@ -233,21 +231,6 @@ export default {
 </script>
 
 <style>
-.im-textarea {
-    width: 100%;
-    color: #fff;
-    background: rgba(119, 119, 119, 0.2);
-    border: 1px solid #fff;
-    border-radius: 8px;
-    margin-bottom: 1em;
-    padding: 1em 1em;
-    outline: 0;
-}
-
-.im-textarea::placeholder {
-  color: rgb(145, 255, 193);
-  opacity: 1;
-}
 
 .im-post-button {
     background: rgba(119, 119, 119, 0.2);
@@ -275,7 +258,7 @@ export default {
     width: 100%;
     min-width: 0;
     min-height: 10vh;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     border-radius: 8px;
     background: rgba(119, 119, 119, 0.2);
     transition: .1s;
