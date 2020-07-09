@@ -39,8 +39,8 @@
 						</div>
 
 						<div class="mt-4">
-							<div class></div>
-							<di class="im-font">
+							<div class>顯示語言</div>
+							<div class="im-font">
 								Coming soon...
 								<!--{{ $t('screen_lang' )}}
 								<select v-model="$i18n.locale">
@@ -51,12 +51,13 @@
 								>{{ lang.name }}</option>
 							</select>-->
 						</div>
+
+						<div class="mt-4 d-flex">
+							<button @click="edit_m" class="button outlined">編輯個人資料</button>
+							<button @click="logout" class="button outlined ml-auto">登出帳號</button>
+						</div>
 					</div>
 
-					<div class="mt-4 d-flex">
-						<button @click="edit_m" class="button outlined">編輯個人資料</button>
-						<button @click="logout" class="button outlined ml-auto">登出帳號</button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -230,7 +231,10 @@ export default {
 						location.reload()
 					}
 				})
-				.catch(console.log);
+				.catch(console.log)
+				.then(function () {
+					// always executed
+				});
 		},
 		// 登出
 		logout() {

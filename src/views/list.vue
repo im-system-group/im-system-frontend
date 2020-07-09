@@ -106,7 +106,9 @@
 						<div class="text-center mb-1">上傳檔案</div>
 
 						<div class="d-flex">
-							<button class="button im-post-button mt-2 ml-auto" @click="postArticle" :disabled="uploading">POST</button>
+							<button class="button outlined mt-2 ml-auto" @click="postArticle" :disabled="uploading">
+								POST
+							</button>
 						</div>
 					</div>
 				</div>
@@ -167,7 +169,13 @@ export default {
 						this.uploading = false
 					}
 				})
-				.catch(console.log);
+				.catch(err => {
+					this.uploading = false
+				})
+				.then(function () {
+					// always executed
+					this.uploading = false
+				});
 		},
 		compose_m() {
 			let open_compose = this.open_compose;

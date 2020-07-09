@@ -11,7 +11,7 @@ module.exports = {
             background_color: '#3d403f',
         },
         msTileColor: '#3d403f',
-        assetsVersion: '0.0201',
+        assetsVersion: '0.0202',
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
@@ -25,10 +25,10 @@ module.exports = {
     },
     pluginOptions: {
         i18n: {
-          locale: 'en',
-          fallbackLocale: 'en',
-          localeDir: 'lang',
-          enableInSFC: true
+            locale: 'en',
+            fallbackLocale: 'en',
+            localeDir: 'lang',
+            enableInSFC: true
         }
     }
 }
