@@ -1,14 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-//import Home from '../views/home.vue'
+
+//analytics
+import VueAnalytics from 'vue-analytics'
 
 Vue.use(VueRouter)
 
     const routes = [
         {
+            path: '/dev',
+            name: 'dev list',
+            component: () => import(/* webpackChunkName: "main" */ '../views/dev.vue'),
+        },
+        {
             path: '/',
             name: 'home',
             component: () => import(/* webpackChunkName: "main" */ '../views/home.vue'),
+        },
+        {
+            path: '/old_interface',
+            name: 'old_interface',
+            component: () => import(/* webpackChunkName: "main" */ '../views/old_interface.vue'),
         },
         {
             path: '/list',
@@ -29,11 +41,6 @@ Vue.use(VueRouter)
             component: () => import(/* webpackChunkName: "main" */ '../views/settings.vue')
         },
         {
-            path: '/login',
-            name: 'login',
-            component: () => import(/* webpackChunkName: "main" */ '../views/login.vue')
-        },
-        {
             path: '/register',
             name: 'register',
             component: () => import(/* webpackChunkName: "main" */ '../views/register.vue')
@@ -49,7 +56,7 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes,
-    //重置 scoll 位置
+    //設定 scoll 位置
     scrollBehavior (to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
@@ -57,6 +64,12 @@ const router = new VueRouter({
             return { x: 0, y: 0 }
         }
     }
+})
+
+//google analytics
+Vue.use(VueAnalytics, {
+    id: 'UA-104979875-2',
+    router
 })
 
 export default router

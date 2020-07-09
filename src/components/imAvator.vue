@@ -1,10 +1,11 @@
 <template>
     <div class="user-avator" :style="`max-width: ${width}`">
-        <div class="user-avator__container" :style="`height: ${width};min-width: ${width};width: ${width};`">
+        <div class="user-avator__container" :style="`height: ${width};min-width: ${width};width: ${width};border: 2px solid ${borderColor};`">
             <div style="max-width: 100%;">
                 <div class="user-avator__sizer" style="padding-bottom: 100%;">
                 </div>
                 <div class="user-avator__image" :style="`background-image: url('${image}');background-position: center center;`"></div>
+                <slot/>
             </div>
         </div>
     </div>
@@ -15,13 +16,14 @@ export default {
     name: 'im-avator',
     data: () => ({
         image: '',
-        imageUrl: ''
+        imageUrl: '',
     }),
     props: {
         //image width
         width: String,
         //image url
-        src: String
+        src: String,
+        borderColor: String,
     },
     mounted() {
         if(this.width === ''){
@@ -41,8 +43,6 @@ export default {
 
             let highResImage = new Image()
 
-
-
             highResImage.onload = function(){
                 self.image = self.imageUrl
             }
@@ -52,3 +52,6 @@ export default {
     }
 }
 </script>
+
+<style>
+</style>

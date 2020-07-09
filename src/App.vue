@@ -7,19 +7,22 @@
 <script>
 export default {
     data: () => ({
-        user_data: null
     }),
     created() {
+        document.title = 'iM'
+
         let self = this;
 
-        this.axios.get('/api/me.json')
+        this.axios.post('/api/check-me.php')
             .then(function (response) {
                 let data = response.data
 
-                if(data.status === 'ok'){
-                    self.$store.state.user_data = response.data
+                //staus is ok
+                if(data.message === 'ok'){
+                    //set data 到 store
+                    self.$store.state.user_profile = data
                 }else{
-                    self.$router.push('/login')
+                    self.$router.push('/')
                 }
 
             })
@@ -29,17 +32,30 @@ export default {
             .then(function () {
                 // always executed
             });
-    },
-    mounted() {
-        document.title = 'iM'
     }
 }
 </script>
 
 <style>
 * {
-    font-family: "Noto Sans CJK TC", BlinkMacSystemFont, -apple-system"Segoe UI", "Roboto", "Oxygen",
+    font-family: -apple-system, BlinkMacSystemFont, "Noto Sans CJK TC", "Segoe UI", "Roboto", "Oxygen",
   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica",
   "Arial", "微軟正黑體", sans-serif;
+}
+
+.im-font {
+    font-family: "Electrolize", sans-serif;
+    letter-spacing: 0.07em;
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh;
+    max-width: -webkit-fill-available;
+    max-height: -webkit-fill-available;
 }
 </style>

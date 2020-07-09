@@ -1,11 +1,11 @@
 module.exports = {
     devServer: {
-        //proxy: 'http://localhost:3000'
+        proxy: 'http://111.250.156.133'
     },
     publicPath: '/',
     productionSourceMap: false,
     pwa: {
-        name: 'iM System',
+        name: 'iM',
         themeColor: '#3d403f',
         manifestOptions: {
             background_color: '#3d403f',
@@ -15,7 +15,7 @@ module.exports = {
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
-        //extract: true,
+        extract: true,
         // 開啟 CSS source maps?
         sourceMap: false,
         // css預設器配置項
