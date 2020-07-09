@@ -1,61 +1,55 @@
 <template>
-	<div class="im-bg">
+	<div>
+		<div class="im-bg">
+			<router-link v-if="!open_edit" to="/list" tag="button" class="navigation-button left fixed">
+				<span class="mdi mdi-arrow-left"></span>
+			</router-link>
 
-		<router-link v-if="!open_edit" to="/list" tag="button" class="navigation-button left fixed">
-			<span class="mdi mdi-arrow-left"></span>
-		</router-link>
+			<button v-else @click="edit_m" class="navigation-button left fixed">
+				<span class="mdi mdi-close"></span>
+			</button>
 
-		<button v-else @click="edit_m" class="navigation-button left fixed">
-			<span class="mdi mdi-close"></span>
-		</button>
-
-
-
-		<div class="container mx-auto" style="max-width: 920px;margin-top:8vh;">
-			<div class="im-card" style="min-height: 100vh">
-				<!-- 取得資料中 -->
-				<div v-if="loading" class="im-card__content">
-					<loading-spinner style="margin-top: 5vh;margin-bottom: 5vh;"></loading-spinner>
-				</div>
-
-				<!-- 取得成功 -->
-				<div v-else class="im-card__content">
-					<im-avator
-						:src="user_data.avator_url"
-						:borderColor="user_data.user_avator_color"
-						width="120px"
-						style="margin: 0 auto;"
-					></im-avator>
-
-					<h3 class="mt-2 text-center display-1 im-font">{{ user_data.profile.name }}</h3>
-
-					<div class="mt-4">
-						<div class>使用者名稱</div>
-						<div class="im-font">@{{ user_data.profile.screen_name }}</div>
+			<div class="container mx-auto" style="max-width: 920px;margin-top:8vh;">
+				<div class="im-card" style="min-height: 100vh">
+					<!-- 取得資料中 -->
+					<div v-if="loading" class="im-card__content">
+						<loading-spinner style="margin-top: 5vh;margin-bottom: 5vh;"></loading-spinner>
 					</div>
 
-					<div class="mt-4">
-						<div class>電子郵件</div>
-						<div class="im-font">{{ user_data.profile.email }}</div>
-					</div>
+					<!-- 取得成功 -->
+					<div v-else class="im-card__content">
+						<im-avator :src="user_data.avator_url" :borderColor="user_data.user_avator_color" width="120px"
+							style="margin: 0 auto;"></im-avator>
 
-					<div class="mt-4">
-						<div class>更改密碼</div>
-						<p class="im-font">Coming soon...</p>
-					</div>
+						<h3 class="mt-2 text-center display-1 im-font">{{ user_data.profile.name }}</h3>
 
-					<div class="mt-4">
-						<div class></div>
-						<di class="im-font">
-							Coming soon...
-						<!--{{ $t('screen_lang' )}}
-							<select v-model="$i18n.locale">
-							<option
-							v-for="(lang, i) in langs"
-							:key="`Lang${i}`"
-							:value="lang.value"
-							>{{ lang.name }}</option>
-						</select>-->
+						<div class="mt-4">
+							<div class>使用者名稱</div>
+							<div class="im-font">@{{ user_data.profile.screen_name }}</div>
+						</div>
+
+						<div class="mt-4">
+							<div class>電子郵件</div>
+							<div class="im-font">{{ user_data.profile.email }}</div>
+						</div>
+
+						<div class="mt-4">
+							<div class>更改密碼</div>
+							<p class="im-font">Coming soon...</p>
+						</div>
+
+						<div class="mt-4">
+							<div class></div>
+							<di class="im-font">
+								Coming soon...
+								<!--{{ $t('screen_lang' )}}
+								<select v-model="$i18n.locale">
+								<option
+								v-for="(lang, i) in langs"
+								:key="`Lang${i}`"
+								:value="lang.value"
+								>{{ lang.name }}</option>
+							</select>-->
 						</div>
 					</div>
 
@@ -68,57 +62,49 @@
 		</div>
 
 		<!-- edit modal -->
-		<div v-if="!loading" class="im-modal" style="overflow-y: scroll" :class="{'active': open_edit}">
+		<div v-if="!loading" class="im-modal" style="overflow-y: auto" :class="{'active': open_edit}">
 			<div class="im-modal-bg"></div>
 			<div class="im-modal__card">
 				<div class="im-card">
-				<div class="im-card__content" style="min-height: 50vh">
-					<h3>編輯資訊</h3>
+					<div class="im-card__content" style="min-height: 50vh">
+						<h3>編輯資訊</h3>
 
-					<div class="im-setting user-avator mx-auto" :style="`max-width: 120px`">
-						<div
-							class="user-avator__container"
-							:style="`height: 120px;min-width: 120px;width: 120px;border: 2px solid ${new_settings.user_avator_color};`"
-						>
-							<div style="max-width: 100%;">
-								<div class="user-avator__sizer" style="padding-bottom: 100%;"></div>
-								<div
-									class="user-avator__image"
-									:style="`background-image: url('${preview_avator}');background-position: center center;`"
-								></div>
-							</div>
-							<div class="im-file__content">
-								<input type="file" @change="fileOnChange" />
-								<div class="im-file__info text-center">
-									<span class="mdi mdi-plus" style="font-size: 2em"></span>
+						<div class="im-setting user-avator mx-auto" :style="`max-width: 120px`">
+							<div class="user-avator__container"
+								:style="`height: 120px;min-width: 120px;width: 120px;border: 2px solid ${new_settings.user_avator_color};`">
+								<div style="max-width: 100%;">
+									<div class="user-avator__sizer" style="padding-bottom: 100%;"></div>
+									<div class="user-avator__image"
+										:style="`background-image: url('${preview_avator}');background-position: center center;`">
+									</div>
+								</div>
+								<div class="im-file__content">
+									<input type="file" @change="fileOnChange" />
+									<div class="im-file__info text-center">
+										<span class="mdi mdi-plus" style="font-size: 2em"></span>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div v-if="have_new_photo" class="text-center mt-4">
-						<button @click="updateAvator" class="button outlined">更新圖片</button>
-					</div>
+						<div v-if="have_new_photo" class="text-center mt-4">
+							<button @click="updateAvator" class="button outlined">更新圖片</button>
+						</div>
 
-					<div class="mt-1">名稱</div>
+						<div class="mt-1">名稱</div>
 
-					<input class="im-textarea mt-2" placeholder="使用者名稱" v-model="new_settings.profile.name" />
+						<input class="im-textarea mt-2" placeholder="使用者名稱" v-model="new_settings.profile.name" />
 
-					<div class="mt-1">Email</div>
+						<div class="mt-1">Email</div>
 
-					<input
-						class="im-textarea mt-2"
-						placeholder="Email"
-						v-model="new_settings.profile.email"
-					/>
+						<input class="im-textarea mt-2" placeholder="Email" v-model="new_settings.profile.email" />
 
-					<div class="d-flex">
-						<button class="button outlined mt-2 ml-auto" @click="clickUpdate">編輯完成</button>
+						<div class="d-flex">
+							<button class="button outlined mt-2 ml-auto" @click="clickUpdate">編輯完成</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
 		</div>
 	</div>
 </template>
@@ -139,6 +125,7 @@ export default {
 		dragging: false,
 		have_new_photo: false,
 
+	
 		langs: [
 			{
 				name: "English",
@@ -157,7 +144,7 @@ export default {
 			this.open_edit = !open_edit;
 
 			//如果打開 新文章 --- modal 鎖定滾動
-			if (open_edit) document.body.style = "overflow-y: scroll;";
+			if (open_edit) document.body.style = "overflow-y: auto;";
 			else document.body.style = "overflow-y: hidden;";
 		},
 		fileOnChange(e) {

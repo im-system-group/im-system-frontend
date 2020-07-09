@@ -3,7 +3,7 @@
         <header>iM System</header>
         <main>
             <form @submit.prevent>
-                <div class="choose-veevrsion-hint">Choose version of UI:</div>
+                <div class="choose-version-hint">Choose version of UI:</div>
                 <div class="choose-version">
                     <input type="radio" name="version" id="version-2.4" value="2.4" checked>
 

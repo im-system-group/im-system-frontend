@@ -63,7 +63,7 @@
 		</div>
 
 		<!-- post compose modal -->
-		<div class="im-modal" style="overflow-y: scroll" :class="{'active': open_compose}">
+		<div class="im-modal" style="overflow-y: auto" :class="{'active': open_compose}">
 			<div class="im-modal-bg"></div>
 			<div class="im-modal__card">
 				<div class="im-card">
@@ -106,7 +106,7 @@
 						<div class="text-center mb-1">上傳檔案</div>
 
 						<div class="d-flex">
-							<button class="button im-post-button mt-2 ml-auto" @click="postArticle">POST</button>
+							<button class="button im-post-button mt-2 ml-auto" @click="postArticle" :disabled="uploading">POST</button>
 						</div>
 					</div>
 				</div>
@@ -132,7 +132,9 @@ export default {
 
 		dragging: false,
 		previewUrl: "",
-		file: null
+		file: null,
+
+		uploading: false
 	}),
 	methods: {
 		postArticle() {
@@ -149,6 +151,9 @@ export default {
 				formData.append("file", file);
 			}
 
+			// 上傳中
+			this.uploading = true;
+
 			this.axios
 				.post("/api/post-article-api.php", formData)
 				.then(response => {
@@ -158,6 +163,8 @@ export default {
 						this.file = null;
 						this.previewUrl = "";
 						this.open_compose = false;
+
+						this.uploading = false
 					}
 				})
 				.catch(console.log);
@@ -167,7 +174,7 @@ export default {
 			this.open_compose = !open_compose;
 
 			//如果打開 新文章 modal 鎖定滾動
-			if (open_compose) document.body.style = "overflow-y: scroll;";
+			if (open_compose) document.body.style = "overflow-y: auto;";
 			else document.body.style = "overflow-y: hidden;";
 		},
 		fileOnChange(e) {
@@ -227,6 +234,10 @@ export default {
 				let author = data.author[i];
 				let title = data.title[i];
 				let thumbsup = parseInt(data.thumbsup[i]);
+
+				if (title === null) {
+					return list;
+				}
 
 				let clickThumb = function() {
 					self.axios
