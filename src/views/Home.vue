@@ -124,7 +124,7 @@
                 <p>後端製作：a831123c</p>
                 <div class="media-button-div">
                     <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;">
-                        <!--<img src="/img/index-image/im-group/04.jpg" width="200">-->
+                        <img src="/img/index-image/im-group/04.jpg" width="200">
                     </div>
                     <div class="media-button-container">
                         <a class="media-button" href="https://www.facebook.com/profile.php?id=100001878496480" target="_blank"><i class="fab fa-facebook fa-2x"></i>許家瑋</a>
@@ -139,7 +139,7 @@
                 <p>手機端製作：雪浩</p>
                 <div class="media-button-div">
                 <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;">
-                    <img src="/image/im-group/05.jpg" width="200">
+                    <!--<img src="/img/index-image/im-group/05.jpg" width="200">-->
                 </div>
                 <div class="media-button-container">
                     <a class="media-button" href="https://line.me/ti/p/~@844wyhgl" target="_blank"><i class="fab fa-line fa-2x"></i>SJ Project</a>

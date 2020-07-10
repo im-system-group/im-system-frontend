@@ -109,6 +109,7 @@
                   cols="50"
                   v-model="post_comment_text"
                   @keypress="postComment"
+                  :disabled="is_post_comment_sending"
                 ></textarea>
               </div>
             </div>
@@ -125,11 +126,15 @@ export default {
     loading: true,
     error: null,
     post_data: null,
-    post_comment_text: ""
+    post_comment_text: "",
+    is_post_comment_sending: false,
   }),
   methods: {
     postComment(event) {
-      if (!event.shiftKey && event.keyCode === 13) {
+      if (!this.is_post_comment_sending && !event.shiftKey && event.keyCode === 13) {
+        event.preventDefault();
+        this.is_post_comment_sending = true;
+
         var post_id = this.$route.params.id;
         var self = this;
 
@@ -175,7 +180,11 @@ export default {
               });
 
               self.post_comment_text = "";
+              self.is_post_comment_sending = false;
             }
+          })
+          .catch(() => {
+              self.is_post_comment_sending = false;
           });
       }
     }

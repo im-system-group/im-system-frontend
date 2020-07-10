@@ -21,6 +21,7 @@ export default {
                 if(data.message === 'ok'){
                     //set data 到 store
                     self.$store.state.user_profile = data
+                    self.$router.push('/list');
                 }else{
                     self.$router.push('/')
                 }

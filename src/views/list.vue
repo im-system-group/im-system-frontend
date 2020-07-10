@@ -171,6 +171,7 @@ export default {
 				})
 				.catch(err => {
 					this.uploading = false
+					console.log(err)
 				})
 				.then(function () {
 					// always executed
