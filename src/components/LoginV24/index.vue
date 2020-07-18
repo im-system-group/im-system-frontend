@@ -372,11 +372,11 @@ export default {
 };
 </script>
 
-
 <style scoped src="./styles/main.css"></style>
 <style scoped src="./styles/initialize.css"></style>
 <style scoped src="./styles/login.css"></style>
 <style scoped src="./styles/verify.css"></style>
+
 <style scoped>
 @import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";
 </style>

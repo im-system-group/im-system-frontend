@@ -1,26 +1,27 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    timeText,
-    leftWelcomeText,
-    rightWelcomeText,
-    outerLeftArrow,
-    innerLeftArrow,
-    outerRightArrow,
-    innerRightArrow,
-    leftLoginText,
-    rightLoginText,
-    polylines,
-    accountField,
-    accountFieldContainer,
-    accountFieldBackground,
-    rollingDots,
-    passwordFieldContainer,
-    passwordFieldBackground,
-} from "../elements";
+import elements from "../elements";
 
 /** 登入動畫 */
 async function loginAnimation() {
+    const {
+        timeText,
+        leftWelcomeText,
+        rightWelcomeText,
+        outerLeftArrow,
+        innerLeftArrow,
+        outerRightArrow,
+        innerRightArrow,
+        leftLoginText,
+        rightLoginText,
+        polylines,
+        accountField,
+        accountFieldContainer,
+        accountFieldBackground,
+        rollingDots,
+        passwordFieldContainer,
+        passwordFieldBackground,
+    } = elements;
+
     await delay(250);
 
     applyStyle(timeText, {

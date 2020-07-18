@@ -1,27 +1,28 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    initializeLayout,
-    loginForm,
-    loginButton,
-    loginFormHorizonRollingDots,
-    loginFormTopLine,
-    loginFormBottomLine,
-    loginFormSystemAccessToImSystemTextBackground,
-    loginFormSystemAccessToImSystemText,
-    loginFormSystemVersionStraghtLinkModeText,
-    loginFormSystemMiddleLine,
-    accountField,
-    accountFieldContainer,
-    loginFormAccountFieldBackground,
-    passwordFieldContainer,
-    loginFormPasswordFieldBackground,
-    loginFormTopCover,
-    loginFormLeftCover,
-    loginFormRightCover,
-} from "../elements.js";
+import elements from "../elements";
 
 async function loginAnimation() {
+    const {
+        initializeLayout,
+        loginForm,
+        loginButton,
+        loginFormHorizonRollingDots,
+        loginFormTopLine,
+        loginFormBottomLine,
+        loginFormSystemAccessToImSystemTextBackground,
+        loginFormSystemAccessToImSystemText,
+        loginFormSystemVersionStraghtLinkModeText,
+        loginFormSystemMiddleLine,
+        accountField,
+        accountFieldContainer,
+        loginFormAccountFieldBackground,
+        passwordFieldContainer,
+        loginFormPasswordFieldBackground,
+        loginFormTopCover,
+        loginFormLeftCover,
+        loginFormRightCover,
+    } = elements;
+
     await delay(500);
 
     applyStyle(initializeLayout, {

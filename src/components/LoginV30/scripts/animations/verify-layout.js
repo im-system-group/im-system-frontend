@@ -1,39 +1,40 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    accountFieldContainer,
-    passwordFieldContainer,
-    accountFieldBackground,
-    passwordFieldBackground,
-    leftLoginText,
-    rightLoginText,
-    analyzeView,
-    leftBigCurve,
-    rightBigCurve,
-    leftVerifyText,
-    rightVerifyText,
-    ipAndSystemTexts,
-    versionAndModeTexts,
-    topLeftShortLines,
-    bottomLeftShortLines,
-    topRightShortLines,
-    bottomRightShortLines,
-    topLeftShortLine1,
-    topRightShortLine1,
-    bottomLeftShortLine1,
-    bottomRightShortLine1,
-    topLeftShortLine2,
-    topRightShortLine2,
-    bottomLeftShortLine2,
-    bottomRightShortLine2,
-    topLeftShortLine3,
-    topRightShortLine3,
-    bottomLeftShortLine3,
-    bottomRightShortLine3,
-} from "../elements";
+import elements from "../elements";
 
 /** 驗證動畫 */
 async function verifyAnimation() {
+    const {
+        accountFieldContainer,
+        passwordFieldContainer,
+        accountFieldBackground,
+        passwordFieldBackground,
+        leftLoginText,
+        rightLoginText,
+        analyzeView,
+        leftBigCurve,
+        rightBigCurve,
+        leftVerifyText,
+        rightVerifyText,
+        ipAndSystemTexts,
+        versionAndModeTexts,
+        topLeftShortLines,
+        bottomLeftShortLines,
+        topRightShortLines,
+        bottomRightShortLines,
+        topLeftShortLine1,
+        topRightShortLine1,
+        bottomLeftShortLine1,
+        bottomRightShortLine1,
+        topLeftShortLine2,
+        topRightShortLine2,
+        bottomLeftShortLine2,
+        bottomRightShortLine2,
+        topLeftShortLine3,
+        topRightShortLine3,
+        bottomLeftShortLine3,
+        bottomRightShortLine3,
+    } = elements;
+
     await delay(250);
 
     applyStyle(accountFieldContainer, passwordFieldContainer, accountFieldBackground, passwordFieldBackground, {

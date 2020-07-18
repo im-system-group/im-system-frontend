@@ -1,8 +1,4 @@
-import {
-    accountField,
-    passwordField,
-    loginButton,
-} from "./elements";
+import elements from "./elements";
 
 /** 延遲 */
 export function delay(ms) {
@@ -24,6 +20,12 @@ export function applyStyle(...elementsWithStyle) {
 
 /** 當用戶填寫了表單且按下Enter或按下登入按紐 */
 export function whenUserFilledOutFormAndPressEnterOrClickLoginButton() {
+    const {
+        accountField,
+        passwordField,
+        loginButton,
+    } = elements;
+
     return new Promise(callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton => {
         /** 處理使用者按鍵 */
         const handleUserKeyPress = (event) => {

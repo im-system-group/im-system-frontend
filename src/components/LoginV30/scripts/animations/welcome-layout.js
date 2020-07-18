@@ -1,17 +1,18 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    innerLeftArrow,
-    innerRightArrow,
-    outerLeftArrow,
-    outerRightArrow,
-    leftWelcomeText,
-    rightWelcomeText,
-    timeText,
-} from "../elements";
+import elements from "../elements";
 
 /** 歡迎動畫 */
 async function welcomeAnimation() {
+    const {
+        innerLeftArrow,
+        innerRightArrow,
+        outerLeftArrow,
+        outerRightArrow,
+        leftWelcomeText,
+        rightWelcomeText,
+        timeText,
+    } = elements;
+
     await delay(500);
 
     applyStyle(innerLeftArrow, innerRightArrow, {

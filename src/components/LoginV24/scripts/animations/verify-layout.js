@@ -1,11 +1,12 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    loginLayout,
-    verifyLayout,
-} from "../elements"
+import elements from "../elements";
 
 async function verifyAnimation() {
+    const {
+        loginLayout,
+        verifyLayout,
+    } = elements;
+
     applyStyle(loginLayout, {
         transitionProperty: "all",
         transitionDuration: "1s",

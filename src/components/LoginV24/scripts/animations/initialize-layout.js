@@ -1,29 +1,30 @@
 import { delay, applyStyle } from "../utils";
-
-import {
-    outerCircleCover,
-    innerCircleCover,
-    progressCircles,
-    curves,
-    bottomLeftLine,
-    bottomRightLine,
-    leftBracketText,
-    rightBracketText,
-    outerProgressCircle,
-    innerProgressCircle,
-    bottomUpperLine,
-    bottomLowerLine,
-    verticalRollingDots,
-    systemAccessToImSystemTextBackground,
-    systemAccessToImSystemText,
-    systemVersionStraghtLinkModeText,
-    systemMiddleLine,
-    initializingText,
-    finishedText,
-} from "../elements";
+import elements from "../elements";
 
 /** 初始動畫 */
 async function initializeAnimation() {
+    const {
+        outerCircleCover,
+        innerCircleCover,
+        progressCircles,
+        curves,
+        bottomLeftLine,
+        bottomRightLine,
+        leftBracketText,
+        rightBracketText,
+        outerProgressCircle,
+        innerProgressCircle,
+        bottomUpperLine,
+        bottomLowerLine,
+        verticalRollingDots,
+        systemAccessToImSystemTextBackground,
+        systemAccessToImSystemText,
+        systemVersionStraghtLinkModeText,
+        systemMiddleLine,
+        initializingText,
+        finishedText,
+    } = elements;
+
     applyStyle(outerCircleCover, innerCircleCover, {
         r: "2560",
         transitionProperty: "r",

@@ -1,31 +1,31 @@
 import { applyStyle, delay } from "../utils";
-
-import {
-    analyzeView,
-    topLeftShortLine2,
-    topLeftShortLine3,
-    topRightShortLine2,
-    topRightShortLine3,
-    bottomLeftShortLine2,
-    bottomLeftShortLine3,
-    bottomRightShortLine2,
-    bottomRightShortLine3,
-    leftVerifyText,
-    rightVerifyText,
-    leftDiveText,
-    rightDiveText,
-    outerLeftArrow,
-    innerLeftArrow,
-    outerRightArrow,
-    innerRightArrow,
-    accessText,
-    leftDiveStatus,
-    rightDiveStatus,
-    layoutContainer,
-} from "../elements";
+import elements from "../elements";
 
 /** 潛入動畫 */
 async function diveAnimation() {
+    const {
+        analyzeView,
+        topLeftShortLine2,
+        topLeftShortLine3,
+        topRightShortLine2,
+        topRightShortLine3,
+        bottomLeftShortLine2,
+        bottomLeftShortLine3,
+        bottomRightShortLine2,
+        bottomRightShortLine3,
+        leftVerifyText,
+        rightVerifyText,
+        leftDiveText,
+        rightDiveText,
+        outerLeftArrow,
+        innerLeftArrow,
+        outerRightArrow,
+        innerRightArrow,
+        accessText,
+        leftDiveStatus,
+        rightDiveStatus,
+        layoutContainer,
+    } = elements;
     applyStyle(analyzeView, {
         opacity: "0",
         transform: "scale(0.8)",
