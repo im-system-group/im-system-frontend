@@ -20,4 +20,11 @@ body,
   max-height: -webkit-fill-available;
   margin: 0;
 }
+
+#app {
+  margin: 0;
+  position: relative;
+  top: 0;
+  left: 0;
+}
 </style>

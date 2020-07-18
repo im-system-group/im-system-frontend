@@ -5,14 +5,14 @@
       <form @submit.prevent>
         <div class="choose-version-hint">Choose version of UI:</div>
         <div class="choose-version">
-          <input type="radio" name="version" id="version-2.4" value="2.4" checked />
+          <input type="radio" name="version" id="version-2.4" value="2.4" v-model="version" checked />
 
           <label class="version" for="version-2.4">
             <img src="/img/portal-images/ui-2.4.jpg" />
             <div class="version-text">Ver 2.4</div>
           </label>
 
-          <input type="radio" name="version" id="version-3.0" value="3.0" />
+          <input type="radio" name="version" id="version-3.0" value="3.0" v-model="version" />
 
           <label class="version" for="version-3.0">
             <img src="/img/portal-images/ui-3.0.jpg" />
@@ -21,16 +21,16 @@
         </div>
         <div class="choose-language-hint">Choose language:</div>
         <div class="choose-language">
-          <input type="radio" name="language" id="language-zh" value="zh" checked />
+          <input type="radio" name="language" id="language-zh" value="zh" v-model="language" checked />
           <label class="language" for="language-zh">中</label>
-          <input type="radio" name="language" id="language-en" value="en" disabled />
+          <input type="radio" name="language" id="language-en" value="en" v-model="language" disabled />
           <label class="language" for="language-en">EN</label>
-          <input type="radio" name="language" id="language-jp" value="jp" disabled />
+          <input type="radio" name="language" id="language-jp" value="jp" v-model="language" disabled />
           <label class="language" for="language-jp">JP</label>
-          <input type="radio" name="language" id="language-ko" value="ko" disabled />
+          <input type="radio" name="language" id="language-ko" value="ko" v-model="language" disabled />
           <label class="language" for="language-ko">KO</label>
         </div>
-        <router-link to="old_interface" tag="input" type="submit" value="SUBMIT" />
+        <input type="submit" value="SUBMIT" @click="toLogin" />
       </form>
     </main>
     <section id="donation">
@@ -239,6 +239,15 @@
 
 <script>
 export default {
+  data: () => ({
+    version: "2.4",
+    language: "zh",
+  }),
+  methods: {
+    toLogin() {
+      this.$router.push(`/login?version=${this.version}&langauge=${this.language}`);
+    },
+  },
   mounted() {
     var disabledRadioInputViews = [
       ...document.querySelectorAll("input[type=radio][disabled]+*")
