@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="layout-container" style="display: none;">
+    <div class="layout-container" style="display: block;">
       <div class="initialize-layout">
         <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
           <path
@@ -367,8 +367,13 @@ export default {
   name: "login-v24",
   async mounted() {
     const main = require("./scripts/main").default;
-    await main();
-  },
+    await main(
+      form =>
+        new Promise((resolve, reject) => {
+          this.$emit("login", { form, resolve, reject });
+        })
+    );
+  }
 };
 </script>
 

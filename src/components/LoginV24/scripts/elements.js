@@ -3,6 +3,7 @@ export default {
     get initializeLayout() { return document.querySelector(".initialize-layout"); },
     get loginLayout() { return document.querySelector(".login-layout"); },
     get verifyLayout() { return document.querySelector(".verify-layout"); },
+    get sharedLayout() { return document.querySelector(".shared-layout"); },
     get outerCircleCover() { return document.querySelector(".outer-circle-cover"); },
     get innerCircleCover() { return document.querySelector(".inner-circle-cover"); },
     get curves() { return document.querySelector(".curves"); },

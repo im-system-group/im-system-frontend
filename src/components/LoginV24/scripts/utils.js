@@ -29,25 +29,37 @@ export function whenUserFilledOutFormAndPressEnterOrClickLoginButton() {
     return new Promise(callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton => {
         /** 處理使用者按鍵 */
         const handleUserKeyPress = (event) => {
+            /** 帳號 */
+            const account = accountField.value;
+
+            /** 密碼 */
+            const password = passwordField.value;
+
             /** 使用者是否填寫表單 */
-            const isUserFilledOutForm = accountField.value && passwordField.value;
+            const isUserFilledOutForm = account && password;
 
             /** 使用者是否按下Enter */
             const isUserPressEnter = event.keyCode === 13;
 
             if (isUserFilledOutForm && isUserPressEnter) {
-                callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton();
+                callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton({ account, password });
                 removeKeyPressOrClickLoginButtonListeners();
             }
         };
 
         /** 處理使用者按下登入按紐 */
         const handleUserClickLoginButton = () => {
+            /** 帳號 */
+            const account = accountField.value;
+
+            /** 密碼 */
+            const password = passwordField.value;
+
             /** 使用者是否填寫表單 */
-            const isUserFilledOutForm = accountField.value && passwordField.value;
+            const isUserFilledOutForm = account && password;
 
             if (isUserFilledOutForm) {
-                callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton();
+                callbackWhenUserFilledOutFormAndPressEnterOrClickLoginButton({ account, password });
                 removeKeyPressOrClickLoginButtonListeners();
             }
         };

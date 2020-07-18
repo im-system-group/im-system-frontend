@@ -1,7 +1,7 @@
 import { applyStyle, delay } from "../utils";
 import elements from "../elements";
 
-async function verifyAnimation() {
+async function verifyAnimation(whenVerified) {
     const {
         loginLayout,
         verifyLayout,
@@ -16,9 +16,26 @@ async function verifyAnimation() {
 
     await delay(1000);
 
+    const whenRespondProfile = whenVerified || Promise.resolve(null);
+
+    try {
+        await whenRespondProfile;
+    }
+    catch (error) {
+        applyStyle(loginLayout, {
+            transitionProperty: "all",
+            transitionDuration: "1s",
+            opacity: "1",
+            transform: "scale(1)",
+        });
+
+        throw error;
+    }
+
     applyStyle(verifyLayout, {
         transitionProperty: "all",
         transitionDuration: "0.8s",
+        visibility: "visible",
         transform: "scale(1)",
         opacity: "1",
     });

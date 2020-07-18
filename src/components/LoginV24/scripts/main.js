@@ -4,12 +4,21 @@ import initializeAnimation from "./animations/initialize-layout";
 import loginAnimation from "./animations/login-layout";
 import verifyAnimation from "./animations/verify-layout";
 
-async function main() {
+async function main(whenLogin) {
     initialize();
     await initializeAnimation();
     await loginAnimation();
-    await whenUserFilledOutFormAndPressEnterOrClickLoginButton();
-    await verifyAnimation();
+
+    for (; ;) {
+        try {
+            const form = await whenUserFilledOutFormAndPressEnterOrClickLoginButton();
+            await verifyAnimation(whenLogin(form));
+            break;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
 }
 
 export default main;

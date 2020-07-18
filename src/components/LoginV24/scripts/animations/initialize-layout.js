@@ -4,6 +4,7 @@ import elements from "../elements";
 /** 初始動畫 */
 async function initializeAnimation() {
     const {
+        sharedLayout,
         outerCircleCover,
         innerCircleCover,
         progressCircles,
@@ -24,6 +25,8 @@ async function initializeAnimation() {
         initializingText,
         finishedText,
     } = elements;
+
+    await delay(0);
 
     applyStyle(outerCircleCover, innerCircleCover, {
         r: "2560",
@@ -63,12 +66,8 @@ async function initializeAnimation() {
         transform: "translateX(0px)",
     });
 
-    applyStyle(outerProgressCircle, {
-        animation: "outer-progress-circle 2s linear backwards",
-    });
-
-    applyStyle(innerProgressCircle, {
-        animation: "inner-progress-circle 2s linear backwards",
+    applyStyle(outerProgressCircle, innerProgressCircle, {
+        animation: "",
     });
 
     applyStyle(bottomUpperLine, bottomLowerLine, {
@@ -122,6 +121,10 @@ async function initializeAnimation() {
 
     applyStyle(progressCircles, {
         zIndex: "",
+    });
+
+    applyStyle(sharedLayout, {
+        visibility: "hidden",
     });
 }
 

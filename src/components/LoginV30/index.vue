@@ -578,8 +578,13 @@ export default {
   name: "login-v30",
   async mounted() {
     const main = require("./scripts/main").default;
-    await main();
-  },
+    await main(
+      form =>
+        new Promise((resolve, reject) => {
+          this.$emit("login", { form, resolve, reject });
+        })
+    );
+  }
 };
 </script>
 

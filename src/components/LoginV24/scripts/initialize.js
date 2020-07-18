@@ -96,11 +96,10 @@ function initialize() {
     });
 
     applyStyle(outerProgressCircle, innerProgressCircle, {
-        transitionProperty: "",
-        transitionDuration: "",
         transformOrigin: "633px 364px",
         strokeDashoffset: "0px",
         strokeDasharray: "500px",
+        animation: "none",
     });
 
     applyStyle(systemAccessToImSystemTextBackground, systemAccessToImSystemText, systemVersionStraghtLinkModeText, {
@@ -204,13 +203,12 @@ function initialize() {
         transformOrigin: "center",
         transform: "scale(4)",
         opacity: "0",
+        visibility: "hidden",
     });
 
     applyStyle(layoutContainer, {
         display: "",
         transformOrigin: "center",
-        transitionProperty: "all",
-        transitionDuration: "1s",
     });
 
     const layoutContainerWidth = 1280;

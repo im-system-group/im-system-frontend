@@ -2,8 +2,10 @@ import { applyStyle, delay } from "../utils";
 import elements from "../elements";
 
 /** 驗證動畫 */
-async function verifyAnimation() {
+async function verifyAnimation(whenVerified) {
     const {
+        accountField,
+        rollingDots,
         accountFieldContainer,
         passwordFieldContainer,
         accountFieldBackground,
@@ -93,6 +95,14 @@ async function verifyAnimation() {
         transform: `translateX(0px)`,
     });
 
+    let profile = null;
+    let error = null;
+    const whenRespondProfile = whenVerified || Promise.resolve(null);
+
+    whenRespondProfile
+        .then(respondedProfile => profile = respondedProfile)
+        .catch(respondedError => error = respondedError);
+
     /** 短線群組，供顏色切換 */
     const shortLineGroupsForSwitch = [
         {
@@ -125,6 +135,104 @@ async function verifyAnimation() {
                 opacity: "1",
             });
         }
+    }
+
+    while (profile === null && error === null) {
+        for (let shortLineGroupForSwitch of shortLineGroupsForSwitch) {
+            await delay(250);
+
+            applyStyle(...shortLineGroupForSwitch.from, {
+                opacity: "0.5",
+            });
+
+            applyStyle(...shortLineGroupForSwitch.to, {
+                opacity: "1",
+            });
+        }
+    }
+
+    if (error) {
+        await delay(250);
+
+        applyStyle(accountFieldContainer, passwordFieldContainer, {
+            display: "",
+        });
+
+        applyStyle(leftVerifyText, rightVerifyText, {
+            opacity: "0",
+            transform: `translateY(-14px)`,
+        });
+
+        applyStyle(ipAndSystemTexts, {
+            opacity: "0",
+            transform: `translateY(-30px)`,
+        })
+
+        applyStyle(versionAndModeTexts, {
+            opacity: "0",
+            transform: `translateY(30px)`,
+        });
+
+        applyStyle(topLeftShortLines, bottomLeftShortLines, {
+            opacity: "0",
+            transform: `translateX(-22px)`,
+        });
+
+        applyStyle(topRightShortLines, bottomRightShortLines, {
+            opacity: "0",
+            transform: `translateX(22px)`,
+        });
+
+        await delay(250);
+
+        applyStyle(leftLoginText, rightLoginText, {
+            transitionProperty: "opacity, transform",
+            transitionDuration: "0.1s, 0.5s",
+            opacity: "1",
+            transform: `translateY(0px)`,
+        });
+
+        applyStyle(accountFieldContainer, accountFieldBackground, {
+            transitionProperty: "opacity, transform",
+            transitionDuration: "1s, 0.5s",
+            opacity: "1",
+            transform: "translateX(0px)",
+        });
+
+        accountField.focus();
+
+        applyStyle(rollingDots, {
+            transitionProperty: "opacity",
+            transitionDuration: "0.2s",
+            opacity: "1",
+        });
+
+        await delay(250);
+
+        applyStyle(passwordFieldContainer, passwordFieldBackground, {
+            transitionProperty: "opacity, transform",
+            transitionDuration: "1s, 0.5s",
+            opacity: "1",
+            transform: "translateX(0px)",
+        });
+
+        applyStyle(analyzeView, {
+            opacity: "0",
+            transform: "scaleX(0.6)",
+            transformOrigin: "center",
+        });
+
+        applyStyle(leftBigCurve, {
+            opacity: "0",
+            transform: "translate(-30px)",
+        });
+
+        applyStyle(rightBigCurve, {
+            opacity: "0",
+            transform: "translate(30px)",
+        });
+
+        throw error;
     }
 }
 
