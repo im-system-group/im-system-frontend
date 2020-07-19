@@ -373,6 +373,8 @@ export default {
           this.$emit("login", { form, resolve, reject });
         })
     );
+
+    this.$emit("logged");
   }
 };
 </script>

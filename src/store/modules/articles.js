@@ -5,6 +5,7 @@ const state = () => ({
     items: [],
     isItemsLoading: true,
     isItemsLoaded: false,
+    scrollTop: Infinity,
 })
 
 const getters = {
@@ -40,7 +41,7 @@ const mutations = {
             ({ id }) => !state.items.some(data => data.id === id)
         )
 
-        state.items = state.items.concat(notExistItems.reverse())
+        state.items = notExistItems.reverse().concat(state.items)
         state.loadedPagesCount++
     },
 }
