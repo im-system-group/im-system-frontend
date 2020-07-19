@@ -216,24 +216,20 @@ function initialize() {
     const initialWindowWidth = window.innerWidth;
     const initialWindowHeight = window.innerHeight;
 
-    window.addEventListener("resize", () => {
+    const handleWindowResize = () => {
+        if (!elements.layoutContainer) {
+            return window.removeEventListener("resize", handleWindowResize);
+        }
+
         const windowWidth = Math.max(initialWindowWidth, window.innerWidth);
         const windowHeight = Math.max(initialWindowHeight, window.innerHeight);
         const widthRatio = windowWidth / layoutContainerWidth;
         const heightRatio = windowHeight / layoutContainerHeight;
         const scale = Math.min(widthRatio, heightRatio);
-        // const rotatedWidthRatio = windowHeight / layoutContainerWidth;
-        // const rotatedHeightRatio = windowWidth / layoutContainerHeight;
-        // const rotatedScale = Math.min(rotatedWidthRatio, rotatedHeightRatio);
-
-        // if (rotatedScale > scale) {
-        //     layoutContainer.style.transform = `scale(${rotatedScale}) rotate(90deg)`;
-        // }
-        // else {
         layoutContainer.style.transform = `scale(${scale})`;
-        // }
-    });
+    };
 
+    window.addEventListener("resize", handleWindowResize);
     window.dispatchEvent(new Event("resize"));
 }
 

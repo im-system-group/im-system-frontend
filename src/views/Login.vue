@@ -10,5 +10,5 @@ export default {
       console.log(form, resolve, reject);
     }
   }
-};
+}
 </script>
