@@ -13,7 +13,7 @@ const getters = {
 }
 
 const actions = {
-    async loadItems({ state, commit }, { page }) {
+    async loadItems({ state, commit }, { page, itemHeight }) {
         if (state.loadedPagesCount > page) {
             return
         }
@@ -23,7 +23,7 @@ const actions = {
             const response = await apiRequest.get(`/access-articles-api.php?page=${page}`)
             const items = response.data.results
             commit('pushItems', { items })
-            commit('set', { isItemsLoading: false, isItemsLoaded: true })
+            commit('set', { isItemsLoading: false, isItemsLoaded: true, scrollTop: itemHeight * items.length })
         }
         catch (err) {
             console.log(err)

@@ -29,7 +29,7 @@ export default {
 
       if (scrollTop === 0) {
         // const page = loadedPagesCount + 1;
-        // this.loadItems({ page: 1 });
+        // this.loadItems({ page: 1, itemHeight: (95 + 15) });
       }
     },
     redirectToArticle(id) {

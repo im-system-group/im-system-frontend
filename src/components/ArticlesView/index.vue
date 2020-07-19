@@ -1,7 +1,12 @@
 <template>
   <main>
     <div class="articles-container" ref="articlesContainer">
-      <div class="article-less-info" v-for="article in $props.articles" :key="article.id" @click="$emit('ahead', article.id)">
+      <div
+        class="article-less-info"
+        v-for="article in $props.articles"
+        :key="article.id"
+        @click="$emit('ahead', article.id)"
+      >
         <div class="article-poster">
           <div class="article-poster-avatar"></div>
           <div class="article-poster-name" :title="article.posterName">{{ article.posterName }}</div>
@@ -32,8 +37,16 @@ export default {
     scrollTop: Number,
     articles: Array
   },
+  updated() {
+    if (this.$props.articles.length && this.$props.scrollTop === Infinity) {
+      this.$refs.articlesContainer.scrollTop = this.$refs.articlesContainer.scrollHeight;
+      this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
+    } else {
+      this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
+    }
+  },
   mounted() {
-    if (this.$props.scrollTop === Infinity) {
+    if (this.$props.articles.length && this.$props.scrollTop === Infinity) {
       this.$refs.articlesContainer.scrollTop = this.$refs.articlesContainer.scrollHeight;
       this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
     } else {
@@ -81,6 +94,8 @@ export default {
 </style>
 
 <style scoped>
+@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+
 main {
   width: 100%;
   height: 100%;
@@ -183,7 +198,7 @@ img {
 }
 
 .article-title:hover,
-.article-title:hover+.article-likes {
+.article-title:hover + .article-likes {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
@@ -206,7 +221,7 @@ img {
   margin-left: 0.5px;
   margin-right: 6px;
   transition: all 0.5s;
-  box-shadow: 0 0 0.25em rgba(0,0,0,.5);
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
 }
 
 .article-like-thumb-container:active {

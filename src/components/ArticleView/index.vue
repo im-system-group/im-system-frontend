@@ -105,6 +105,8 @@ export default {
 </style>
 
 <style scoped>
+@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+
 main {
   width: 100%;
   height: 100%;
@@ -287,6 +289,7 @@ img {
 
 .article-content,
 .article-comments {
+  font-family: "Noto Sans TC";
   width: 100%;
 }
 
