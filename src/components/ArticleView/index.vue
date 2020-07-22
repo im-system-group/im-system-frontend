@@ -34,7 +34,10 @@
           </div>
           <div class="article-comment-container">
             <div class="article-commenter">
-              <div class="article-commenter-avatar" />
+              <div
+                class="article-commenter-avatar"
+                :style="`background-image: url(${comment.commenterAvatarUrl}); border-color: ${comment.commenterColor}; color: ${comment.commenterColor};`"
+              />
             </div>
             <div class="article-comment">
               <div class="article-commenter-name">你</div>

@@ -8,7 +8,7 @@
         @click="$emit('ahead', article.id)"
       >
         <div class="article-poster">
-          <div class="article-poster-avatar" :style="`background-image: url(${article.posterAvatarUrl}); border-color: ${article.posterAvatarBorderColor};`" />
+          <div class="article-poster-avatar" :style="`background-image: url(${article.posterAvatarUrl}); border-color: ${article.color}; color: ${article.color};`" />
           <div class="article-poster-name" :title="article.posterName" v-html="article.posterName" />
         </div>
 

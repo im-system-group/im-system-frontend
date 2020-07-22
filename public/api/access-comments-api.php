@@ -13,8 +13,8 @@ $article_comments_search_statement = $mysql_conn->prepare(
         comments.id,
         comments.text AS content,
         member.name AS commenterName,
-        member.photo AS commenterAvatar_url,
-        IFNULL(special_color.color, '#fff') AS commenterAvatarBorderColor
+        member.photo AS commenterAvatarUrl,
+        IFNULL(special_color.color, '#fff') AS commenterColor
     FROM comments
     LEFT JOIN member
     ON member.account = comments.commenter

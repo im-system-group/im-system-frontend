@@ -17,7 +17,7 @@ $article_search_statement = $mysql_conn->prepare(
         IF(article.post_time = '0000-00-00 00:00:00', '未知', article.post_time) AS createTime,
         member.name AS posterName,
         member.photo AS posterAvatarUrl,
-        IFNULL(special_color.color, '#fff') AS posterAvatarBorderColor
+        IFNULL(special_color.color, '#fff') AS posterColor
     FROM article
     LEFT JOIN member
     ON member.account = article.poster
