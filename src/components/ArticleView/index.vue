@@ -4,7 +4,7 @@
       <div class="article-less-info">
         <div class="article-poster">
           <div class="article-poster-avatar" />
-          <div class="article-poster-name" :title="article.posterName" v-html="article.posterName" />
+          <div class="article-poster-name" :title="article.userName" v-html="article.userName" />
         </div>
 
         <div class="article-top-border" />
@@ -28,7 +28,7 @@
               <div class="article-commenter-avatar" />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name" v-html="comment.commenterName" />
+              <div class="article-commenter-name" v-html="comment.userrName" />
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
@@ -36,7 +36,7 @@
             <div class="article-commenter">
               <div
                 class="article-commenter-avatar"
-                :style="`background-image: url(${comment.commenterAvatarUrl}); border-color: ${comment.commenterColor}; color: ${comment.commenterColor};`"
+                :style="`background-image: url(${comment.userrAvatarUrl}); border-color: ${comment.userrColor}; color: ${comment.userrColor};`"
               />
             </div>
             <div class="article-comment">
