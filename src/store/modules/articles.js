@@ -21,7 +21,12 @@ const actions = {
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
             const response = await apiRequest.get(`/access-articles-api.php?page=${page}`)
-            const items = response.data.results
+            const items = response.data.results;
+
+            items.forEach(item =>
+                item.userAvatarUrl = item.userAvatarUrl.replace("..", apiRequest.defaults.baseURL.replace("/api", "/"))
+            )
+
             commit('pushItems', { items })
             commit('set', { isItemsLoading: false, isItemsLoaded: true, scrollTop: itemHeight * items.length })
         }

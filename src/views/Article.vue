@@ -1,7 +1,5 @@
 <template>
-  <div v-if="isItemLoaded">
-    <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" />
-  </div>
+  <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" />
 </template>
 
 <script>

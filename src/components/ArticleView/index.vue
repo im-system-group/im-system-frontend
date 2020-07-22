@@ -25,10 +25,13 @@
             :key="comment.id"
           >
             <div class="article-commenter">
-              <div class="article-commenter-avatar" />
+              <div
+                class="article-commenter-avatar"
+                :style="`background-image: url(${comment.userAvatarUrl}); border-color: ${comment.userColor};`"
+              />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name" v-html="comment.userName" />
+              <div class="article-commenter-name" v-html="comment.userName" :style="`color: ${comment.userColor};`" />
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
@@ -169,6 +172,7 @@ img {
   border-width: 2.5px;
   border-color: #fff;
   border-style: solid;
+  background-size: 100%;
 }
 
 .article-poster-name {
@@ -322,6 +326,7 @@ img {
   border-width: 2.5px;
   border-color: #fff;
   border-style: solid;
+  background-size: 100%;
 }
 
 .article-commenter-name {

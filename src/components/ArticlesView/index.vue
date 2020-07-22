@@ -157,6 +157,7 @@ img {
   border-width: 2.5px;
   border-color: #fff;
   border-style: solid;
+  background-size: 100%;
 }
 
 .article-poster-name {

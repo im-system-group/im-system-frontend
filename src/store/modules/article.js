@@ -19,6 +19,7 @@ const actions = {
             commit('set', { isItemLoading: true, isItemLoaded: false });
             const response = await apiRequest.get(`/access-article-api.php?id=${id}`)
             const item = response.data.result
+            item.userAvatarUrl = item.userAvatarUrl.replace("..", apiRequest.defaults.baseURL.replace("/api", "/"))
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
         catch (err) {
@@ -30,6 +31,11 @@ const actions = {
             commit('set', { isCommentsLoading: true, isCommentsLoaded: false });
             const response = await apiRequest.get(`/access-comments-api.php?id=${id}`)
             const comments = response.data.results
+            
+            comments.forEach(comment =>
+                comment.userAvatarUrl = comment.userAvatarUrl.replace("..", apiRequest.defaults.baseURL.replace("/api", "/"))
+            )
+
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
         }
         catch (err) {
