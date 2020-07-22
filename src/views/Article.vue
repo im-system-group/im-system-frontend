@@ -1,5 +1,5 @@
 <template>
-  <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" />
+  <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" @add-comment="addComment" />
 </template>
 
 <script>
@@ -27,7 +27,8 @@ export default {
       "loadComments",
       "dropItemAndComments"
     ]),
-    ...mapMutations("article", ["set"])
+    ...mapMutations("article", ["set"]),
+    addComment: console.log
   },
   async mounted() {
     const { id } = this.$route.params

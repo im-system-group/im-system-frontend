@@ -3,8 +3,16 @@
     <div class="article-container">
       <div class="article-less-info">
         <div class="article-poster">
-          <div class="article-poster-avatar" :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`" />
-          <div class="article-poster-name" :title="article.userName" v-html="article.userName" :style="`color: ${article.userColor};`"/>
+          <div
+            class="article-poster-avatar"
+            :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
+          />
+          <div
+            class="article-poster-name"
+            :title="article.userName"
+            v-html="article.userName"
+            :style="`color: ${article.userColor};`"
+          />
         </div>
 
         <div class="article-top-border" />
@@ -19,11 +27,7 @@
       <div class="article-content-and-comments-container">
         <div class="article-content" v-html="article.content" />
         <div class="article-comments">
-          <div
-            class="article-comment-container"
-            v-for="comment in comments"
-            :key="comment.id"
-          >
+          <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
             <div class="article-commenter">
               <div
                 class="article-commenter-avatar"
@@ -31,7 +35,11 @@
               />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name" v-html="comment.userName" :style="`color: ${comment.userColor};`" />
+              <div
+                class="article-commenter-name"
+                v-html="comment.userName"
+                :style="`color: ${comment.userColor};`"
+              />
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
@@ -62,6 +70,7 @@
 <script>
 export default {
   data: () => ({
+    handleCommentTextBoxKeyDown: null,
     handleCommentTextBoxInput: null
   }),
   name: "article-view",
@@ -74,15 +83,36 @@ export default {
         this.$refs.commentTextBox.scrollHeight + "px";
     };
 
+    this.handleCommentTextBoxKeyDown = event => {
+      if (event.keyCode === 13 && this.$refs.commentTextBox.value) {
+        if (!event.shiftKey) {
+          event.preventDefault();
+          this.$emit("add-comment", this.$refs.commentTextBox.value);
+          this.$refs.commentTextBox.value = "";
+          this.handleCommentTextBoxInput();
+        }
+      }
+    };
+
     this.$refs.commentTextBox.addEventListener(
       "input",
       this.handleCommentTextBoxInput
+    );
+
+    this.$refs.commentTextBox.addEventListener(
+      "keydown",
+      this.handleCommentTextBoxKeyDown
     );
   },
   beforeDestroy() {
     this.$refs.commentTextBox.removeEventListener(
       "input",
       this.handleCommentTextBoxInput
+    );
+
+    this.$refs.commentTextBox.removeEventListener(
+      "keydown",
+      this.handleCommentTextBoxKeyDown
     );
   }
 };
@@ -337,6 +367,10 @@ img {
   margin-bottom: 8px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.article-comment {
+  width: calc(100% - 81px);
 }
 
 .article-comment-content {
