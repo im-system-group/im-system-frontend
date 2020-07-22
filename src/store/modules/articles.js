@@ -24,7 +24,7 @@ const actions = {
             const items = response.data.results;
 
             items.forEach(item =>
-                item.userAvatarUrl = item.userAvatarUrl.replace("..", apiRequest.defaults.baseURL.replace("/api", "/"))
+                item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             )
 
             commit('pushItems', { items })
