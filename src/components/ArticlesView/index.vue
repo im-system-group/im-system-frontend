@@ -9,7 +9,7 @@
       >
         <div class="article-poster">
           <div class="article-poster-avatar" :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`" />
-          <div class="article-poster-name" :title="article.userName" v-html="article.userName" />
+          <div class="article-poster-name" :title="article.userName" v-html="article.userName" :style="`color: ${article.userColor};`"/>
         </div>
 
         <div class="article-top-border" />
@@ -41,6 +41,8 @@ export default {
     this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
   },
   mounted() {
+    this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
+  
     this.handleArticleContainerScroll = () => {
       this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
     };
@@ -163,6 +165,7 @@ img {
   font-size: 12.5px;
   font-family: Electrolize;
   width: 81px;
+  height: 18px;
   overflow: hidden;
   text-overflow: ellipsis;
 }

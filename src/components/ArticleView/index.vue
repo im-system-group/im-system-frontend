@@ -3,8 +3,8 @@
     <div class="article-container">
       <div class="article-less-info">
         <div class="article-poster">
-          <div class="article-poster-avatar" />
-          <div class="article-poster-name" :title="article.userName" v-html="article.userName" />
+          <div class="article-poster-avatar" :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`" />
+          <div class="article-poster-name" :title="article.userName" v-html="article.userName" :style="`color: ${article.userColor};`"/>
         </div>
 
         <div class="article-top-border" />
@@ -21,14 +21,14 @@
         <div class="article-comments">
           <div
             class="article-comment-container"
-            v-for="comment in $props.comments"
+            v-for="comment in comments"
             :key="comment.id"
           >
             <div class="article-commenter">
               <div class="article-commenter-avatar" />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name" v-html="comment.userrName" />
+              <div class="article-commenter-name" v-html="comment.userName" />
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
@@ -36,7 +36,7 @@
             <div class="article-commenter">
               <div
                 class="article-commenter-avatar"
-                :style="`background-image: url(${comment.userrAvatarUrl}); border-color: ${comment.userrColor}; color: ${comment.userrColor};`"
+                :style="`background-image: url(${user.avatarUrl}); border-color: ${user.color}; color: ${user.color};`"
               />
             </div>
             <div class="article-comment">
@@ -62,7 +62,7 @@ export default {
     handleCommentTextBoxInput: null
   }),
   name: "article-view",
-  props: ["article", "comments"],
+  props: ["article", "comments", "user"],
   mounted() {
     this.handleCommentTextBoxInput = () => {
       this.$refs.commentTextBox.style.height = "auto";

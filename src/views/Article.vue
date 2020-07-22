@@ -1,6 +1,6 @@
 <template>
   <div v-if="isItemLoaded">
-    <article-view :article="item" :comments="comments" @back="$router.push('/articles')" />
+    <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" />
   </div>
 </template>
 
@@ -8,7 +8,11 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
-  data: () => ({}),
+  data: () => ({
+    user: {
+
+    },
+  }),
   computed: {
     ...mapState("article", [
       "item",
