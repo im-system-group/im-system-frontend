@@ -1,6 +1,6 @@
 <template>
   <main>
-    <div class="article-container">
+    <div v-if="article !== null" class="article-container">
       <div class="article-less-info">
         <div class="article-poster">
           <div
@@ -75,45 +75,56 @@ export default {
   }),
   name: "article-view",
   props: ["article", "comments", "user"],
-  mounted() {
-    this.handleCommentTextBoxInput = () => {
-      this.$refs.commentTextBox.style.height = "auto";
+  updated() {
+    if (this.$refs.commentTextBox) {
+      if (!this.handleCommentTextBoxInput) {
+        this.handleCommentTextBoxInput = () => {
+          this.$refs.commentTextBox.style.height = "auto";
 
-      this.$refs.commentTextBox.style.height =
-        this.$refs.commentTextBox.scrollHeight + "px";
-    };
+          this.$refs.commentTextBox.style.height =
+            this.$refs.commentTextBox.scrollHeight + "px";
+        };
 
-    this.handleCommentTextBoxKeyDown = event => {
-      if (event.keyCode === 13 && this.$refs.commentTextBox.value) {
-        if (!event.shiftKey) {
-          event.preventDefault();
-          this.$emit("add-comment", this.$refs.commentTextBox.value);
-          this.$refs.commentTextBox.value = "";
-          this.handleCommentTextBoxInput();
-        }
+        this.$refs.commentTextBox.addEventListener(
+          "input",
+          this.handleCommentTextBoxInput
+        );
       }
-    };
 
-    this.$refs.commentTextBox.addEventListener(
-      "input",
-      this.handleCommentTextBoxInput
-    );
+      if (!this.handleCommentTextBoxKeyDown) {
+        this.handleCommentTextBoxKeyDown = event => {
+          if (event.keyCode === 13 && this.$refs.commentTextBox.value.replace(/\n| |\t/g, "")) {
+            if (!event.shiftKey && this.$refs.commentTextBox.selectionEnd === this.$refs.commentTextBox.value.length) {
+              event.preventDefault();
+              this.$emit("add-comment", this.$refs.commentTextBox.value);
+              this.$refs.commentTextBox.value = "";
+              this.handleCommentTextBoxInput();
+            }
+          }
+        };
 
-    this.$refs.commentTextBox.addEventListener(
-      "keydown",
-      this.handleCommentTextBoxKeyDown
-    );
+        this.$refs.commentTextBox.addEventListener(
+          "keydown",
+          this.handleCommentTextBoxKeyDown
+        );
+      }
+    }
+  },
+  mounted() {
+    this.$forceUpdate();
   },
   beforeDestroy() {
-    this.$refs.commentTextBox.removeEventListener(
-      "input",
-      this.handleCommentTextBoxInput
-    );
+    if (this.$refs.commentTextBox) {
+      this.$refs.commentTextBox.removeEventListener(
+        "input",
+        this.handleCommentTextBoxInput
+      );
 
-    this.$refs.commentTextBox.removeEventListener(
-      "keydown",
-      this.handleCommentTextBoxKeyDown
-    );
+      this.$refs.commentTextBox.removeEventListener(
+        "keydown",
+        this.handleCommentTextBoxKeyDown
+      );
+    }
   }
 };
 </script>
