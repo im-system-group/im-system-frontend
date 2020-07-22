@@ -15,9 +15,9 @@ $article_search_statement = $mysql_conn->prepare(
         article.text AS content,
         article.like_num AS likesCount,
         IF(article.post_time = '0000-00-00 00:00:00', '未知', article.post_time) AS createTime,
-        member.name AS posterName,
-        member.photo AS posterAvatarUrl,
-        IFNULL(special_color.color, '#fff') AS posterColor
+        member.name AS userName,
+        member.photo AS userAvatarUrl,
+        IFNULL(special_color.color, '#fff') AS userColor
     FROM article
     LEFT JOIN member
     ON member.account = article.poster
