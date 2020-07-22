@@ -17,8 +17,8 @@ $member_search_statement = $mysql_conn->prepare(
         member.name,
         member.email,
         member.account,
-        member.photo AS avatorUrl,
-        IFNULL(special_color.color, '#fff') AS avatorBorderColor,
+        member.photo AS AvatarUrl,
+        IFNULL(special_color.color, '#fff') AS AvatarBorderColor,
         member.password
     FROM member
     LEFT JOIN special_color

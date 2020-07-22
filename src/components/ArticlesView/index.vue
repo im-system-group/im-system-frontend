@@ -8,22 +8,22 @@
         @click="$emit('ahead', article.id)"
       >
         <div class="article-poster">
-          <div class="article-poster-avatar"></div>
-          <div class="article-poster-name" :title="article.posterName">{{ article.posterName }}</div>
+          <div class="article-poster-avatar" :style="`background-image: url(${article.posterAvatarUrl}); border-color: ${article.posterAvatarBorderColor};`" />
+          <div class="article-poster-name" :title="article.posterName" v-html="article.posterName" />
         </div>
 
-        <div class="article-top-border"></div>
+        <div class="article-top-border" />
 
-        <div class="article-title">{{ article.title }}</div>
+        <div class="article-title" v-html="article.title" />
 
         <div class="article-likes">
-          <div class="article-like-thumb-container"></div>
-          <div class="article-likes-count">{{ article.likesCount }}</div>
+          <div class="article-like-thumb-container" />
+          <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
     </div>
-    <div class="scale-click back-button"></div>
-    <div class="scale-click status-button"></div>
+    <div class="scale-click back-button" />
+    <div class="scale-click status-button" />
   </main>
 </template>
 
@@ -38,21 +38,9 @@ export default {
     articles: Array
   },
   updated() {
-    if (this.$props.articles.length && this.$props.scrollTop === Infinity) {
-      this.$refs.articlesContainer.scrollTop = this.$refs.articlesContainer.scrollHeight;
-      this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
-    } else {
-      this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
-    }
+    this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
   },
   mounted() {
-    if (this.$props.articles.length && this.$props.scrollTop === Infinity) {
-      this.$refs.articlesContainer.scrollTop = this.$refs.articlesContainer.scrollHeight;
-      this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
-    } else {
-      this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
-    }
-
     this.handleArticleContainerScroll = () => {
       this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
     };

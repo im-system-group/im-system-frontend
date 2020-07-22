@@ -13,10 +13,10 @@ $articles_search_statement = $mysql_conn->prepare(
     "SELECT
         article.ID AS id,
         article.title,
-        article.like_num AS likes_count,
-        member.name AS poster_name,
-        member.photo AS poster_avator_url,
-        IFNULL(special_color.color, '#fff') AS poster_avator_border_color
+        article.like_num AS likesCount,
+        member.name AS posterName,
+        member.photo AS posterAvatarUrl,
+        IFNULL(special_color.color, '#fff') AS posterAvatarBorderColor
     FROM article
     LEFT JOIN member
     ON member.account = article.poster

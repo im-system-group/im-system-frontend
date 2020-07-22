@@ -3,17 +3,17 @@
     <div class="article-container">
       <div class="article-less-info">
         <div class="article-poster">
-          <div class="article-poster-avatar"></div>
-          <div class="article-poster-name" :title="article.posterName">{{ article.posterName }}</div>
+          <div class="article-poster-avatar" />
+          <div class="article-poster-name" :title="article.posterName" v-html="article.posterName" />
         </div>
 
-        <div class="article-top-border"></div>
+        <div class="article-top-border" />
 
-        <div class="article-title">{{ article.title }}</div>
+        <div class="article-title" v-html="article.title" />
 
         <div class="article-likes">
-          <div class="article-like-thumb-container"></div>
-          <div class="article-likes-count">{{ article.likesCount }}</div>
+          <div class="article-like-thumb-container" />
+          <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
       <div class="article-content-and-comments-container">
@@ -25,16 +25,16 @@
             :key="comment.id"
           >
             <div class="article-commenter">
-              <div class="article-commenter-avatar"></div>
+              <div class="article-commenter-avatar" />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name">{{ comment.commenterName }}</div>
+              <div class="article-commenter-name" v-html="comment.commenterName" />
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
           <div class="article-comment-container">
             <div class="article-commenter">
-              <div class="article-commenter-avatar"></div>
+              <div class="article-commenter-avatar" />
             </div>
             <div class="article-comment">
               <div class="article-commenter-name">你</div>
@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div class="scale-click back-button" @click="$emit('back')"></div>
+    <div class="scale-click back-button" @click="$emit('back')" />
   </main>
 </template>
 
