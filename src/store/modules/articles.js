@@ -23,9 +23,10 @@ const actions = {
             const response = await apiRequest.get(`/access-articles-api.php?page=${page}`)
             const items = response.data.results;
 
-            items.forEach(item =>
+            items.forEach(item =>{
+                item.likesCount = item.likesCount | 0;
                 item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
-            )
+            })
 
             commit('pushItems', { items })
             commit('set', { isItemsLoading: false, isItemsLoaded: true, scrollTop: itemHeight * items.length })
@@ -34,6 +35,21 @@ const actions = {
             console.log(err)
         }
     },
+    async likeItem({ commit }, { id }) {
+        try {
+            const response = await apiRequest.post(`/create-like-api.php?id=${id}`)
+
+            if (response.data.message === "已取消like") {
+                commit('likeItem', { id, like: -1 })
+            }
+            else {
+                commit('likeItem', { id, like: +1 })
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 }
 
 const mutations = {
@@ -48,6 +64,13 @@ const mutations = {
 
         state.items = notExistItems.reverse().concat(state.items)
         state.loadedPagesCount++
+    },
+    likeItem(state, { id, like }) {
+        state.items.forEach(item => {
+            if (item.id === id) {
+                item.likesCount += like
+            }
+        })
     },
 }
 

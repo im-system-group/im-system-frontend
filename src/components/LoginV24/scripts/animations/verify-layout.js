@@ -5,6 +5,7 @@ async function verifyAnimation(whenVerified) {
     const {
         loginLayout,
         verifyLayout,
+        avatarImg,
     } = elements;
 
     applyStyle(loginLayout, {
@@ -19,7 +20,13 @@ async function verifyAnimation(whenVerified) {
     const whenRespondProfile = whenVerified || Promise.resolve(null);
 
     try {
-        await whenRespondProfile;
+        const profile = await whenRespondProfile;
+
+        await new Promise((resolve) => {
+            avatarImg.onload = resolve;
+            avatarImg.onerror = resolve;
+            avatarImg.src = profile.avatarUrl;
+        });
     }
     catch (error) {
         applyStyle(loginLayout, {

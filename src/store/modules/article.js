@@ -19,6 +19,7 @@ const actions = {
             commit('set', { isItemLoading: true, isItemLoaded: false });
             const response = await apiRequest.get(`/access-article-api.php?id=${id}`)
             const item = response.data.result
+            item.likesCount = item.likesCount | 0
             item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
@@ -44,14 +45,28 @@ const actions = {
     },
     async addComment({ dispatch }, { id, content }) {
         try {
-            await apiRequest.post(`create-comments-api.php?id=${id}`, {
+            await apiRequest.post(`/create-comments-api.php?id=${id}`, `content=${encodeURI(content)}`, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `content=${encodeURI(content)}`
+                }
             })
 
-            dispatch("loadComments")
+            dispatch("loadComments", { id })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    },
+    async likeItem({ commit, state }, { id }) {
+        try {
+            const response = await apiRequest.post(`/create-like-api.php?id=${id}`)
+
+            if (response.data.message === "已取消like") {
+                commit('set', { item: { ...state.item, likesCount: state.item.likesCount - 1 } })
+            }
+            else {
+                commit('set', { item: { ...state.item, likesCount: state.item.likesCount + 1 } })
+            }
         }
         catch (err) {
             console.log(err)

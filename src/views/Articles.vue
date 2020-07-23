@@ -4,6 +4,7 @@
     :scrollTop="scrollTop"
     @scroll="setScrollTop"
     @ahead="redirectToArticle"
+    @like="likeArticle"
   />
 </template>
 
@@ -18,11 +19,11 @@ export default {
       "loadedPagesCount",
       "isItemsLoading",
       "isItemsLoaded",
-      "scrollTop"
+      "scrollTop",
     ])
   },
   methods: {
-    ...mapActions("articles", ["loadItems"]),
+    ...mapActions("articles", ["loadItems", "likeItem"]),
     ...mapMutations("articles", ["set"]),
     setScrollTop(scrollTop) {
       this.set({ scrollTop });
@@ -34,6 +35,9 @@ export default {
     },
     redirectToArticle(id) {
       this.$router.push("/article/" + id);
+    },
+    likeArticle(id) {
+      this.likeItem({ id })
     }
   },
   async mounted() {

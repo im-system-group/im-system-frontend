@@ -4,14 +4,26 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
+  computed: {
+    ...mapState("profile", ["item"]),
+  },
   methods: {
-    doLogin({ /* form,  */ resolve /* , reject */ }) {
-      resolve();
+    ...mapActions("profile", ["login"]),
+    async doLogin({ form, resolve, reject }) {
+      await this.login(form);
+
+      if (this.item) {
+        resolve(this.item);
+      } else {
+        reject();
+      }
     },
     redirectToArticles() {
       this.$router.push("/articles");
-    }
-  }
+    },
+  },
 };
 </script>

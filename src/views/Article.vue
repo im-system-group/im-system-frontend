@@ -1,5 +1,12 @@
 <template>
-  <article-view :article="item" :comments="comments" :user="user" @back="$router.push('/articles')" @add-comment="addComment" />
+  <article-view
+    :article="item"
+    :comments="comments"
+    :user="user"
+    @like="likeArticle"
+    @back="$router.push('/articles')"
+    @add-comment="addArticleComment"
+  />
 </template>
 
 <script>
@@ -7,9 +14,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   data: () => ({
-    user: {
-
-    },
+    user: {},
   }),
   computed: {
     ...mapState("article", [
@@ -18,25 +23,34 @@ export default {
       "isItemLoading",
       "isCommentsLoading",
       "isItemLoaded",
-      "isCommentsLoaded"
-    ])
+      "isCommentsLoaded",
+    ]),
   },
   methods: {
     ...mapActions("article", [
       "loadItem",
       "loadComments",
-      "dropItemAndComments"
+      "likeItem",
+      "addComment",
+      "dropItemAndComments",
     ]),
     ...mapMutations("article", ["set"]),
-    addComment: console.log
+    addArticleComment(content) {
+      const { id } = this.$route.params;
+      this.addComment({ id, content });
+    },
+    likeArticle() {
+      const { id } = this.$route.params;
+      this.likeItem({ id });
+    }
   },
   async mounted() {
-    const { id } = this.$route.params
-    await this.loadItem({ id })
-    await this.loadComments({ id })
+    const { id } = this.$route.params;
+    await this.loadItem({ id });
+    await this.loadComments({ id });
   },
   beforeDestroy() {
-    this.dropItemAndComments()
-  }
+    this.dropItemAndComments();
+  },
 };
 </script>

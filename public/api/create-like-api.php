@@ -6,7 +6,7 @@ allow_request_methods(["POST"]);
 validate_field_names_in_data($_GET, ["id"]);
 
 /** @var string 使用者名稱 */
-$_SESSION["login"];
+$account = $_SESSION["login"];
 
 /** @var string 文章ID */
 $article_id = $_GET["id"];

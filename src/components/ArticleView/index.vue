@@ -20,7 +20,7 @@
         <div class="article-title" v-html="article.title" />
 
         <div class="article-likes">
-          <div class="article-like-thumb-container" />
+          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)" />
           <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
