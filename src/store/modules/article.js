@@ -28,15 +28,30 @@ const actions = {
     },
     async loadComments({ commit }, { id }) {
         try {
-            commit('set', { isCommentsLoading: true, isCommentsLoaded: false });
+            commit('set', { isCommentsLoading: true, isCommentsLoaded: false })
             const response = await apiRequest.get(`/access-comments-api.php?id=${id}`)
             const comments = response.data.results
-            
+
             comments.forEach(comment =>
                 comment.userAvatarUrl = comment.userAvatarUrl.replace("..", "https://imsystem.site")
             )
 
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
+        }
+        catch (err) {
+            console.log(err)
+        }
+    },
+    async addComment({ dispatch }, { id, content }) {
+        try {
+            await apiRequest.post(`create-comments-api.php?id=${id}`, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `content=${encodeURI(content)}`
+            })
+
+            dispatch("loadComments")
         }
         catch (err) {
             console.log(err)
