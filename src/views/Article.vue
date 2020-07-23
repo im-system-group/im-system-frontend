@@ -2,7 +2,7 @@
   <article-view
     :article="item"
     :comments="comments"
-    :user="user"
+    :user="profile"
     @like="likeArticle"
     @back="$router.push('/articles')"
     @add-comment="addArticleComment"
@@ -25,6 +25,9 @@ export default {
       "isItemLoaded",
       "isCommentsLoaded",
     ]),
+    ...mapState("profile", {
+      profile: state => state.item
+    }),
   },
   methods: {
     ...mapActions("article", [
