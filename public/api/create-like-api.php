@@ -44,7 +44,6 @@ if ($is_like_exist) {
 	]);
 }
 else {
-	$is_liked = true;
 
 	/** @var PDOStatement 按讚新增敘述 */
 	$like_insert_statement = $mysql_conn->prepare(
