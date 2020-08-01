@@ -31,6 +31,11 @@ const routes = [
     name: 'Profile',
     component: () => import(/* webpackChunkName: "main" */ '../views/Profile.vue')
   },
+  {
+    path: '/article-create',
+    name: 'ArticleCreate',
+    component: () => import(/* webpackChunkName: "main" */ '../views/ArticleCreate.vue')
+  },
 ]
 
 const router = new VueRouter({

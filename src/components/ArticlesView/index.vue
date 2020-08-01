@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="scale-click back-button" />
+    <div class="scale-click back-button" @click.stop="$emit('post')" />
     <div class="scale-click status-button" />
   </main>
 </template>

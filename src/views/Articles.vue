@@ -2,6 +2,7 @@
   <articles-view
     :articles="items"
     :scrollTop="scrollTop"
+    @post="postArticle"
     @scroll="setScrollTop"
     @ahead="redirectToArticle"
     @like="likeArticle"
@@ -38,6 +39,9 @@ export default {
     },
     likeArticle(id) {
       this.likeItem({ id })
+    },
+    postArticle() {
+      this.$router.push("/article-create");
     }
   },
   async mounted() {
