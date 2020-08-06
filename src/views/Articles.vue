@@ -3,6 +3,7 @@
     :articles="items"
     :scrollTop="scrollTop"
     @post="postArticle"
+    @profile="editProfile"
     @scroll="setScrollTop"
     @ahead="redirectToArticle"
     @like="likeArticle"
@@ -42,6 +43,9 @@ export default {
     },
     postArticle() {
       this.$router.push("/article-create");
+    },
+    editProfile() {
+      this.$router.push("/profile");
     }
   },
   async mounted() {

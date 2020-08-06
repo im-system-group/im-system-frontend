@@ -1,24 +1,26 @@
 <template>
   <main>
-    <div class="article-create">
-      <div class="article-create-top-border"></div>
-      <div class="article-create-header">
+    <div class="profile">
+      <div class="profile-top-border"></div>
+      <div class="profile-header">
         <strong>&lt;</strong>
-        POST CREATE
+        PROFILE
         <strong>&gt;</strong>
       </div>
-      <div tabindex="0" class="article-create-content-form">
-        <input type="text" placeholder="輸入標題" />
-        <textarea placeholder="輸入內容"></textarea>
+      <input id="upload-avatar" type="file" />
+      <label
+        for="upload-avatar"
+        class="profile-avatar"
+        :style="`background-image: url(${'none'}); border-color: ${'#fff'}; color: ${'#fff'};`"
+      />
+      <div tabindex="0" class="profile-content-form">
+        <input type="text" placeholder="輸入名稱" />
+        <input type="text" placeholder="輸入Email" />
+        <input type="password" placeholder="輸入密碼(更換密碼用)" />
+        <input type="password" placeholder="輸入新密碼(更換密碼用)" />
       </div>
-      <div class="article-create-upload-form">
-        <label class="plus-block" for="upload-file">+</label>
-        <input id="upload-file" type="file" />
-        <div class="plus-block">+</div>
-        <div class="plus-block">+</div>
-      </div>
-      <div class="article-create-post-button">POST</div>
-      <div class="article-create-bottom-border"></div>
+      <div class="profile-done-button">DONE</div>
+      <div class="profile-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
   </main>
@@ -27,7 +29,7 @@
 <script>
 export default {
   data: () => ({}),
-  name: "article-create-view",
+  name: "profile",
   props: [],
   mounted() {},
 };
@@ -36,41 +38,41 @@ export default {
 <style scoped>
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
 
-.article-create {
+.profile {
   background-color: rgba(255, 255, 255, 0.2);
   width: calc(100% - 10px);
   max-width: 860px;
   position: relative;
   height: 80vh;
   margin: 10vh auto;
-  animation: article-create-form-show 0.5s;
+  animation: profile-form-show 0.5s;
 }
 
-@keyframes article-create-form-show {
+@keyframes profile-form-show {
   from {
     opacity: 0;
     transform: scaleY(0.1);
   }
 }
 
-.article-create-top-border,
-.article-create-bottom-border {
+.profile-top-border,
+.profile-bottom-border {
   width: 100%;
   position: absolute;
   left: 0px;
   border-top: #77c6ce solid 2px;
 }
 
-.article-create-top-border {
+.profile-top-border {
   top: -20px;
 }
 
-.article-create-bottom-border {
+.profile-bottom-border {
   bottom: -20px;
 }
 
-.article-create-top-border::before,
-.article-create-bottom-border::before {
+.profile-top-border::before,
+.profile-bottom-border::before {
   content: "";
   display: block;
   position: absolute;
@@ -80,8 +82,8 @@ export default {
   border-top: #77c6ce solid 2px;
 }
 
-.article-create-top-border::after,
-.article-create-bottom-border::after {
+.profile-top-border::after,
+.profile-bottom-border::after {
   content: "";
   display: block;
   position: absolute;
@@ -91,7 +93,7 @@ export default {
   border-top: #77c6ce solid 2px;
 }
 
-.article-create-header {
+.profile-header {
   user-select: none;
   font-size: 22px;
   font-family: "Roboto";
@@ -109,18 +111,18 @@ export default {
   display: none;
 }
 
-.article-create-content-form {
+.profile-content-form {
   margin: 10px auto 0px;
   border: 2px rgba(255, 255, 255, 0.4) solid;
   width: calc(100% - 10px);
   max-width: 500px;
-  height: 300px;
+  height: 245px;
   border-radius: 10px;
   outline: none;
 }
 
-.article-create-content-form input,
-.article-create-content-form textarea {
+.profile-content-form input,
+.profile-content-form textarea {
   color: #fff;
   display: block;
   width: 100%;
@@ -131,12 +133,12 @@ export default {
   padding: 10px;
 }
 
-.article-create-content-form input::placeholder,
-.article-create-content-form textarea::placeholder {
+.profile-content-form input::placeholder,
+.profile-content-form textarea::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.article-create-content-form input {
+.profile-content-form input {
   width: calc(100% - 20px);
   font-size: 20px;
   height: 60px;
@@ -145,44 +147,26 @@ export default {
   border-bottom: 1px rgba(255, 255, 255, 0.4) solid;
 }
 
-.article-create-content-form textarea {
+.profile-content-form input:last-child {
+  border-bottom-color: transparent;
+}
+
+.profile-content-form textarea {
   font-size: 16px;
   height: 240px;
 }
 
-.article-create-content-form textarea::-webkit-scrollbar {
+.profile-content-form textarea::-webkit-scrollbar {
   width: 8px;
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.article-create-content-form textarea::-webkit-scrollbar-thumb {
+.profile-content-form textarea::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: rgb(255, 255, 255);
 }
 
-.article-create-upload-form {
-  margin: 10px auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100% - 10px);
-  max-width: 500px;
-}
-
-.article-create-upload-form .plus-block {
-  color: rgba(255, 255, 255, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 80px;
-  user-select: none;
-  width: 100px;
-  height: 100px;
-  border: 2px rgba(255, 255, 255, 0.4) solid;
-  border-radius: 10px;
-}
-
-.article-create-post-button {
+.profile-done-button {
   cursor: pointer;
   user-select: none;
   font-family: "Roboto";
@@ -198,9 +182,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-top: 10px;
 }
 
-.article-create-post-button:active {
+.profile-done-button:active {
   background-color: rgba(255, 255, 255, 0.4);
 }
 </style>
@@ -251,5 +236,19 @@ img {
 
 .scale-click:active {
   transform: scale(0.7);
+}
+</style>
+
+<style scoped>
+.profile-avatar {
+  display: block;
+  width: 128px;
+  height: 128px;
+  border-radius: 128px;
+  border-width: 5px;
+  border-color: #fff;
+  border-style: solid;
+  background-size: 100%;
+  margin: 10px auto;
 }
 </style>
