@@ -14,6 +14,7 @@ $article_search_statement = $mysql_conn->prepare(
         article.title,
         article.text AS content,
         article.like_num AS likesCount,
+        article.photo AS imageUrl,
         IF(article.post_time = '0000-00-00 00:00:00', '未知', article.post_time) AS createTime,
         member.name AS userName,
         member.photo AS userAvatarUrl,

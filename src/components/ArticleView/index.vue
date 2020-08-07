@@ -25,6 +25,7 @@
         </div>
       </div>
       <div class="article-content-and-comments-container">
+        <img v-if="article.imageUrl" :src="article.imageUrl" style="max-width: 100%;" />
         <div class="article-content" v-html="article.content" />
         <div class="article-comments">
           <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
