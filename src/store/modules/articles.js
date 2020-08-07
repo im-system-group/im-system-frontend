@@ -66,6 +66,23 @@ const actions = {
         catch (err) {
             console.log(err)
         }
+
+        try {
+            commit('set', { isItemsLoading: true, isItemsLoaded: false })
+            const response = await apiRequest.get(`/access-articles-api.php?page=1`)
+            const items = response.data.results;
+
+            items.forEach(item => {
+                item.likesCount = item.likesCount | 0;
+                item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
+            })
+
+            commit('unshiftItems', { items })
+            commit('set', { isItemsLoading: false, isItemsLoaded: true, scrollTop: itemHeight * items.length })
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 }
 
@@ -81,6 +98,14 @@ const mutations = {
 
         state.items = notExistItems.reverse().concat(state.items)
         state.loadedPagesCount++
+    },
+    unshiftItems(state, { items }) {
+        /** 過濾已存在的文章 */
+        const notExistItems = items.filter(
+            ({ id }) => !state.items.some(data => data.id === id)
+        )
+
+        state.items = state.items.concat(notExistItems.reverse())
     },
     likeItem(state, { id, like }) {
         state.items.forEach(item => {
