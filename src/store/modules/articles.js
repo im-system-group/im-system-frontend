@@ -78,7 +78,7 @@ const actions = {
             })
 
             commit('unshiftItems', { items })
-            commit('set', { isItemsLoading: false, isItemsLoaded: true, scrollTop: itemHeight * items.length })
+            commit('set', { isItemsLoading: false, isItemsLoaded: true })
         }
         catch (err) {
             console.log(err)
