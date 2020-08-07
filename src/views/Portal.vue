@@ -21,13 +21,41 @@
         </div>
         <div class="choose-language-hint">Choose language:</div>
         <div class="choose-language">
-          <input type="radio" name="language" id="language-zh" value="zh" v-model="language" checked />
+          <input
+            type="radio"
+            name="language"
+            id="language-zh"
+            value="zh"
+            v-model="language"
+            checked
+          />
           <label class="language" for="language-zh">中</label>
-          <input type="radio" name="language" id="language-en" value="en" v-model="language" disabled />
+          <input
+            type="radio"
+            name="language"
+            id="language-en"
+            value="en"
+            v-model="language"
+            disabled
+          />
           <label class="language" for="language-en">EN</label>
-          <input type="radio" name="language" id="language-jp" value="jp" v-model="language" disabled />
+          <input
+            type="radio"
+            name="language"
+            id="language-jp"
+            value="jp"
+            v-model="language"
+            disabled
+          />
           <label class="language" for="language-jp">JP</label>
-          <input type="radio" name="language" id="language-ko" value="ko" v-model="language" disabled />
+          <input
+            type="radio"
+            name="language"
+            id="language-ko"
+            value="ko"
+            v-model="language"
+            disabled
+          />
           <label class="language" for="language-ko">KO</label>
         </div>
         <input type="submit" value="SUBMIT" @click="toLogin" />
@@ -36,6 +64,11 @@
     <section id="donation">
       <a class="section-close" href="#"></a>
       <h1 style="text-align: center;">非官方斗內</h1>
+      <div style="max-width: 800px; margin: 10px auto; text-align: justify;">
+        <p>您的斗內，是我們持續經營iM的動力！</p>
+        <p>這些年來，iM一直沒有主動的向使用者提出斗內，但經營了一年之後，iM的維護成本逐漸提升，為了就是讓使用者的體驗更佳，這次的版本經過了許多的優化，在未來的版本也會繼續帶給大家更好的體驗，希望使用者可以給予一些支持，讓這個社群能夠更加茁壯！</p>
+        <p>您的斗內可以使您的iM獲得繽紛的色彩，斗內越多，顏色越繽紛！</p>
+      </div>
       <div class="choose-donation-method">
         <form
           action="https://www.paypal.com/cgi-bin/webscr"
@@ -90,8 +123,8 @@
             href="https://github.com/im-system-group"
             target="_blank"
           >https://github.com/im-system-group</a>
-        </p>Email：admin@imsystem.site
-
+        </p>
+Email：admin@imsystem.site
         <hr />
 
         <p>招集人：紅茶</p>
@@ -245,21 +278,23 @@ export default {
   }),
   methods: {
     toLogin() {
-      this.$router.push(`/login?version=${this.version}&langauge=${this.language}`);
+      this.$router.push(
+        `/login?version=${this.version}&langauge=${this.language}`
+      );
     },
   },
   mounted() {
     var disabledRadioInputViews = [
-      ...document.querySelectorAll("input[type=radio][disabled]+*")
-    ]
+      ...document.querySelectorAll("input[type=radio][disabled]+*"),
+    ];
 
-    disabledRadioInputViews.forEach(disabledRadioInputView =>
+    disabledRadioInputViews.forEach((disabledRadioInputView) =>
       disabledRadioInputView.addEventListener("click", () =>
         alert("Coming Soon!")
       )
-    )
-  }
-}
+    );
+  },
+};
 </script>
 
 <style scoped>
