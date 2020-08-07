@@ -269,6 +269,7 @@ img {
   border-color: #fff;
   border-style: solid;
   background-size: cover;
+  background-position: center;
   margin: 10px auto;
 }
 </style>
