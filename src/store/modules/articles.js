@@ -50,7 +50,7 @@ const actions = {
             console.log(err)
         }
     },
-    async addItem(_, { title, content, imageFile }) {
+    async addItem({ commit }, { title, content, imageFile }) {
         const formData = new FormData()
 
         formData.append("title", title)
