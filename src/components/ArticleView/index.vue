@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="article-content-and-comments-container">
-        <img v-if="article.imageUrl" :src="article.imageUrl" style="max-width: 100%;" />
+        <img v-if="article.imageUrl" :src="article.imageUrl" style="max-width: calc(100% - 186px); margin-bottom: 10px;" />
         <div class="article-content" v-html="article.content" />
         <div class="article-comments">
           <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
@@ -166,13 +166,13 @@ main {
   background-color: #153048;
 }
 
-svg,
+/* svg,
 img {
   user-select: none;
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 </style>
 
 <style scoped>
