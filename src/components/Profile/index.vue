@@ -11,7 +11,7 @@
       <label
         for="upload-avatar"
         class="profile-avatar"
-        :style="`background-image: url(${avatarUrl}); border-color: ${color};`"
+        :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
       />
       <div tabindex="0" class="profile-content-form">
         <input type="text" placeholder="輸入名稱" v-model="name" />
@@ -31,6 +31,7 @@ export default {
   data: () => ({
     password: "",
     newPassword: "",
+    newAvatarUrl: "",
   }),
   name: "profile",
   props: ["name", "email", "avatarUrl", "color"],
@@ -45,6 +46,12 @@ export default {
       });
     },
   },
+  mounted() {
+    this.$refs.imageFile.addEventListener("change", () => {
+      this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
+    });
+  },
+  beforeDestroy() {},
 };
 </script>
 
@@ -261,7 +268,7 @@ img {
   border-width: 5px;
   border-color: #fff;
   border-style: solid;
-  background-size: 100%;
+  background-size: cover;
   margin: 10px auto;
 }
 </style>
