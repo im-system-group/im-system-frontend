@@ -7,19 +7,19 @@
         PROFILE
         <strong>&gt;</strong>
       </div>
-      <input id="upload-avatar" type="file" />
+      <input id="upload-avatar" type="file" ref="imageFile" />
       <label
         for="upload-avatar"
         class="profile-avatar"
-        :style="`background-image: url(${'none'}); border-color: ${'#fff'}; color: ${'#fff'};`"
+        :style="`background-image: url(${avatarUrl}); border-color: ${color};`"
       />
       <div tabindex="0" class="profile-content-form">
-        <input type="text" placeholder="輸入名稱" />
-        <input type="text" placeholder="輸入Email" />
-        <input type="password" placeholder="輸入密碼(更換密碼用)" />
-        <input type="password" placeholder="輸入新密碼(更換密碼用)" />
+        <input type="text" placeholder="輸入名稱" v-model="name" />
+        <input type="text" placeholder="輸入Email" v-model="email" />
+        <input type="password" placeholder="輸入密碼(更換密碼用)" v-model="password" />
+        <input type="password" placeholder="輸入新密碼(更換密碼用)" v-model="newPassword" />
       </div>
-      <div class="profile-done-button">DONE</div>
+      <div class="profile-done-button" @click="update">DONE</div>
       <div class="profile-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
@@ -28,10 +28,25 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    password: "",
+    newPassword: "",
+  }),
   name: "profile",
-  props: [],
-  mounted() {},
+  props: ["name", "email", "avatarUrl", "color"],
+  methods: {
+    update() {
+      this.$emit("update", {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        newPassword: this.newPassword,
+        imageFile: this.$refs.imageFile.files[0],
+      });
+    },
+  },
+  mounted() {
+  },
 };
 </script>
 

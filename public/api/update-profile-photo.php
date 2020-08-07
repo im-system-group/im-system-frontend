@@ -36,7 +36,5 @@ $member_update_statement->bindValue(":member_account", $account, PDO::PARAM_STR)
 $member_update_statement->bindValue(":member_avatar_url", $image_file_path, PDO::PARAM_STR);
 $member_update_statement->execute();
 
-echo $image_file_path;
-
 http_response_code(200);
-exit(json_encode(["message" => "更新完成"]));
+exit(json_encode(["message" => "更新完成", "result" => $image_file_path]));
