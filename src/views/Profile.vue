@@ -1,9 +1,17 @@
 <template>
-  <profile :name="item.name" :email="item.email" :color="item.color" :avatarUrl="item.avatarUrl" @update="updateProfile" @back="redirectToArticles" />
+  <profile
+    v-if="item"
+    :name="item.name"
+    :email="item.email"
+    :color="item.color"
+    :avatarUrl="item.avatarUrl"
+    @update="updateProfile"
+    @back="redirectToArticles"
+  />
 </template>
 
 <script>
-import { mapState, mapActions/* , mapMutations */ } from "vuex";
+import { mapState, mapActions /* , mapMutations */ } from "vuex";
 
 export default {
   data: () => ({}),
@@ -14,12 +22,15 @@ export default {
     redirectToArticles() {
       this.$router.push("/articles");
     },
-    ...mapActions("profile", ["updateItem"]),
+    ...mapActions("profile", ["updateItem", "loadItem"]),
     async updateProfile(form) {
       await this.updateItem(form);
-    }
+    },
   },
   async mounted() {
+    if (!this.item) {
+      await this.loadItem();
+    }
   },
 };
 </script>
