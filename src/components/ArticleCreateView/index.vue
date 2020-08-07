@@ -8,16 +8,16 @@
         <strong>&gt;</strong>
       </div>
       <div tabindex="0" class="article-create-content-form">
-        <input type="text" placeholder="輸入標題" />
-        <textarea placeholder="輸入內容"></textarea>
+        <input type="text" placeholder="輸入標題" v-model="title" />
+        <textarea placeholder="輸入內容" v-model="content"></textarea>
       </div>
       <div class="article-create-upload-form">
         <label class="plus-block" for="upload-file">+</label>
-        <input id="upload-file" type="file" />
+        <input id="upload-file" type="file" ref="imageFile" />
         <div class="plus-block">+</div>
         <div class="plus-block">+</div>
       </div>
-      <div class="article-create-post-button">POST</div>
+      <div class="article-create-post-button" @click="create">POST</div>
       <div class="article-create-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
@@ -26,10 +26,23 @@
 
 <script>
 export default {
-  data: () => ({}),
+  data: () => ({
+    title: "",
+    content: "",
+  }),
+  methods: {
+    create() {
+      this.$emit('create', {
+        title: this.title,
+        content: this.content,
+        imageFile: this.$refs.imageFile.files[0],
+      });
+    },
+  },
   name: "article-create-view",
   props: [],
-  mounted() {},
+  mounted() {
+  },
 };
 </script>
 

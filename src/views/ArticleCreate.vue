@@ -1,9 +1,9 @@
 <template>
-  <article-create-view @back="redirectToArticles" />
+  <article-create-view @create="createArticle" @back="redirectToArticles" />
 </template>
 
 <script>
-// import { mapState, mapActions, mapMutations } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   data: () => ({}),
@@ -12,8 +12,12 @@ export default {
     redirectToArticles() {
       this.$router.push("/articles");
     },
+    ...mapActions("articles", ["addItem"]),
+    async createArticle(form) {
+      await this.addItem(form);
+      this.redirectToArticles();
+    },
   },
-  async mounted() {
-  },
+  async mounted() {},
 };
 </script>

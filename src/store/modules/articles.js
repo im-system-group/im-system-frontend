@@ -23,7 +23,7 @@ const actions = {
             const response = await apiRequest.get(`/access-articles-api.php?page=${page}`)
             const items = response.data.results;
 
-            items.forEach(item =>{
+            items.forEach(item => {
                 item.likesCount = item.likesCount | 0;
                 item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             })
@@ -45,6 +45,23 @@ const actions = {
             else {
                 commit('likeItem', { id, like: +1 })
             }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    },
+    async addItem(_, { title, content, imageFile }) {
+        const formData = new FormData()
+
+        formData.append("title", title)
+        formData.append("content", content)
+
+        if (imageFile) {
+            formData.append("file", imageFile)
+        }
+
+        try {
+            /* const response =  */await apiRequest.post("/create-article-api.php", formData)
         }
         catch (err) {
             console.log(err)
