@@ -52,7 +52,7 @@ const actions = {
             name = encodeURI(name);
             email = encodeURI(email);
 
-            await apiRequest(
+            await apiRequest.post(
                 "/update-profile-api.php",
                 `name=${name}&email=${email}`,
                 {
@@ -71,7 +71,7 @@ const actions = {
                 password = encodeURI(password);
                 newPassword = encodeURI(newPassword);
 
-                await apiRequest(
+                await apiRequest.post(
                     "/update-password-api.php",
                     `password=${password}&new_password=${newPassword}`,
                     {
@@ -86,7 +86,7 @@ const actions = {
                 const formData = new FormData();
                 formData.append("file", imageFile);
 
-                const response = await apiRequest(
+                const response = await apiRequest.post(
                     "/update-profile-photo.php",
                     formData
                 );
