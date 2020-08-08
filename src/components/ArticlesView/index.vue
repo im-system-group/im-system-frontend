@@ -192,7 +192,9 @@ main {
   background-color: rgba(255, 255, 255, 0.2);
   text-overflow: ellipsis;
   white-space: nowrap;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .article-title img {
