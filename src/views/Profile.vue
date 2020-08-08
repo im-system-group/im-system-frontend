@@ -16,7 +16,7 @@ import { mapState, mapActions /* , mapMutations */ } from "vuex";
 export default {
   data: () => ({}),
   computed: {
-    ...mapState("profile", ["item"]),
+    ...mapState("profile", ["item", "isItemLoaded"]),
   },
   methods: {
     redirectToArticles() {
@@ -27,10 +27,17 @@ export default {
       await this.updateItem(form);
     },
   },
-  async mounted() {
-    if (!this.item) {
-      await this.loadItem();
+  updated() {
+    if (!this.isItemLoaded) {
+      this.loadItem();
     }
+
+    if (!this.item) {
+      this.$router.push("/");
+    }
+  },
+  async mounted() {
+    this.$forceUpdate();
   },
 };
 </script>

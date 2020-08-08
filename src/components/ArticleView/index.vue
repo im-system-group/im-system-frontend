@@ -144,12 +144,12 @@ export default {
 }
 
 .back-button {
-  background-image: url(/img/article-images/back_button.png);
+  background-image: url(/img/article-images/back_button.svg);
   left: 15px;
 }
 
 .status-button {
-  background-image: url(/img/article-images/status_button.png);
+  background-image: url(/img/article-images/status_button.svg);
   right: 15px;
 }
 </style>

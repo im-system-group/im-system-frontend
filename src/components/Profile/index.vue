@@ -224,7 +224,7 @@ export default {
 }
 
 .back-button {
-  background-image: url(/img/article-images/back_button.png);
+  background-image: url(/img/article-images/back_button.svg);
   left: 15px;
 }
 </style>

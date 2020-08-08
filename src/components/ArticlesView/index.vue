@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="scale-click back-button" @click.stop="$emit('post')" />
+    <div class="scale-click edit-button" @click.stop="$emit('post')" />
     <div class="scale-click status-button" @click.stop="$emit('profile')" />
   </main>
 </template>
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style>
-.back-button,
+.edit-button,
 .status-button {
   background-size: 64px;
   background-repeat: no-repeat;
@@ -85,13 +85,13 @@ export default {
   bottom: 15px;
 }
 
-.back-button {
-  background-image: url(/img/article-images/back_button.png);
+.edit-button {
+  background-image: url(/img/article-images/edit_button.svg);
   left: 15px;
 }
 
 .status-button {
-  background-image: url(/img/article-images/status_button.png);
+  background-image: url(/img/article-images/status_button.svg);
   right: 15px;
 }
 </style>
