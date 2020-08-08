@@ -13,7 +13,7 @@
       </div>
       <div class="article-create-upload-form">
         <label class="plus-block" for="upload-file">
-          <span class="mdi mdi-plus"></span>
+          <span :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"></span>
         </label>
         <input id="upload-file" type="file" ref="imageFile" />
         <div class="plus-block">
@@ -35,6 +35,7 @@ export default {
   data: () => ({
     title: "",
     content: "",
+    fileChangeHandler: null,
   }),
   methods: {
     create() {
@@ -47,7 +48,14 @@ export default {
   },
   name: "article-create-view",
   props: [],
-  mounted() {},
+  mounted() {
+    this.$refs.imageFile.addEventListener("change", this.fileChangeHandler = () => {
+      this.$forceUpdate();
+    });
+  },
+  beforeDestroy() {
+    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
+  },
 };
 </script>
 
