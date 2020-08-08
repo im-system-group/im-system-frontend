@@ -14,6 +14,7 @@ $articles_search_statement = $mysql_conn->prepare(
         article.ID AS id,
         article.title,
         article.like_num AS likesCount,
+        article.photo AS imageUrl,
         member.name AS userName,
         member.photo AS userAvatarUrl,
         IFNULL(special_color.color, '#fff') AS userColor

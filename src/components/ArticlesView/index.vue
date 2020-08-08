@@ -8,13 +8,24 @@
         @click="$emit('ahead', article.id)"
       >
         <div class="article-poster">
-          <div class="article-poster-avatar" :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`" />
-          <div class="article-poster-name" :title="article.userName" v-html="article.userName" :style="`color: ${article.userColor};`"/>
+          <div
+            class="article-poster-avatar"
+            :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
+          />
+          <div
+            class="article-poster-name"
+            :title="article.userName"
+            v-html="article.userName"
+            :style="`color: ${article.userColor};`"
+          />
         </div>
 
         <div class="article-top-border" />
 
-        <div class="article-title" v-html="article.title" />
+        <div class="article-title">
+          <img v-if="article.imageUrl" src="article.imageUrl" />
+          {{article.title}}
+        </div>
 
         <div class="article-likes">
           <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
@@ -32,19 +43,19 @@
 <script>
 export default {
   data: () => ({
-    handleArticleContainerScroll: null
+    handleArticleContainerScroll: null,
   }),
   name: "articles-view",
   props: {
     scrollTop: Number,
-    articles: Array
+    articles: Array,
   },
   updated() {
     this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
   },
   mounted() {
     this.$refs.articlesContainer.scrollTop = this.$props.scrollTop;
-  
+
     this.handleArticleContainerScroll = () => {
       this.$emit("scroll", this.$refs.articlesContainer.scrollTop);
     };
@@ -59,7 +70,7 @@ export default {
       "scroll",
       this.handleArticleContainerScroll
     );
-  }
+  },
 };
 </script>
 
@@ -97,14 +108,6 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #153048;
-}
-
-svg,
-img {
-  user-select: none;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 </style>
 
@@ -190,6 +193,11 @@ img {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.article-title img {
+  height: 95px;
+  margin-right: 10px;
 }
 
 .article-title:hover,
