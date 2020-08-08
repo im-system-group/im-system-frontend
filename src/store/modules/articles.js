@@ -25,6 +25,7 @@ const actions = {
 
             items.forEach(item => {
                 item.likesCount = item.likesCount | 0;
+                item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
                 item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             })
 
