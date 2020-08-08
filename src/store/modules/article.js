@@ -20,6 +20,7 @@ const actions = {
             const response = await apiRequest.get(`/access-article-api.php?id=${id}`)
             const item = response.data.result
             item.likesCount = item.likesCount | 0
+            item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
             item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
