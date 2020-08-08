@@ -23,7 +23,7 @@
         <div class="article-top-border" />
 
         <div class="article-title">
-          <img v-if="article.imageUrl" src="article.imageUrl" />
+          <img v-if="article.imageUrl" :src="article.imageUrl" />
           {{article.title}}
         </div>
 
