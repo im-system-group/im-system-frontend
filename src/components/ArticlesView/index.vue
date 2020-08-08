@@ -195,6 +195,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  overflow: hidden;
 }
 
 .article-title img {
