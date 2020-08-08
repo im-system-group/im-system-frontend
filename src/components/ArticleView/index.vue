@@ -20,7 +20,9 @@
         <div class="article-title" v-html="article.title" />
 
         <div class="article-likes">
-          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)" />
+          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
+            <span class="mdi mdi-thumb-up"></span>
+          </div>
           <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
@@ -44,7 +46,7 @@
               <div class="article-comment-content" v-html="comment.content" />
             </div>
           </div>
-          <div class="article-comment-container">
+          <div class="article-comment-container" v-if="user">
             <div class="article-commenter">
               <div
                 class="article-commenter-avatar"
@@ -262,6 +264,12 @@ img {
   margin-left: 0.5px;
   margin-right: 6px;
   transition: all 0.5s;
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(140, 228, 230);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .article-like-thumb-container:active {

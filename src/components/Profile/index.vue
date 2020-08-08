@@ -32,6 +32,7 @@ export default {
     password: "",
     newPassword: "",
     newAvatarUrl: "",
+    fileChangeHandler: null,
   }),
   name: "profile",
   props: ["name", "email", "avatarUrl", "color"],
@@ -47,11 +48,13 @@ export default {
     },
   },
   mounted() {
-    this.$refs.imageFile.addEventListener("change", () => {
+    this.$refs.imageFile.addEventListener("change", this.fileChangeHandler = () => {
       this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
     });
   },
-  beforeDestroy() {},
+  beforeDestroy() {
+    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
+  },
 };
 </script>
 

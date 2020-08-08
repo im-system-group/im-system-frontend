@@ -17,7 +17,9 @@
         <div class="article-title" v-html="article.title" />
 
         <div class="article-likes">
-          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)" />
+          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
+            <span class="mdi mdi-thumb-up"></span>
+          </div>
           <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
@@ -215,6 +217,12 @@ img {
   margin-right: 6px;
   transition: all 0.5s;
   box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  font-size: 16px;
+  color: rgb(140, 228, 230);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .article-like-thumb-container:active {

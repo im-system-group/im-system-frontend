@@ -1,5 +1,6 @@
 <template>
   <article-view
+    v-if="item"
     :article="item"
     :comments="comments"
     :user="profile"
@@ -26,7 +27,7 @@ export default {
       "isCommentsLoaded",
     ]),
     ...mapState("profile", {
-      profile: state => state.item
+      profile: (state) => state.item,
     }),
   },
   methods: {
@@ -38,6 +39,9 @@ export default {
       "dropItemAndComments",
     ]),
     ...mapMutations("article", ["set"]),
+    ...mapActions("profile", {
+      loadProfile: "loadItem",
+    }),
     addArticleComment(content) {
       const { id } = this.$route.params;
       this.addComment({ id, content });
@@ -45,9 +49,13 @@ export default {
     likeArticle() {
       const { id } = this.$route.params;
       this.likeItem({ id });
-    }
+    },
   },
   async mounted() {
+    if (!this.profile) {
+      await this.loadProfile();
+    }
+
     const { id } = this.$route.params;
     await this.loadItem({ id });
     await this.loadComments({ id });

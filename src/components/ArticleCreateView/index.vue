@@ -12,10 +12,16 @@
         <textarea placeholder="輸入內容" v-model="content"></textarea>
       </div>
       <div class="article-create-upload-form">
-        <label class="plus-block" for="upload-file">+</label>
+        <label class="plus-block" for="upload-file">
+          <span class="mdi mdi-plus"></span>
+        </label>
         <input id="upload-file" type="file" ref="imageFile" />
-        <div class="plus-block">+</div>
-        <div class="plus-block">+</div>
+        <div class="plus-block">
+          <span class="mdi mdi-plus"></span>
+        </div>
+        <div class="plus-block">
+          <span class="mdi mdi-plus"></span>
+        </div>
       </div>
       <div class="article-create-post-button" @click="create">POST</div>
       <div class="article-create-bottom-border"></div>
@@ -32,7 +38,7 @@ export default {
   }),
   methods: {
     create() {
-      this.$emit('create', {
+      this.$emit("create", {
         title: this.title,
         content: this.content,
         imageFile: this.$refs.imageFile.files[0],
@@ -41,8 +47,7 @@ export default {
   },
   name: "article-create-view",
   props: [],
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
