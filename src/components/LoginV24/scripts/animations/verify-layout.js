@@ -55,6 +55,8 @@ async function verifyAnimation(whenVerified) {
         transform: "scale(0)",
         opacity: "0",
     });
+
+    await delay(1200);
 }
 
 export default verifyAnimation;

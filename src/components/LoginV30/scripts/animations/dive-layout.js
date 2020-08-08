@@ -93,6 +93,8 @@ async function diveAnimation() {
         transitionProperty: "all",
         transitionDuration: "1s",
     });
+
+    await delay(1000);
 }
 
 export default diveAnimation;
