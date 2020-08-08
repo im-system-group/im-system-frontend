@@ -196,7 +196,7 @@ main {
 }
 
 .article-title img {
-  height: 95px;
+  width: 80px;
   margin-right: 10px;
 }
 
