@@ -59,8 +59,9 @@
           <label class="language" for="language-ko">KO</label>
         </div>
         <div style="text-align: center;">
-          <input type="submit" value="FORGOT PWD" @click="toForgotPassword" style="width: 120px;">
+          <input type="submit" value="FORGOT PWD" @click="toForgotPassword" style="width: 120px;" />
           <input type="submit" value="REGISTER" @click="toRegister" />
+          <input type="submit" value="FULL SCREEN" @click="openFullScreen" style="width: 120px;" />
           <input type="submit" value="SUBMIT" @click="toLogin" />
         </div>
       </form>
@@ -87,6 +88,7 @@
         <label class="donation-method" for="go-to-paypal">Paypal</label>
         <a class="donation-method" href="https://p.ecpay.com.tw/CE103" target="_blank">ECPay</a>
       </div>
+      <div style="color: #fbfbfb; text-align: center">0342 1788 7449 3263 2514 0108 7245 0730</div>
     </section>
     <section id="stat-of-2nd-creation">
       <a class="section-close" href="#"></a>
@@ -291,6 +293,19 @@ export default {
     toForgotPassword() {
       this.$router.push("/forgot-password");
     },
+    openFullScreen() {
+      const view = document.body;
+
+      if (view.requestFullscreen) {
+        view.requestFullscreen();
+      } else if (view.msRequestFullscreen) {
+        view.msRequestFullscreen();
+      } else if (view.mozRequestFullScreen) {
+        view.mozRequestFullScreen();
+      } else if (view.webkitRequestFullscreen) {
+        view.webkitRequestFullscreen();
+      }
+    },
   },
   mounted() {
     var disabledRadioInputViews = [
@@ -315,6 +330,7 @@ export default {
   max-width: -webkit-fill-available;
   max-height: -webkit-fill-available;
   font-family: "Noto Sans TC";
+  background-color: #fff;
 }
 
 header {
@@ -332,6 +348,7 @@ main {
   padding: 10px;
   border-top: 1px solid #010001;
   border-bottom: 1px solid #010001;
+  overflow: auto;
 }
 
 section {
@@ -550,6 +567,7 @@ nav ul li a {
   align-items: center;
   justify-content: center;
   position: relative;
+  white-space: nowrap;
 }
 
 a {
