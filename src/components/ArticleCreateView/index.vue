@@ -17,10 +17,10 @@
         </label>
         <input id="upload-file" type="file" ref="imageFile" />
         <div class="plus-block">
-          <span class="mdi mdi-plus"></span>
+          <span class="mdi mdi-close"></span>
         </div>
         <div class="plus-block">
-          <span class="mdi mdi-plus"></span>
+          <span class="mdi mdi-close"></span>
         </div>
       </div>
       <div class="article-create-post-button" @click="create">POST</div>
