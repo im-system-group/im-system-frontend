@@ -5,14 +5,14 @@
       <form @submit.prevent>
         <div class="choose-version-hint">Choose version of UI:</div>
         <div class="choose-version">
-          <input type="radio" name="version" id="version-2.4" value="2.4" v-model="version" checked />
+          <input type="radio" name="version" id="version-2.4" value="2.4" v-model="version" />
 
           <label class="version" for="version-2.4">
             <img src="/img/portal-images/ui-2.4.jpg" />
             <div class="version-text">Ver 2.4</div>
           </label>
 
-          <input type="radio" name="version" id="version-3.0" value="3.0" v-model="version" />
+          <input type="radio" name="version" id="version-3.0" value="3.0" v-model="version" checked />
 
           <label class="version" for="version-3.0">
             <img src="/img/portal-images/ui-3.0.jpg" />
@@ -58,7 +58,10 @@
           />
           <label class="language" for="language-ko">KO</label>
         </div>
-        <input type="submit" value="SUBMIT" @click="toLogin" />
+        <div style="text-align: center;">
+          <input type="submit" value="SUBMIT" @click="toLogin" />
+          <input type="submit" value="REGISTER" @click="toRegister" />
+        </div>
       </form>
     </main>
     <section id="donation">
@@ -67,7 +70,7 @@
       <div style="max-width: 800px; margin: 10px auto; text-align: justify;">
         <p>您的斗內，是我們持續經營iM的動力！</p>
         <p>這些年來，iM一直沒有主動的向使用者提出斗內，但經營了一年之後，iM的維護成本逐漸提升，為了就是讓使用者的體驗更佳，這次的版本經過了許多的優化，在未來的版本也會繼續帶給大家更好的體驗，希望使用者可以給予一些支持，讓這個社群能夠更加茁壯！</p>
-        <p>您的斗內可以使您的iM獲得繽紛的色彩，斗內越多，顏色越繽紛！</p>
+        <p>您的斗內將可以使您的iM獲得繽紛的色彩！</p>
       </div>
       <div class="choose-donation-method">
         <form
@@ -123,8 +126,7 @@
             href="https://github.com/im-system-group"
             target="_blank"
           >https://github.com/im-system-group</a>
-        </p>
-Email：admin@imsystem.site
+        </p>Email：admin@imsystem.site
         <hr />
 
         <p>招集人：紅茶</p>
@@ -273,7 +275,7 @@ Email：admin@imsystem.site
 <script>
 export default {
   data: () => ({
-    version: "2.4",
+    version: "3.0",
     language: "zh",
   }),
   methods: {
@@ -281,6 +283,9 @@ export default {
       this.$router.push(
         `/login?version=${this.version}&langauge=${this.language}`
       );
+    },
+    toRegister() {
+      this.$router.push("/register");
     },
   },
   mounted() {
@@ -551,8 +556,8 @@ a {
 input[type="submit"] {
   outline: none;
   cursor: pointer;
-  display: block;
-  margin: 20px auto;
+  display: inline-block;
+  margin: 20px 10px;
   width: 100px;
   height: 40px;
   background-color: #010001;

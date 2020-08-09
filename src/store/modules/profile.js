@@ -99,6 +99,22 @@ const actions = {
             console.log(err);
         }
     },
+    async createItem(_, { name, email, account, password }) {
+        name = encodeURI(name);
+        email = encodeURI(email);
+        account = encodeURI(account);
+        password = encodeURI(password);
+
+        await apiRequest.post(
+            "/auth-register-api.php",
+            `name=${name}&email=${email}&account=${account}&password=${password}`,
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
+        );
+    },
 }
 
 const mutations = {
