@@ -87,9 +87,9 @@ try {
     $mail->send();
 	http_response_code(200);
 	respond_json(["message" => "傳送成功"]);
-} 
-catch (Exception $e)
+}
+catch(Exception $e)
 {
 	http_response_code(400);
-	respond_json(["message" => {$mail->ErrorInfo}]);
+	respond_json(["message" => $mail->ErrorInfo]);
 }
