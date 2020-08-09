@@ -59,8 +59,9 @@
           <label class="language" for="language-ko">KO</label>
         </div>
         <div style="text-align: center;">
-          <input type="submit" value="SUBMIT" @click="toLogin" />
+          <input type="submit" value="FORGOT PWD" @click="toForgotPassword" style="width: 120px;">
           <input type="submit" value="REGISTER" @click="toRegister" />
+          <input type="submit" value="SUBMIT" @click="toLogin" />
         </div>
       </form>
     </main>
@@ -286,6 +287,9 @@ export default {
     },
     toRegister() {
       this.$router.push("/register");
+    },
+    toForgotPassword() {
+      this.$router.push("/forgot-password");
     },
   },
   mounted() {
