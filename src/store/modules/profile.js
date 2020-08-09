@@ -115,6 +115,20 @@ const actions = {
             }
         );
     },
+    createForgotPasswordRequest(_, { account, email }) {
+        account = encodeURI(account);
+        email = encodeURI(email);
+
+        return apiRequest.post(
+            "/create-forgotpwd-api.php",
+            `account=${account}&email=${email}`,
+            {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+            }
+        );
+    }
 }
 
 const mutations = {

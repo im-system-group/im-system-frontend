@@ -37,6 +37,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "main" */ '../views/Register.vue')
   },
   {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: () => import(/* webpackChunkName: "main" */ '../views/ForgotPassword.vue')
+  },
+  {
     path: '/article-create',
     name: 'ArticleCreate',
     component: () => import(/* webpackChunkName: "main" */ '../views/ArticleCreate.vue')
