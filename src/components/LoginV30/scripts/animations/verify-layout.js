@@ -151,7 +151,7 @@ async function verifyAnimation(whenVerified) {
         }
     }
 
-    if (error) {
+    if (error !== null) {
         await delay(250);
 
         applyStyle(accountFieldContainer, passwordFieldContainer, {

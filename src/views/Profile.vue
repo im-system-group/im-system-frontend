@@ -24,7 +24,13 @@ export default {
     },
     ...mapActions("profile", ["updateItem", "loadItem"]),
     async updateProfile(form) {
-      await this.updateItem(form);
+      try {
+        await this.updateItem(form);
+        alert("變更完成");
+        this.$router.push("/articles");
+      } catch (err) {
+        alert("變更失敗");
+      }
     },
   },
   updated() {
