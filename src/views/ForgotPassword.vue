@@ -7,13 +7,15 @@
         FORGOT PASSWORD
         <strong>&gt;</strong>
       </div>
-      <div tabindex="0" class="forgot-password-content-form">
-        <input type="text" placeholder="輸入帳號" v-model="account" />
-        <input type="text" placeholder="輸入Email" v-model="email" />
-      </div>
-      <div class="forgot-password-done-button" @click="create">
-        <span v-if="loading" class="blink">LOADING...</span>
-        <span v-else>DONE</span>
+      <div class="forgot-password-content-form-container">
+        <div tabindex="0" class="forgot-password-content-form">
+          <input type="text" placeholder="輸入帳號" v-model="account" />
+          <input type="text" placeholder="輸入Email" v-model="email" />
+        </div>
+        <div class="forgot-password-done-button" @click="create">
+          <span v-if="loading" class="blink">LOADING...</span>
+          <span v-else>DONE</span>
+        </div>
       </div>
       <div class="forgot-password-bottom-border"></div>
     </div>
@@ -131,6 +133,13 @@ export default {
   text-align: center;
   line-height: 40px;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.forgot-password-content-form-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: auto;
+  padding-bottom: 10px;
 }
 </style>
 

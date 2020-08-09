@@ -7,13 +7,15 @@
         REGISTER
         <strong>&gt;</strong>
       </div>
-      <div tabindex="0" class="register-content-form">
-        <input type="text" placeholder="輸入帳號" v-model="account" />
-        <input type="password" placeholder="輸入密碼" v-model="password" />
-        <input type="text" placeholder="輸入名稱" v-model="name" />
-        <input type="text" placeholder="輸入Email" v-model="email" />
+      <div class="register-content-form-container">
+        <div tabindex="0" class="register-content-form">
+          <input type="text" placeholder="輸入帳號" v-model="account" />
+          <input type="password" placeholder="輸入密碼" v-model="password" />
+          <input type="text" placeholder="輸入名稱" v-model="name" />
+          <input type="text" placeholder="輸入Email" v-model="email" />
+        </div>
+        <div class="register-done-button" @click="create">DONE</div>
       </div>
-      <div class="register-done-button" @click="create">DONE</div>
       <div class="register-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$router.push('/')" />
@@ -121,6 +123,13 @@ export default {
   text-align: center;
   line-height: 40px;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.register-content-form-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: auto;
+  padding-bottom: 10px;
 }
 </style>
 

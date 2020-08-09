@@ -7,19 +7,21 @@
         PROFILE
         <strong>&gt;</strong>
       </div>
-      <input id="upload-avatar" type="file" ref="imageFile" />
-      <label
-        for="upload-avatar"
-        class="profile-avatar"
-        :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
-      />
-      <div tabindex="0" class="profile-content-form">
-        <input type="text" placeholder="輸入名稱" v-model="name" />
-        <input type="text" placeholder="輸入Email" v-model="email" />
-        <input type="password" placeholder="輸入密碼(更換密碼用)" v-model="password" />
-        <input type="password" placeholder="輸入新密碼(更換密碼用)" v-model="newPassword" />
+      <div class="profile-content-form-container">
+        <input id="upload-avatar" type="file" ref="imageFile" />
+        <label
+          for="upload-avatar"
+          class="profile-avatar"
+          :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
+        />
+        <div tabindex="0" class="profile-content-form">
+          <input type="text" placeholder="輸入名稱" v-model="name" />
+          <input type="text" placeholder="輸入Email" v-model="email" />
+          <input type="password" placeholder="輸入密碼(更換密碼用)" v-model="password" />
+          <input type="password" placeholder="輸入新密碼(更換密碼用)" v-model="newPassword" />
+        </div>
+        <div class="profile-done-button" @click="update">DONE</div>
       </div>
-      <div class="profile-done-button" @click="update">DONE</div>
       <div class="profile-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
@@ -48,9 +50,12 @@ export default {
     },
   },
   mounted() {
-    this.$refs.imageFile.addEventListener("change", this.fileChangeHandler = () => {
-      this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
-    });
+    this.$refs.imageFile.addEventListener(
+      "change",
+      (this.fileChangeHandler = () => {
+        this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
+      })
+    );
   },
   beforeDestroy() {
     this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
@@ -126,6 +131,13 @@ export default {
   text-align: center;
   line-height: 40px;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.profile-content-form-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: auto;
+  padding-bottom: 10px;
 }
 </style>
 
@@ -241,14 +253,6 @@ main {
   background-position: center;
   background-repeat: no-repeat;
   background-color: #153048;
-}
-
-svg,
-img {
-  user-select: none;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 </style>
 

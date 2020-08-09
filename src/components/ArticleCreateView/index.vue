@@ -7,23 +7,27 @@
         POST CREATE
         <strong>&gt;</strong>
       </div>
-      <div tabindex="0" class="article-create-content-form">
-        <input type="text" placeholder="輸入標題" v-model="title" />
-        <textarea placeholder="輸入內容" v-model="content"></textarea>
-      </div>
-      <div class="article-create-upload-form">
-        <label class="plus-block" for="upload-file">
-          <span :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"></span>
-        </label>
-        <input id="upload-file" type="file" ref="imageFile" />
-        <div class="plus-block">
-          <span class="mdi mdi-close"></span>
+      <div class="article-create-content-form-container">
+        <div tabindex="0" class="article-create-content-form">
+          <input type="text" placeholder="輸入標題" v-model="title" />
+          <textarea placeholder="輸入內容" v-model="content"></textarea>
         </div>
-        <div class="plus-block">
-          <span class="mdi mdi-close"></span>
+        <div class="article-create-upload-form">
+          <label class="plus-block" for="upload-file">
+            <span
+              :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"
+            ></span>
+          </label>
+          <input id="upload-file" type="file" ref="imageFile" />
+          <div class="plus-block">
+            <span class="mdi mdi-close"></span>
+          </div>
+          <div class="plus-block">
+            <span class="mdi mdi-close"></span>
+          </div>
         </div>
+        <div class="article-create-post-button" @click="create">POST</div>
       </div>
-      <div class="article-create-post-button" @click="create">POST</div>
       <div class="article-create-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
@@ -49,9 +53,12 @@ export default {
   name: "article-create-view",
   props: [],
   mounted() {
-    this.$refs.imageFile.addEventListener("change", this.fileChangeHandler = () => {
-      this.$forceUpdate();
-    });
+    this.$refs.imageFile.addEventListener(
+      "change",
+      (this.fileChangeHandler = () => {
+        this.$forceUpdate();
+      })
+    );
   },
   beforeDestroy() {
     this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
@@ -127,6 +134,13 @@ export default {
   text-align: center;
   line-height: 40px;
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.article-create-content-form-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: auto;
+  padding-bottom: 10px;
 }
 </style>
 
