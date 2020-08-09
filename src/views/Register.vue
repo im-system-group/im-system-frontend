@@ -43,7 +43,7 @@ export default {
           alert(response.data.message);
           this.$router.push("/");
         })
-        .catch(({ repsonse }) => {
+        .catch(({ response }) => {
           alert(response.data.message);
           this.$router.push("/");
         });
