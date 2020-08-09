@@ -11,7 +11,10 @@
         <input type="text" placeholder="輸入帳號" v-model="account" />
         <input type="text" placeholder="輸入Email" v-model="email" />
       </div>
-      <div class="forgot-password-done-button" @click="create">DONE</div>
+      <div class="forgot-password-done-button" @click="create">
+        <span v-if="loading" class="blink">LOADING...</span>
+        <span v-else>DONE</span>
+      </div>
       <div class="forgot-password-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$router.push('/')" />
@@ -23,22 +26,27 @@ import { mapActions /* , mapMutations */ } from "vuex";
 
 export default {
   data: () => ({
+    loading: false,
     account: "",
     email: "",
   }),
   methods: {
     ...mapActions("profile", ["createForgotPasswordRequest"]),
     async create() {
+      this.loading = true;
+
       this.createForgotPasswordRequest({
         account: this.account,
         email: this.email,
       })
         .then((response) => {
           alert(response.data.message);
+          this.loading = false;
           this.$router.push("/");
         })
         .catch(({ response }) => {
           alert(response.data.message);
+          this.loading = false;
         });
     },
   },
@@ -47,6 +55,16 @@ export default {
 
 <style scoped>
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+}
 
 .forgot-password {
   background-color: rgba(255, 255, 255, 0.2);
