@@ -23,8 +23,8 @@
         <div class="article-top-border" />
 
         <div class="article-title">
-          <img v-if="article.imageUrl" :src="article.imageUrl" />
-          {{article.title}}
+          <div class="article-title-image" v-if="article.imageUrl" :style="`background-image: url('${article.imageUrl}');`"></div>
+          <div class="article-title-text" v-html="article.title"/>
         </div>
 
         <div class="article-likes">
@@ -184,23 +184,32 @@ main {
   font-family: "Noto Sans TC";
   margin-left: 6px;
   width: calc(100% - 106px - 141px);
+  line-height: 95px;
   height: 95px;
   padding-left: 19.5px;
   line-height: 95px;
   color: rgb(255, 255, 255);
   text-shadow: 0px 4px rgba(255, 255, 255, 0.2);
   background-color: rgba(255, 255, 255, 0.2);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  overflow: hidden;
 }
 
-.article-title img {
+.article-title .article-title-image {
   width: 80px;
+  height: 95px;
   margin-right: 10px;
+  display: inline-block;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.article-title .article-title-text {
+  width: calc(100% - 90px);
+  height: 95px;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .article-title:hover,
