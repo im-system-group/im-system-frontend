@@ -33,16 +33,20 @@ export default {
   methods: {
     ...mapActions("profile", ["createItem"]),
     async create() {
-      try {
-        await this.createItem({
-          account: this.account,
-          password: this.password,
-          name: this.name,
-          email: this.email,
+      this.createItem({
+        account: this.account,
+        password: this.password,
+        name: this.name,
+        email: this.email,
+      })
+        .then((response) => {
+          alert(response.data.message);
+          this.$router.push("/");
+        })
+        .catch(({ repsonse }) => {
+          alert(response.data.message);
+          this.$router.push("/");
         });
-      } catch (err) {
-        alert("註冊失敗");
-      }
     },
   },
   mounted() {},
