@@ -19,6 +19,12 @@ $email = htmlspecialchars($_POST["email"]);
 /** @var string 使用者預設大頭貼 */
 $picture  = "../image/def_picture.jpg";
 
+if (preg_match("/[x7f-xff]/", $account) || preg_match("/[x7f-xff]/", $password)) 
+{ 
+	http_response_code(400);
+	respond_json(["message" => "帳號或密碼只能為英文或一般符號"]);
+}
+
 /** @var PDOStatement 使用者查詢敘述 */
 $member_search_statement = $mysql_conn->prepare(
     "SELECT COUNT(*) 
