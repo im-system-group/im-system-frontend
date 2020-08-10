@@ -250,7 +250,12 @@ function initialize() {
         const windowHeight = Math.max(initialWindowHeight, window.innerHeight);
         const widthRatio = windowWidth / layoutContainerWidth;
         const heightRatio = windowHeight / layoutContainerHeight;
-        const scale = Math.min(widthRatio, heightRatio);
+
+        const scale =
+            initialWindowWidth > initialWindowHeight
+                ? Math.min(widthRatio, heightRatio)
+                : Math.max(widthRatio, heightRatio);
+
         layoutContainer.style.transform = `scale(${scale})`;
     };
 
