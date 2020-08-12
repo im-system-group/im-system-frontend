@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Portal from '../views/Portal.vue'
 import Login from '../views/Login.vue'
 
+//analytics
+import VueAnalytics from 'vue-analytics'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -51,7 +54,21 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  //設定 scoll 位置
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+	}
+})
+
+//google analytics
+Vue.use(VueAnalytics, {
+  id: 'UA-104979875-2',
+  router
 })
 
 export default router

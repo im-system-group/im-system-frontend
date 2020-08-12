@@ -6,9 +6,10 @@ module.exports = {
         themeColor: '#3d403f',
         manifestOptions: {
             background_color: '#3d403f',
+            orientation: "landscape"
         },
         msTileColor: '#3d403f',
-        assetsVersion: '0.0203',
+        assetsVersion: '0.020173',
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
