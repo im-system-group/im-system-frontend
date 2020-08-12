@@ -317,9 +317,51 @@ export default {
         alert("Coming Soon!")
       )
     );
+
+    if (window.innerWidth < window.innerHeight) {
+      var element = document.createElement("div");
+      element.className = "rotate-hint";
+      document.body.append(element);
+      element.onclick = () => element.remove();
+      setTimeout(element.onclick, 3 * 1000);
+    }
   },
 };
 </script>
+
+<style>
+body > .rotate-hint {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: show-rotate-hint 0.5s;
+}
+
+body > .rotate-hint::after {
+  content: "建議螢幕採用橫向";
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 100px);
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+@keyframes show-rotate-hint {
+  from {
+    opacity: 0;
+  }
+}
+</style>
 
 <style scoped>
 .portal {
