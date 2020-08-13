@@ -38,7 +38,7 @@ const actions = {
 
             const item = response.data.result
 
-            item.avatarUrl = item.avatarUrl.replace("..", "https://imsystem.site")
+            // item.avatarUrl = item.avatarUrl.replace("..", "https://imsystem.site")
 
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
