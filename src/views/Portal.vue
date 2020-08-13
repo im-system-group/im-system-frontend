@@ -240,7 +240,7 @@
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
           >
-            <!--<img src="/img/portal-images/im-group/05.jpg" width="200">-->
+            <img src="/img/portal-images/im-group/05.png" width="200">
           </div>
           <div class="media-button-container">
             <a class="media-button" href="https://line.me/ti/p/~@844wyhgl" target="_blank">
