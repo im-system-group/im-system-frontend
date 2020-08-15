@@ -1,5 +1,5 @@
 {
-  "name": "im-sys",
+  "name": "iM",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,12 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/lang/**/*.json'"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
-    "sass": "^1.26.10",
-    "sass-loader": "^9.0.2",
     "vue": "^2.6.11",
     "vue-analytics": "^5.22.1",
-    "vue-i18n": "^8.17.3",
+    "vue-i18n": "^8.18.2",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -23,15 +22,13 @@
     "@intlify/vue-i18n-loader": "^1.0.0",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-plugin-pwa": "~4.4.0",
+    "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.4.0",
     "@vue/cli-plugin-vuex": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
-    "axios": "^0.18.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-cli-plugin-axios": "~0.0.4",
     "vue-cli-plugin-i18n": "~1.0.1",
     "vue-template-compiler": "^2.6.11"
   }

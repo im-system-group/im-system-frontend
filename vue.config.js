@@ -1,7 +1,4 @@
 module.exports = {
-    devServer: {
-        proxy: 'http://111.250.156.133'
-    },
     publicPath: '/',
     productionSourceMap: false,
     pwa: {
@@ -9,13 +6,14 @@ module.exports = {
         themeColor: '#3d403f',
         manifestOptions: {
             background_color: '#3d403f',
+            orientation: "landscape"
         },
         msTileColor: '#3d403f',
-        assetsVersion: '0.0202',
+        assetsVersion: '0.020173',
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
-        extract: true,
+        //extract: true,
         // 開啟 CSS source maps?
         sourceMap: false,
         // css預設器配置項
@@ -25,8 +23,8 @@ module.exports = {
     },
     pluginOptions: {
         i18n: {
-            locale: 'en',
-            fallbackLocale: 'en',
+            locale: 'zh-TW',
+            fallbackLocale: 'zh-TW',
             localeDir: 'lang',
             enableInSFC: true
         }
