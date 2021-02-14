@@ -1,5 +1,6 @@
 import Axios from 'axios'
 
 export const apiRequest = Axios.create({
-    baseURL: "/api"
+    baseURL: "https://api.a5768549testdomain.club/",
+    //withCredentials: true
 })

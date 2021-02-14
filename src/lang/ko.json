@@ -12,15 +12,15 @@
 			"submit": "SUBMIT"
 		},
 		"donation": {
-			"title": "Unoffical Donation",
-			"text1": "Your donate is our power to keep iM running!",
-			"text2": "Recent years, iM did not ask for donation from users, but after a year, we've noticed that the maintenance cost of iM is gradually increasing, in order to main the high and stable quality, we've made a few improvements in the latest update, and future versions will be bringing everyone a better experience continously. I hope you can give some support to make this community robust!",
-			"text3": "You will be able to make your iM colorful by your donation!"
+			"title": "Unoffical Donate",
+			"text1": "Your donate is our power to keep run iM!",
+			"text2": "In recent year,iM is not to users donate,but after a year, the maintenance cost of iM is gradually increasing, in order to make the user experience better, this version has many optimizations, and future versions will continue to bring you a better experience. I hope you can give some support to make this community more robust!",
+			"text3": "You will be able to make your iM colorful in your donate!"
 		},
 		"creation": {
 			"title": "Statement of 2nd creation",
-			"text1": "Rayark allows us to make iM system, but Rayark did not authorized the second creation authorization.",
-			"text2": "iM System is produced by iM group, following the Attribution-NonCommercial-ShareAlike 3.0 Taiwan (CC BY-NC-SA 3.0 TW)",
+			"text1": "Rayark사의 iM 시스템을 통해 만들 수 있는 권한을 제공하지만, 2차 창작이나 2차 생성에 대한 권한을 허용하지 않습니다.",
+			"text2": "iM System is produced by iM group,Attribution-NonCommercial-ShareAlike 3.0 Taiwan (CC BY-NC-SA 3.0 TW)",
 			"text3": "This website is derived from"
 		},
 		"aboutUs": {
@@ -33,8 +33,8 @@
 			"koreanTranslator": "Korean Translator"
 		},
 		"footer": {
-			"donation": "Unoffical Donation",
-			"creation": "About 2nd creation",
+			"donation": "Unoffical Donate",
+			"creation": "Statement of 2nd creation",
 			"aboutUs": "About Us"
 		}
 	},
@@ -64,7 +64,7 @@
 			"email": "Input Email",
 			"oldPassword": "Input old password",
 			"newPassword": "Input new password",
-			"confirmPassword": "Input new password again"
+			"confirmPassword": "Input again new password"
 		},
 		"done": "DONE",
 		"update": {

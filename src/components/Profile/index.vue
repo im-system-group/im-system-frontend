@@ -4,7 +4,7 @@
       <div class="profile-top-border"></div>
       <div class="profile-header">
         <strong>&lt;</strong>
-        PROFILE
+        {{ $t('profile.title')}}
         <strong>&gt;</strong>
       </div>
       <div class="profile-content-form-container">
@@ -15,12 +15,15 @@
           :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
         />
         <div tabindex="0" class="profile-content-form">
-          <input type="text" placeholder="輸入名稱" v-model="name" />
-          <input type="text" placeholder="輸入Email" v-model="email" />
-          <input type="password" placeholder="輸入密碼(更換密碼用)" v-model="password" />
-          <input type="password" placeholder="輸入新密碼(更換密碼用)" v-model="newPassword" />
+          <input type="text" :placeholder="$t('profile.form.name')" v-model="name" />
+          <input type="text" :placeholder="$t('profile.form.email')" v-model="email" />
+          <input type="password" :placeholder="$t('profile.form.oldPassword')" v-model="password" />
+          <input type="password" :placeholder="$t('profile.form.newPassword')" v-model="newPassword" />
         </div>
-        <div class="profile-done-button" @click="update">DONE</div>
+        <div class="profile-done-button" @click="update">
+          <span v-if="loading" class="blink">LOADING...</span>
+          <span v-else>{{ $t('profile.done')}}</span>
+        </div>
       </div>
       <div class="profile-bottom-border"></div>
     </div>
@@ -31,6 +34,7 @@
 <script>
 export default {
   data: () => ({
+    loading: false,
     password: "",
     newPassword: "",
     newAvatarUrl: "",
@@ -40,13 +44,17 @@ export default {
   props: ["name", "email", "avatarUrl", "color"],
   methods: {
     update() {
-      this.$emit("update", {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        newPassword: this.newPassword,
-        imageFile: this.$refs.imageFile.files[0],
-      });
+      if(this.loading === false)
+      {
+        this.loading = true
+        this.$emit("update", {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          newPassword: this.newPassword,
+          imageFile: this.$refs.imageFile.files[0],
+        });
+      }
     },
   },
   mounted() {
@@ -64,7 +72,11 @@ export default {
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
+
+.blink {
+  animation: blink 1s infinite;
+}
 
 .profile {
   background-color: rgba(255, 255, 255, 0.2);
@@ -124,7 +136,7 @@ export default {
 .profile-header {
   user-select: none;
   font-size: 22px;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-weight: 100;
   color: #fff;
   height: 40px;
@@ -204,7 +216,7 @@ export default {
 .profile-done-button {
   cursor: pointer;
   user-select: none;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   margin: 0px auto;
   color: rgba(255, 255, 255, 0.4);
   border: 2px rgba(255, 255, 255, 0.4) solid;
@@ -242,7 +254,7 @@ export default {
 </style>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
 
 main {
   width: 100%;

@@ -27,7 +27,7 @@
           <div class="article-title-text" v-html="article.title"/>
         </div>
 
-        <div class="article-likes">
+        <div :class="{ 'article-likes': true, 'active': article.isLiked }">
           <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
             <span class="mdi mdi-thumb-up"></span>
           </div>
@@ -97,7 +97,7 @@ export default {
 </style>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
 main {
   width: 100%;
@@ -170,7 +170,7 @@ main {
   color: #fff;
   text-align: center;
   font-size: 12.5px;
-  font-family: Electrolize;
+  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   width: 81px;
   height: 18px;
   overflow: hidden;
@@ -181,7 +181,7 @@ main {
   cursor: pointer;
   font-size: 23px;
   letter-spacing: 0.25px;
-  font-family: "Noto Sans TC";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   margin-left: 6px;
   width: calc(100% - 106px - 141px);
   line-height: 95px;
@@ -228,6 +228,11 @@ main {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.article-likes.active .article-like-thumb-container {
+  background-color: rgb(140, 228, 230);
+  color: #111;
+}
+
 .article-like-thumb-container {
   width: 38px;
   height: 38px;
@@ -251,7 +256,7 @@ main {
 
 .article-likes-count {
   font-size: 18.5px;
-  font-family: Electrolize;
+  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   color: rgb(140, 228, 230);
   text-shadow: 0px 4px rgba(140, 228, 230, 0.2);
 }

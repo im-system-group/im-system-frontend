@@ -17,11 +17,24 @@ const actions = {
     async loadItem({ commit }, { id }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false });
-            const response = await apiRequest.get(`/access-article-api.php?id=${id}`)
-            const item = response.data.result
-            item.likesCount = item.likesCount | 0
+            const response = await apiRequest.get(`articles/${id}`)
+            //const item = response.data.data
+            //item.likesCount = item.likesCount | 0
+            const [item] = [response.data.data].map((structuredItem) => ({
+                id: structuredItem.id,
+                title: structuredItem.title,
+                content: structuredItem.content,
+                likesCount: structuredItem.likeNum,
+                imageUrl: structuredItem.image,
+                createTime: structuredItem.createTime || "0000-00-00 00:00:00",
+                userName: structuredItem.author.name,
+                userAvatarUrl: structuredItem.author.avatar,
+                userColor: structuredItem.author.color || '#fff',
+                isLiked: structuredItem.isLiked
+            }));
             // item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
             // item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
+            commit('pushItems', { item })
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
         catch (err) {
@@ -31,13 +44,23 @@ const actions = {
     async loadComments({ commit }, { id }) {
         try {
             commit('set', { isCommentsLoading: true, isCommentsLoaded: false })
-            const response = await apiRequest.get(`/access-comments-api.php?id=${id}`)
-            const comments = response.data.results
+            //TODO:更改為分頁設計
+            //const response = await apiRequest.get(`/articles/${id}/comments?perPage=10&page=1`)
+            const response = await apiRequest.get(`/articles/${id}/comments/all`)
+            //const comments = response.data.data
+            const comments = response.data.data.map((structuredItem) => ({
+                id: structuredItem.id,
+                content: structuredItem.content,
+                userName: structuredItem.author.name,
+                userAvatarUrl:structuredItem.author.avatar,
+                userColor: structuredItem.author.color || '#fff'
+            }));
+            
 
             // comments.forEach(comment =>
             //     comment.userAvatarUrl = comment.userAvatarUrl.replace("..", "https://imsystem.site")
             // )
-
+            commit('pushItems', { comments })
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
         }
         catch (err) {
@@ -46,11 +69,18 @@ const actions = {
     },
     async addComment({ dispatch }, { id, content }) {
         try {
-            await apiRequest.post(`/create-comments-api.php?id=${id}`, `content=${encodeURI(content)}`, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+            await apiRequest.post(
+                `articles/${id}/comments`,
+                Object.entries({
+                    content:content,
+                }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
+                {
+                    headers: {
+                        "Authorization": `Bearer ${window.TOKEN}`,
+                        "Content-Type": 'multipart/form-data'
+                    }
                 }
-            })
+            )
 
             dispatch("loadComments", { id })
         }
@@ -59,14 +89,34 @@ const actions = {
         }
     },
     async likeItem({ commit, state }, { id }) {
-        try {
-            const response = await apiRequest.post(`/create-like-api.php?id=${id}`)
+        const item = state.item
 
-            if (response.data.message === "已取消like") {
-                commit('set', { item: { ...state.item, likesCount: state.item.likesCount - 1 } })
+        try {
+            const response = await apiRequest.post(
+                `articles/${id}/favorite`,
+                Object.entries({
+                    favorite:+!item.isLiked,
+                    _method:'PATCH',
+                }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
+                {
+                    headers: {
+                        "Authorization": `Bearer ${window.TOKEN}`,
+                        'Content-Type': 'multipart/form-data'
+                    },
+                }
+            );
+
+            console.log(response.data)
+
+            if (item.isLiked) {
+                commit('set', { item: { ...state.item, 
+                                        likesCount: state.item.likesCount - 1, 
+                                        isLiked: !state.item.isLiked } })
             }
             else {
-                commit('set', { item: { ...state.item, likesCount: state.item.likesCount + 1 } })
+                commit('set', { item: { ...state.item, 
+                                        likesCount: state.item.likesCount + 1, 
+                                        isLiked: !state.item.isLiked } })
             }
         }
         catch (err) {

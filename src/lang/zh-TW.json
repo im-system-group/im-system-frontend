@@ -1,3 +1,87 @@
 {
-  "message": "hello i18n !!"
+  "portal": {
+    "header": {
+      "title": "iM 系統"
+    },
+    "main": {
+      "chooseUi": "選擇UI版本:",
+      "chooseLang": "選擇語言:",
+      "forgotPassword": "忘記密碼",
+      "register": "註冊",
+      "fullScreen": "全螢幕",
+      "submit": "確認"
+    },
+    "donation": {
+      "title": "非官方斗內",
+      "text1": "您的斗內，是我們持續經營iM的動力！",
+      "text2": "這些年來，iM一直沒有主動的向使用者提出斗內，但經營了一年之後，iM的維護成本逐漸提升，為了就是讓使用者的體驗更佳，這次的版本經過了許多的優化，在未來的版本也會繼續帶給大家更好的體驗，希望使用者可以給予一些支持，讓這個社群能夠更加茁壯！",
+      "text3": "您的斗內將可以使您的iM獲得繽紛的色彩！"
+    },
+    "creation": {
+      "title": "二創聲明",
+      "text1": "雷亞許可製作iM系統，但並無給予二次創作授權",
+      "text2": "iM System由 iM group 製作，以創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款釋出。",
+      "text3": "此作品衍生自"
+    },
+    "aboutUs": {
+      "title": "關於我們",
+      "text": "我們是一群熱愛Cytus2的人",
+      "convener": "招集人",
+      "frontEnd": "前端設計",
+      "backEnd": "後端製作",
+      "japaneseTranslator": "日語翻譯",
+      "koreanTranslator": "韓語翻譯"
+    },
+    "footer": {
+      "donation": "非官方斗內",
+      "creation": "二創聲明",
+      "aboutUs": "關於我們"
+    }
+  },
+  "forgotPassword": {
+    "title": "忘記密碼",
+    "form": {
+      "account": "請輸入帳號",
+      "email": "請輸入Email"
+    },
+    "done": "送出"
+  },
+  "register": {
+		"title": "註冊",
+		"form": {
+			"account": "請輸入帳號",
+			"password": "請輸入密碼",
+			"name": "請輸入暱稱",
+			"email": "請輸入Email"
+		},
+		"done": "送出",
+    "successs": "註冊成功！"
+	},
+  "profile": {
+    "title": "個人資料",
+    "form": {
+      "name": "請輸入暱稱",
+      "email": "請輸入Email",
+      "oldPassword": "請輸入舊密碼",
+      "newPassword": "請輸入新密碼",
+      "confirmPassword": "請再輸入新密碼一次"
+    },
+    "done": "送出",
+    "update": {
+			"success": "更新成功！",
+			"fail": "更新失敗！"
+		}
+  },
+  "article": {
+    "comment": "回應...",
+    "youHint": "你"
+  },
+	"articleCreate": {
+		"title": "新增文章",
+		"form": {
+			"title": "請輸入標題",
+			"content": "請輸入內容"
+		},
+		"post": "發表文章"
+	}
 }

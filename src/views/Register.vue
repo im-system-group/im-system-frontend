@@ -4,17 +4,20 @@
       <div class="register-top-border"></div>
       <div class="register-header">
         <strong>&lt;</strong>
-        REGISTER
+        {{ $t('register.title')}}
         <strong>&gt;</strong>
       </div>
       <div class="register-content-form-container">
         <div tabindex="0" class="register-content-form">
-          <input type="text" placeholder="輸入帳號" v-model="account" />
-          <input type="password" placeholder="輸入密碼" v-model="password" />
-          <input type="text" placeholder="輸入名稱" v-model="name" />
-          <input type="text" placeholder="輸入Email" v-model="email" />
+          <input type="text" :placeholder="$t('register.form.account')" v-model="account" />
+          <input type="password" :placeholder="$t('register.form.password')" v-model="password" />
+          <input type="text" :placeholder="$t('register.form.name')" v-model="name" />
+          <input type="text" :placeholder="$t('register.form.email')" v-model="email" />
         </div>
-        <div class="register-done-button" @click="create">DONE</div>
+        <div class="register-done-button" @click="create">
+          <span v-if="loading" class="blink">LOADING...</span>
+          <span v-else>{{ $t('register.done')}}</span>
+        </div>
       </div>
       <div class="register-bottom-border"></div>
     </div>
@@ -27,6 +30,7 @@ import { mapActions /* , mapMutations */ } from "vuex";
 
 export default {
   data: () => ({
+    loading: false,
     account: "",
     password: "",
     name: "",
@@ -35,20 +39,27 @@ export default {
   methods: {
     ...mapActions("profile", ["createItem"]),
     async create() {
-      this.createItem({
-        account: this.account,
-        password: this.password,
-        name: this.name,
-        email: this.email,
-      })
-        .then((response) => {
-          alert(response.data.message);
-          this.$router.push("/");
+      if(this.loading === false)
+      {
+        this.loading = true;
+        this.createItem({
+          account: this.account,
+          password: this.password,
+          name: this.name,
+          email: this.email,
         })
-        .catch(({ response }) => {
-          alert(response.data.message);
-          this.$router.push("/");
-        });
+          .then((response) => {
+            if(response.status === 201)
+            {
+              alert(this.$t('register.success'));
+            }
+            this.$router.push("/");
+          })
+          .catch(({ response }) => {
+            alert(response);
+            this.$router.push("/");
+          });
+        }
     },
   },
   mounted() {},
@@ -56,7 +67,11 @@ export default {
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap"; */
+
+.blink {
+  animation: blink 1s infinite;
+}
 
 .register {
   background-color: rgba(255, 255, 255, 0.2);
@@ -116,7 +131,7 @@ export default {
 .register-header {
   user-select: none;
   font-size: 22px;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-weight: 100;
   color: #fff;
   height: 40px;
@@ -196,7 +211,7 @@ export default {
 .register-done-button {
   cursor: pointer;
   user-select: none;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   margin: 0px auto;
   color: rgba(255, 255, 255, 0.4);
   border: 2px rgba(255, 255, 255, 0.4) solid;
@@ -234,7 +249,7 @@ export default {
 </style>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
 main {
   width: 100%;

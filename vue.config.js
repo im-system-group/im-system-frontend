@@ -3,13 +3,17 @@ module.exports = {
     productionSourceMap: false,
     pwa: {
         name: 'iM',
+        shortName: 'iM',
         themeColor: '#3d403f',
         manifestOptions: {
             background_color: '#3d403f',
-            orientation: "landscape"
+            orientation: "landscape",
+            categories: "social",
+            display: "fullscreen"
         },
         msTileColor: '#3d403f',
         assetsVersion: '0.020173',
+        appleMobileWebAppCapable: 'yes',
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin

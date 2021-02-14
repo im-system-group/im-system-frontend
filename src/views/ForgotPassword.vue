@@ -4,17 +4,17 @@
       <div class="forgot-password-top-border"></div>
       <div class="forgot-password-header">
         <strong>&lt;</strong>
-        FORGOT PASSWORD
+        {{ $t('forgotPassword.title')}}
         <strong>&gt;</strong>
       </div>
       <div class="forgot-password-content-form-container">
         <div tabindex="0" class="forgot-password-content-form">
-          <input type="text" placeholder="輸入帳號" v-model="account" />
-          <input type="text" placeholder="輸入Email" v-model="email" />
+          <input type="text" :placeholder="$t('forgotPassword.form.account')" v-model="account" />
+          <input type="text" :placeholder="$t('forgotPassword.form.email')" v-model="email" />
         </div>
         <div class="forgot-password-done-button" @click="create">
           <span v-if="loading" class="blink">LOADING...</span>
-          <span v-else>DONE</span>
+          <span v-else>{{ $t('forgotPassword.done')}}</span>
         </div>
       </div>
       <div class="forgot-password-bottom-border"></div>
@@ -35,28 +35,31 @@ export default {
   methods: {
     ...mapActions("profile", ["createForgotPasswordRequest"]),
     async create() {
-      this.loading = true;
+      if(this.loading === false)
+      {
+        this.loading = true;
 
-      this.createForgotPasswordRequest({
-        account: this.account,
-        email: this.email,
-      })
-        .then((response) => {
-          alert(response.data.message);
-          this.loading = false;
-          this.$router.push("/");
+        this.createForgotPasswordRequest({
+          account: this.account,
+          email: this.email,
         })
-        .catch(({ response }) => {
-          alert(response.data.message);
-          this.loading = false;
-        });
+          .then((response) => {
+            alert(response.data.message);
+            this.loading = false;
+            this.$router.push("/");
+          })
+          .catch(({ response }) => {
+            alert(response.data.message);
+            this.loading = false;
+          });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
 
 .blink {
   animation: blink 1s infinite;
@@ -126,7 +129,7 @@ export default {
 .forgot-password-header {
   user-select: none;
   font-size: 22px;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-weight: 100;
   color: #fff;
   height: 40px;
@@ -206,7 +209,7 @@ export default {
 .forgot-password-done-button {
   cursor: pointer;
   user-select: none;
-  font-family: "Roboto";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   margin: 0px auto;
   color: rgba(255, 255, 255, 0.4);
   border: 2px rgba(255, 255, 255, 0.4) solid;
@@ -244,7 +247,7 @@ export default {
 </style>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
 main {
   width: 100%;

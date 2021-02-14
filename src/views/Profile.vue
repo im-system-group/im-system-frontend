@@ -26,16 +26,16 @@ export default {
     async updateProfile(form) {
       try {
         await this.updateItem(form);
-        alert("變更完成");
+        alert(this.$t('profile.update.success'));
         this.$router.push("/articles");
       } catch (err) {
-        alert("變更失敗");
+        alert(this.$t('profile.update.fail'));
       }
     },
   },
-  updated() {
+  async updated() {
     if (!this.isItemLoaded) {
-      this.loadItem();
+      await this.loadItem();
     }
 
     if (!this.item) {

@@ -4,13 +4,13 @@
       <div class="article-create-top-border"></div>
       <div class="article-create-header">
         <strong>&lt;</strong>
-        POST CREATE
+        {{ $t('articleCreate.title')}}
         <strong>&gt;</strong>
       </div>
       <div class="article-create-content-form-container">
         <div tabindex="0" class="article-create-content-form">
-          <input type="text" placeholder="輸入標題" v-model="title" />
-          <textarea placeholder="輸入內容" v-model="content"></textarea>
+          <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="title" required />
+          <textarea :placeholder="$t('articleCreate.form.content')" v-model="content" required></textarea>
         </div>
         <div class="article-create-upload-form">
           <label class="plus-block" for="upload-file">
@@ -26,7 +26,10 @@
             <span class="mdi mdi-close"></span>
           </div>
         </div>
-        <div class="article-create-post-button" @click="create">POST</div>
+        <div class="article-create-post-button" @click="create">
+          <span v-if="loading" class="blink">LOADING...</span>
+          <span v-else>{{ $t('articleCreate.post')}}</span>
+        </div>
       </div>
       <div class="article-create-bottom-border"></div>
     </div>
@@ -37,17 +40,23 @@
 <script>
 export default {
   data: () => ({
+    loading: false,
     title: "",
     content: "",
     fileChangeHandler: null,
   }),
   methods: {
     create() {
-      this.$emit("create", {
-        title: this.title,
-        content: this.content,
-        imageFile: this.$refs.imageFile.files[0],
-      });
+      if(this.loading === false)
+      {
+        this.loading = true;
+
+        this.$emit("create", {
+          title: this.title,
+          content: this.content,
+          imageFile: this.$refs.imageFile.files[0],
+        });
+      }
     },
   },
   name: "article-create-view",
@@ -67,7 +76,11 @@ export default {
 </script>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
+
+.blink {
+  animation: blink 1s infinite;
+}
 
 .article-create {
   background-color: rgba(255, 255, 255, 0.2);
@@ -127,7 +140,7 @@ export default {
 .article-create-header {
   user-select: none;
   font-size: 22px;
-  font-family: "Roboto";
+  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-weight: 100;
   color: #fff;
   height: 40px;
@@ -225,7 +238,7 @@ export default {
 .article-create-post-button {
   cursor: pointer;
   user-select: none;
-  font-family: "Roboto";
+  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   margin: 0px auto;
   color: rgba(255, 255, 255, 0.4);
   border: 2px rgba(255, 255, 255, 0.4) solid;
@@ -262,7 +275,7 @@ export default {
 </style>
 
 <style scoped>
-@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
 main {
   width: 100%;

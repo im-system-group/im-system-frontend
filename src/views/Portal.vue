@@ -1,9 +1,9 @@
 <template>
   <div class="portal">
-    <header>iM System</header>
+    <header>{{ $t('portal.header.title')}}</header>
     <main>
       <form @submit.prevent>
-        <div class="choose-version-hint">Choose version of UI:</div>
+        <div class="choose-version-hint">{{ $t('portal.main.chooseUi')}}</div>
         <div class="choose-version">
           <input type="radio" name="version" id="version-2.4" value="2.4" v-model="version" />
 
@@ -19,7 +19,7 @@
             <div class="version-text">Ver 3.0</div>
           </label>
         </div>
-        <div class="choose-language-hint">Choose language:</div>
+        <div class="choose-language-hint">{{ $t('portal.main.chooseLang')}}</div>
         <div class="choose-language">
           <input
             type="radio"
@@ -27,7 +27,7 @@
             id="language-zh"
             value="zh"
             v-model="language"
-            checked
+            v-on:change="setLang('zh')"
           />
           <label class="language" for="language-zh">中</label>
           <input
@@ -36,7 +36,7 @@
             id="language-en"
             value="en"
             v-model="language"
-            disabled
+            v-on:change="setLang('en')"
           />
           <label class="language" for="language-en">EN</label>
           <input
@@ -45,7 +45,8 @@
             id="language-jp"
             value="jp"
             v-model="language"
-            disabled
+            v-on:change="setLang('jp')"
+            
           />
           <label class="language" for="language-jp">JP</label>
           <input
@@ -54,25 +55,26 @@
             id="language-ko"
             value="ko"
             v-model="language"
-            disabled
+            v-on:change="setLang('ko')"
+            
           />
           <label class="language" for="language-ko">KO</label>
         </div>
         <div style="text-align: center;">
-          <input type="submit" value="FORGOT PWD" @click="toForgotPassword" style="width: 120px;" />
-          <input type="submit" value="REGISTER" @click="toRegister" />
-          <input type="submit" value="FULL SCREEN" @click="openFullScreen" style="width: 120px;" />
-          <input type="submit" value="SUBMIT" @click="toLogin" />
+          <input type="submit" :value="$t('portal.main.forgotPassword')" @click="toForgotPassword" style="width: 120px;" />
+          <input type="submit" :value="$t('portal.main.register')" @click="toRegister" />
+          <input type="submit" :value="$t('portal.main.fullScreen')" @click="openFullScreen" style="width: 120px;" />
+          <input type="submit" :value="$t('portal.main.submit')" @click="toLogin" />
         </div>
       </form>
     </main>
     <section id="donation">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">非官方斗內</h1>
+      <h1 style="text-align: center;">{{ $t('portal.donation.title')}}</h1>
       <div style="max-width: 800px; margin: 10px auto; text-align: justify;">
-        <p>您的斗內，是我們持續經營iM的動力！</p>
-        <p>這些年來，iM一直沒有主動的向使用者提出斗內，但經營了一年之後，iM的維護成本逐漸提升，為了就是讓使用者的體驗更佳，這次的版本經過了許多的優化，在未來的版本也會繼續帶給大家更好的體驗，希望使用者可以給予一些支持，讓這個社群能夠更加茁壯！</p>
-        <p>您的斗內將可以使您的iM獲得繽紛的色彩！</p>
+        <p>{{ $t('portal.donation.text1')}}</p>
+        <p>{{ $t('portal.donation.text2')}}</p>
+        <p>{{ $t('portal.donation.text3')}}</p>
       </div>
       <div class="choose-donation-method">
         <form
@@ -92,12 +94,9 @@
     </section>
     <section id="stat-of-2nd-creation">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">二創聲明</h1>
+      <h1 style="text-align: center;">{{ $t('portal.creation.title')}}</h1>
       <div style="max-width: 800px; margin: 10px auto;">
-        <p>雷亞許可製作iM系統，但並無給予二次創作授權</p>
-        <p>Rayark allows us to make iM system, but Rayark is not authorize the second creation authorization.</p>
-        <p>Rayarkは二次創作を許可する。オフィシャル権限を与えられませんでした。</p>
-        <p>Rayark사의 iM 시스템을 통해 만들 수 있는 권한을 제공하지만, 2차 창작이나 2차 생성에 대한 권한을 허용하지 않습니다.</p>
+        <p>{{ $t('portal.creation.text1')}}</p>
         <span style="display: flex; align-items: center; justify-content: center;">
           <a
             rel="license"
@@ -110,19 +109,19 @@
               style="display: block;"
             />
           </a>
-          iM System由 iM group 製作，以創用CC 姓名標示-非商業性-相同方式分享 3.0 台灣 授權條款釋出。
+          {{ $t('portal.creation.text2')}}
         </span>
         <p>
-          此作品衍生自
+          {{ $t('portal.creation.text3')}}
           <a href="https://www.rayark.com/" target="_blank">www.rayark.com</a>
         </p>
       </div>
     </section>
     <section id="about-us">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">關於我們</h1>
+      <h1 style="text-align: center;">{{ $t('portal.aboutUs.title')}}</h1>
       <div style="max-width: 800px; margin: 10px auto;">
-        <p>我們是一群熱愛Cytus2的人</p>
+        <p>{{ $t('portal.aboutUs.text')}}</p>
         <p>
           Github：
           <a
@@ -132,7 +131,7 @@
         </p>Email：admin@imsystem.site
         <hr />
 
-        <p>招集人：紅茶</p>
+        <p>{{ $t('portal.aboutUs.convener')}}：紅茶</p>
         <div class="media-button-div">
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
@@ -156,7 +155,7 @@
 
         <hr />
 
-        <p>前端設計：fixiabis</p>
+        <p>{{ $t('portal.aboutUs.frontEnd')}}：fixiabis</p>
         <div class="media-button-div">
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
@@ -184,7 +183,7 @@
 
         <hr />
 
-        <p>前端設計：SnowFireWolf</p>
+        <p>{{ $t('portal.aboutUs.frontEnd')}}：SnowFireWolf</p>
         <div class="media-button-div">
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
@@ -209,7 +208,7 @@
 
         <hr />
 
-        <p>後端製作：a831123c</p>
+        <p>{{ $t('portal.aboutUs.backEnd')}}：a831123c</p>
         <div class="media-button-div">
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
@@ -235,40 +234,42 @@
 
         <hr />
 
-        <p>手機端製作：雪浩</p>
+        <p>{{ $t('portal.aboutUs.japaneseTranslator')}}：ナナナ</p>
         <div class="media-button-div">
           <div
             style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
           >
-            <img src="/img/portal-images/im-group/05.png" width="200">
+            <img src="/img/portal-images/im-group/05.jpg" width="200" />
           </div>
           <div class="media-button-container">
-            <a class="media-button" href="https://line.me/ti/p/~@844wyhgl" target="_blank">
-              <i class="fab fa-line fa-2x"></i>SJ Project
+            <a class="media-button" href="https://twitter.com/Nanananananauw" target="_blank">
+              <i class="fab fa-twitter fa-2x"></i>ナナナ Σ:3
             </a>
-            <a class="media-button" href="https://github.com/james10949" target="_blank">
-              <i class="fab fa-github fa-2x"></i>雪浩
+            <a
+              class="media-button"
+              href="https://www.facebook.com/2c10mai/"
+              target="_blank"
+            >
+              <i class="fab fa-facebook fa-2x"></i>兩啖
             </a>
-            <div class="media-button-fill"></div>
             <div class="media-button-fill"></div>
           </div>
         </div>
-        <p>Email：sijing10949@gmail.com</p>
       </div>
     </section>
     <footer>
       <nav>
         <ul>
           <li>
-            <a href="#donation">非官方斗內</a>
+            <a href="#donation">{{ $t('portal.footer.donation')}}</a>
           </li>
           <li>
-            <a href="#stat-of-2nd-creation">二創聲明</a>
+            <a href="#stat-of-2nd-creation">{{ $t('portal.footer.creation')}}</a>
           </li>
           <li>
-            <a href="#about-us">關於我們</a>
+            <a href="#about-us">{{ $t('portal.footer.aboutUs')}}</a>
           </li>
-          <li style="color: #444;">v1.3.7</li>
+          <li style="color: #444;">v1.3.8</li>
         </ul>
       </nav>
     </footer>
@@ -279,12 +280,13 @@
 export default {
   data: () => ({
     version: "3.0",
-    language: "zh",
+    language: localStorage.getItem('footmark-lang') || 'zh',
   }),
   methods: {
+    
     toLogin() {
       this.$router.push(
-        `/login?version=${this.version}&langauge=${this.language}`
+        `/login?version=${this.version}`
       );
     },
     toRegister() {
@@ -306,17 +308,24 @@ export default {
         view.webkitRequestFullscreen();
       }
     },
+    setLang (value) {
+      //this.$store.commit('setLang', value);
+      this.$i18n.locale = value;
+      localStorage.setItem('footmark-lang', value);
+      //console.log(this.$i18n.locale)
+    },
   },
   mounted() {
-    var disabledRadioInputViews = [
+    /*var disabledRadioInputViews = [
       ...document.querySelectorAll("input[type=radio][disabled]+*"),
-    ];
+    ];*/
 
-    disabledRadioInputViews.forEach((disabledRadioInputView) =>
+    /*disabledRadioInputViews.forEach((disabledRadioInputView) =>
       disabledRadioInputView.addEventListener("click", () =>
         alert("Coming Soon!")
       )
-    );
+    );*/
+    this.$i18n.locale = localStorage.getItem('footmark-lang') || 'zh';
 
     if (window.innerWidth < window.innerHeight) {
       var element = document.createElement("div");
@@ -341,6 +350,7 @@ body > .rotate-hint {
 }
 
 body > .rotate-hint::after {
+  /*TODO:中文處理*/
   content: "建議螢幕採用橫向";
   position: absolute;
   top: calc(50% - 20px);
@@ -371,7 +381,7 @@ body > .rotate-hint::after {
   max-height: 100vh;
   max-width: -webkit-fill-available;
   max-height: -webkit-fill-available;
-  font-family: "Noto Sans TC";
+  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   background-color: #fff;
 }
 
@@ -381,7 +391,7 @@ header {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  font-family: "Electrolize", monospace;
+  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
 }
 
 main {
@@ -458,7 +468,7 @@ section:target ~ section {
 }
 
 .version {
-  font-family: "Electrolize", monospace;
+  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-size: 26px;
   color: #fefefe;
   cursor: pointer;
@@ -539,7 +549,7 @@ input[type="radio"]:checked + .language {
 }
 
 .donation-method {
-  font-family: "Electrolize", monospace;
+  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   font-size: 26px;
   color: #fefefe;
   cursor: pointer;
@@ -563,7 +573,7 @@ input[type="radio"]:checked + .language {
 }
 
 .donation-method * {
-  font-family: "Electrolize", monospace;
+  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   position: absolute;
   font-size: 26px;
   top: 0;
@@ -591,7 +601,7 @@ nav ul {
 
 nav ul li {
   display: block;
-  width: 100px;
+  width: 140px;
   height: 60px;
   list-style: none;
   margin: 0px 10px;
@@ -659,7 +669,7 @@ input[type="submit"]:active {
   text-align: center;
   border-radius: 2px;
   line-height: 50px;
-  font-family: "Electrolize", monospace;
+  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   cursor: pointer;
   transition: all 0.5s;
   display: flex;
