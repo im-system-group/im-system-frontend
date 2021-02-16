@@ -20,14 +20,29 @@ const actions = {
 
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
-            const response = await apiRequest.get(`articles?perPage=10&page=${page}`)
+            //var response = ''
+            //var auth = ''
+            var response
+            if(window.TOKEN === null)
+            {
+                response = await apiRequest.get(`articles?perPage=10&page=${page}`)
+            }else{
+                response = await apiRequest.get(`articles?perPage=10&page=${page}`,
+                    {
+                        headers: {
+                        "Authorization":`Bearer ${window.TOKEN}`
+                    }
+                })
+            }
+            //var response = await apiRequest.get(`articles?perPage=10&page=${page}`)
+            
             const items = response.data.data.map((structuredItem) => ({
                 id: structuredItem.id,
                 title: structuredItem.title,
                 likesCount: structuredItem.likeNum,
                 imageUrl: structuredItem.image,
                 userName: structuredItem.author.name,
-                userAvatarUrl: structuredItem.author.avatar,
+                userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
                 isLiked: structuredItem.isLiked
             }));
@@ -47,7 +62,6 @@ const actions = {
     },
     async likeItem({ commit, state }, { id }) {
         const item = state.items.find((item) => item.id === id)
-
         try {
             const response = await apiRequest.post(
                 `articles/${id}/favorite`,
@@ -63,7 +77,7 @@ const actions = {
                 }
             );
             
-            console.log(response.data)
+            console.log(response)
 
             if (item.isLiked) {//TODO:需要改成驗status，204為成功
                 commit('likeItem', { id, like: -1 })
@@ -74,6 +88,7 @@ const actions = {
         }
         catch (err) {
             console.log(err)
+            
         }
     },
     async addItem({ commit }, { title, content, imageFile }) {
@@ -120,7 +135,7 @@ const actions = {
                 likesCount: structuredItem.likeNum,
                 imageUrl: structuredItem.image,
                 userName: structuredItem.author.name,
-                userAvatarUrl: structuredItem.author.avatar,
+                userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
                 isLiked: structuredItem.isLiked
             }));

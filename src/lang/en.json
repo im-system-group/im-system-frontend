@@ -44,7 +44,8 @@
 			"account": "Input account",
 			"email": "Input email"
 		},
-		"done": "DONE"
+		"done": "DONE",
+		"success": "Send success!"
 	},
 	"register": {
 		"title": "REGISTER",
@@ -55,7 +56,7 @@
 			"email": "Input Email"
 		},
 		"done": "DONE",
-		"successs": "Registration success!"
+		"success": "Registration success!"
 	},
 	"profile": {
         "title": "PROFILE",

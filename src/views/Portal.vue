@@ -58,7 +58,7 @@
             v-on:change="setLang('ko')"
             
           />
-          <label class="language" for="language-ko">KO</label>
+          <label class="language" for="language-ko">KR</label>
         </div>
         <div style="text-align: center;">
           <input type="submit" :value="$t('portal.main.forgotPassword')" @click="toForgotPassword" style="width: 120px;" />
@@ -88,7 +88,7 @@
           <input type="submit" value="PayPal" id="go-to-paypal" />
         </form>
         <label class="donation-method" for="go-to-paypal">Paypal</label>
-        <a class="donation-method" href="https://p.ecpay.com.tw/CE103" target="_blank">ECPay</a>
+        <a class="donation-method" href="https://p.ecpay.com.tw/AA969D4" target="_blank">ECPay</a>
       </div>
       <div style="color: #fbfbfb; text-align: center">0342 1788 7449 3263 2514 0108 7245 0730</div>
     </section>

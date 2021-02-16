@@ -17,7 +17,20 @@ const actions = {
     async loadItem({ commit }, { id }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false });
-            const response = await apiRequest.get(`articles/${id}`)
+            var response
+            if(window.TOKEN === null)
+            {
+                response = await apiRequest.get(`articles/${id}`)
+            }else{
+                response = await apiRequest.get(`articles/${id}`,
+                    {
+                        headers: {
+                        "Authorization":`Bearer ${window.TOKEN}`
+                    }
+                })
+            }
+
+            //const response = await apiRequest.get(`articles/${id}`)
             //const item = response.data.data
             //item.likesCount = item.likesCount | 0
             const [item] = [response.data.data].map((structuredItem) => ({
@@ -28,7 +41,7 @@ const actions = {
                 imageUrl: structuredItem.image,
                 createTime: structuredItem.createTime || "0000-00-00 00:00:00",
                 userName: structuredItem.author.name,
-                userAvatarUrl: structuredItem.author.avatar,
+                userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
                 isLiked: structuredItem.isLiked
             }));
@@ -52,7 +65,7 @@ const actions = {
                 id: structuredItem.id,
                 content: structuredItem.content,
                 userName: structuredItem.author.name,
-                userAvatarUrl:structuredItem.author.avatar,
+                userAvatarUrl:structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff'
             }));
             

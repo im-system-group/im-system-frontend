@@ -353,7 +353,7 @@ img {
 .article-comments {
   font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
   width: 100%;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .article-comment-container {

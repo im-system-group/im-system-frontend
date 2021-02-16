@@ -45,7 +45,8 @@
 			"email": "メールアドレスを入力してください"
 		},
 		"done": "送出しました",
-		"successs": "登録完了!"
+		"successs": "登録完了!",
+		"success": "Send success!"
 	},
 	"register": {
 		"title": "登録",
@@ -55,7 +56,8 @@
 			"name": "お名前を入力してください",
 			"email": "メールアドレスを入力してください"
 		},
-		"done": "送出しました"
+		"done": "送出しました",
+		"success": "Registration success!"
 	},
 	"profile": {
         "title": "プロフィール",

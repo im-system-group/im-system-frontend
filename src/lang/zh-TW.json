@@ -44,7 +44,8 @@
       "account": "請輸入帳號",
       "email": "請輸入Email"
     },
-    "done": "送出"
+    "done": "送出",
+    "success": "寄送成功！"
   },
   "register": {
 		"title": "註冊",
@@ -55,7 +56,7 @@
 			"email": "請輸入Email"
 		},
 		"done": "送出",
-    "successs": "註冊成功！"
+    "success": "註冊成功！"
 	},
   "profile": {
     "title": "個人資料",

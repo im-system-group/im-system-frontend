@@ -13,7 +13,7 @@ const getters = {
 const actions = {
     async loadItem({ commit }) {
         try {
-            console.log("test")
+            //console.log("test")
             commit('set', { isItemLoading: true, isItemLoaded: false })
             const response = await apiRequest.get(
                 `member`,
@@ -29,7 +29,7 @@ const actions = {
                 name: structuredItem.name,
                 email: structuredItem.email,
                 account: structuredItem.account,
-                avatarUrl: structuredItem.avatar,
+                avatarUrl: structuredItem.avatar || '/img/def_picture.jpg',
                 color: structuredItem.color || "#FFF",
                 password: structuredItem.password || ""
             }));
