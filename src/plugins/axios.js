@@ -9,7 +9,7 @@ import axios from "axios";
 
 let config = {
 	// baseURL: process.env.baseURL || process.env.apiUrl || ""
-	baseURL: 'https://imsystem.site/api',
+	baseURL: 'https://api.imsystem.site/',
 	//baseURL: 'http://localhost:3000',
 	timeout: 300 * 1000, // Timeout
 	//withCredentials: true, // Check cross-site Access-Control
