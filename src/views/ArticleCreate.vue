@@ -27,8 +27,11 @@ export default {
     },
   },
   async updated() {
+    console.log('load updated')
     if (!this.isProfileLoaded) {
+      console.log('load Profile')
       await this.loadProfile();
+      console.log('load Profile Complte')
     }
  
     if (!this.profile) {
@@ -36,6 +39,7 @@ export default {
     }
   },
   mounted() {
+    console.log('load mounted')
     this.$forceUpdate();
   },
 };

@@ -79,7 +79,7 @@ const actions = {
             
             console.log(response)
 
-            if (item.isLiked) {//TODO:需要改成驗status，204為成功
+            if (item.isLiked) {
                 commit('likeItem', { id, like: -1 })
             }
             else {
@@ -108,7 +108,6 @@ const actions = {
         }
 
         try {
-            /* const response =  */
             await apiRequest.post(
                 "articles",
                 formData,

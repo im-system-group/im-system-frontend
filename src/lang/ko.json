@@ -68,6 +68,11 @@
 			"confirmPassword": "Input again new password"
 		},
 		"done": "DONE",
+		"logout": {
+			"text": "Logout",
+			"success": "Logout Successfully!",
+			"fail": "Logout Fail!"
+		},
 		"update": {
 			"success": "Updated Successfully!",
 			"fail": "Updated Fail!"

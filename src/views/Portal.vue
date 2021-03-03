@@ -1,25 +1,40 @@
 <template>
   <div class="portal">
-    <header>{{ $t('portal.header.title')}}</header>
+    <header>{{ $t("portal.header.title") }}</header>
     <main>
       <form @submit.prevent>
-        <div class="choose-version-hint">{{ $t('portal.main.chooseUi')}}</div>
+        <div class="choose-version-hint">{{ $t("portal.main.chooseUi") }}</div>
         <div class="choose-version">
-          <input type="radio" name="version" id="version-2.4" value="2.4" v-model="version" />
+          <input
+            type="radio"
+            name="version"
+            id="version-2.4"
+            value="2.4"
+            v-model="version"
+          />
 
           <label class="version" for="version-2.4">
             <img src="/img/portal-images/ui-2.4.jpg" />
             <div class="version-text">Ver 2.4</div>
           </label>
 
-          <input type="radio" name="version" id="version-3.0" value="3.0" v-model="version" checked />
+          <input
+            type="radio"
+            name="version"
+            id="version-3.0"
+            value="3.0"
+            v-model="version"
+            checked
+          />
 
           <label class="version" for="version-3.0">
             <img src="/img/portal-images/ui-3.0.jpg" />
             <div class="version-text">Ver 3.0</div>
           </label>
         </div>
-        <div class="choose-language-hint">{{ $t('portal.main.chooseLang')}}</div>
+        <div class="choose-language-hint">
+          {{ $t("portal.main.chooseLang") }}
+        </div>
         <div class="choose-language">
           <input
             type="radio"
@@ -46,7 +61,6 @@
             value="jp"
             v-model="language"
             v-on:change="setLang('jp')"
-            
           />
           <label class="language" for="language-jp">JP</label>
           <input
@@ -56,96 +70,140 @@
             value="ko"
             v-model="language"
             v-on:change="setLang('ko')"
-            
           />
           <label class="language" for="language-ko">KR</label>
         </div>
-        <div style="text-align: center;">
-          <input type="submit" :value="$t('portal.main.forgotPassword')" @click="toForgotPassword" style="width: 120px;" />
-          <input type="submit" :value="$t('portal.main.register')" @click="toRegister" />
-          <input type="submit" :value="$t('portal.main.fullScreen')" @click="openFullScreen" style="width: 120px;" />
-          <input type="submit" :value="$t('portal.main.submit')" @click="toLogin" />
+        <div style="text-align: center">
+          <input
+            type="submit"
+            :value="$t('portal.main.forgotPassword')"
+            @click="toForgotPassword"
+            style="width: 120px"
+          />
+          <input
+            type="submit"
+            :value="$t('portal.main.register')"
+            @click="toRegister"
+          />
+          <input
+            type="submit"
+            :value="$t('portal.main.fullScreen')"
+            @click="openFullScreen"
+            style="width: 120px"
+          />
+          <input
+            type="submit"
+            :value="$t('portal.main.submit')"
+            @click="toLogin"
+          />
         </div>
       </form>
     </main>
     <section id="donation">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">{{ $t('portal.donation.title')}}</h1>
-      <div style="max-width: 800px; margin: 10px auto; text-align: justify;">
-        <p>{{ $t('portal.donation.text1')}}</p>
-        <p>{{ $t('portal.donation.text2')}}</p>
-        <p>{{ $t('portal.donation.text3')}}</p>
+      <h1 style="text-align: center">{{ $t("portal.donation.title") }}</h1>
+      <div style="max-width: 800px; margin: 10px auto; text-align: justify">
+        <p>{{ $t("portal.donation.text1") }}</p>
+        <p>{{ $t("portal.donation.text2") }}</p>
+        <p>{{ $t("portal.donation.text3") }}</p>
       </div>
       <div class="choose-donation-method">
         <form
           action="https://www.paypal.com/cgi-bin/webscr"
           method="POST"
           target="_blank"
-          style="display: none;"
+          style="display: none"
         >
           <input type="hidden" name="cmd" value="_s-xclick" />
           <input type="hidden" name="hosted_button_id" value="84BK9N65GKEQQ" />
           <input type="submit" value="PayPal" id="go-to-paypal" />
         </form>
         <label class="donation-method" for="go-to-paypal">Paypal</label>
-        <a class="donation-method" href="https://p.ecpay.com.tw/AA969D4" target="_blank">ECPay</a>
+        <a
+          class="donation-method"
+          href="https://p.ecpay.com.tw/AA969D4"
+          target="_blank"
+          >ECPay</a
+        >
       </div>
-      <div style="color: #fbfbfb; text-align: center">0342 1788 7449 3263 2514 0108 7245 0730</div>
+      <div style="color: #fbfbfb; text-align: center">
+        0342 1788 7449 3263 2514 0108 7245 0730
+      </div>
     </section>
     <section id="stat-of-2nd-creation">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">{{ $t('portal.creation.title')}}</h1>
-      <div style="max-width: 800px; margin: 10px auto;">
-        <p>{{ $t('portal.creation.text1')}}</p>
-        <span style="display: flex; align-items: center; justify-content: center;">
+      <h1 style="text-align: center">{{ $t("portal.creation.title") }}</h1>
+      <div style="max-width: 800px; margin: 10px auto">
+        <p>{{ $t("portal.creation.text1") }}</p>
+        <span
+          style="display: flex; align-items: center; justify-content: center"
+        >
           <a
             rel="license"
             href="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/"
             target="_blank"
-            style="display: block; margin-right: 10px;"
+            style="display: block; margin-right: 10px"
           >
             <img
               src="https://i.creativecommons.org/l/by-nc-sa/3.0/tw/88x31.png"
-              style="display: block;"
+              style="display: block"
             />
           </a>
-          {{ $t('portal.creation.text2')}}
+          {{ $t("portal.creation.text2") }}
         </span>
         <p>
-          {{ $t('portal.creation.text3')}}
+          {{ $t("portal.creation.text3") }}
           <a href="https://www.rayark.com/" target="_blank">www.rayark.com</a>
         </p>
       </div>
     </section>
     <section id="about-us">
       <a class="section-close" href="#"></a>
-      <h1 style="text-align: center;">{{ $t('portal.aboutUs.title')}}</h1>
-      <div style="max-width: 800px; margin: 10px auto;">
-        <p>{{ $t('portal.aboutUs.text')}}</p>
+      <h1 style="text-align: center">{{ $t("portal.aboutUs.title") }}</h1>
+      <div style="max-width: 800px; margin: 10px auto">
+        <p>{{ $t("portal.aboutUs.text") }}</p>
         <p>
           Github：
-          <a
-            href="https://github.com/im-system-group"
-            target="_blank"
-          >https://github.com/im-system-group</a>
-        </p>Email：admin@imsystem.site
+          <a href="https://github.com/im-system-group" target="_blank"
+            >https://github.com/im-system-group</a
+          >
+        </p>
+        Email：admin@imsystem.site
         <hr />
 
-        <p>{{ $t('portal.aboutUs.convener')}}：紅茶</p>
+        <p>{{ $t("portal.aboutUs.convener") }}：紅茶</p>
         <div class="media-button-div">
           <div
-            style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 200px;
+            "
           >
             <img src="/img/portal-images/im-group/01.png" width="200" />
           </div>
           <div class="media-button-container">
-            <a class="media-button" href="https://twitter.com/a5768549" target="_blank">
+            <a
+              class="media-button"
+              href="https://twitter.com/a5768549"
+              target="_blank"
+            >
               <i class="fab fa-twitter fa-2x"></i>a5768549
             </a>
-            <a class="media-button" href="https://www.facebook.com/a5768549" target="_blank">
+            <a
+              class="media-button"
+              href="https://www.facebook.com/a5768549"
+              target="_blank"
+            >
               <i class="fab fa-facebook fa-2x"></i>a5768549
             </a>
-            <a class="media-button" href="https://github.com/a5768549" target="_blank">
+            <a
+              class="media-button"
+              href="https://github.com/a5768549"
+              target="_blank"
+            >
               <i class="fab fa-github fa-2x"></i>a5768549
             </a>
             <div class="media-button-fill"></div>
@@ -155,24 +213,46 @@
 
         <hr />
 
-        <p>{{ $t('portal.aboutUs.frontEnd')}}：fixiabis</p>
+        <p>{{ $t("portal.aboutUs.frontEnd") }}：fixiabis</p>
         <div class="media-button-div">
           <div
-            style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 200px;
+            "
           >
             <img src="/img/portal-images/im-group/02.jpg" width="200" />
           </div>
           <div class="media-button-container">
-            <a class="media-button" href="https://twitter.com/fixiabis" target="_blank">
+            <a
+              class="media-button"
+              href="https://twitter.com/fixiabis"
+              target="_blank"
+            >
               <i class="fab fa-twitter fa-2x"></i>fixiabis
             </a>
-            <a class="media-button" href="https://www.facebook.com/Fixiabis" target="_blank">
+            <a
+              class="media-button"
+              href="https://www.facebook.com/Fixiabis"
+              target="_blank"
+            >
               <i class="fab fa-facebook fa-2x"></i>fixiabis
             </a>
-            <a class="media-button" href="https://github.com/fixiabis" target="_blank">
+            <a
+              class="media-button"
+              href="https://github.com/fixiabis"
+              target="_blank"
+            >
               <i class="fab fa-github fa-2x"></i>fixiabis
             </a>
-            <a class="media-button" href="https://www.linkedin.com/in/fixiabis/" target="_blank">
+            <a
+              class="media-button"
+              href="https://www.linkedin.com/in/fixiabis/"
+              target="_blank"
+            >
               <i class="fab fa-linkedin fa-2x"></i>fixiabis
             </a>
             <div class="media-button-fill"></div>
@@ -183,21 +263,39 @@
 
         <hr />
 
-        <p>{{ $t('portal.aboutUs.frontEnd')}}：SnowFireWolf</p>
+        <p>{{ $t("portal.aboutUs.frontEnd") }}：SnowFireWolf</p>
         <div class="media-button-div">
           <div
-            style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 200px;
+            "
           >
             <img src="/img/portal-images/im-group/03.jpg" width="200" />
           </div>
           <div class="media-button-container">
-            <a class="media-button" href="https://twitter.com/SnowFireWolf" target="_blank">
+            <a
+              class="media-button"
+              href="https://twitter.com/SnowFireWolf"
+              target="_blank"
+            >
               <i class="fab fa-twitter fa-2x"></i>SnowFireWolf
             </a>
-            <a class="media-button" href="https://www.facebook.com/SnowFireWolf" target="_blank">
+            <a
+              class="media-button"
+              href="https://www.facebook.com/SnowFireWolf"
+              target="_blank"
+            >
               <i class="fab fa-facebook fa-2x"></i>SnowFireWolf
             </a>
-            <a class="media-button" href="https://github.com/SnowFireWolf" target="_blank">
+            <a
+              class="media-button"
+              href="https://github.com/SnowFireWolf"
+              target="_blank"
+            >
               <i class="fab fa-github fa-2x"></i>SnowFireWolf
             </a>
             <div class="media-button-fill"></div>
@@ -208,10 +306,16 @@
 
         <hr />
 
-        <p>{{ $t('portal.aboutUs.backEnd')}}：a831123c</p>
+        <p>{{ $t("portal.aboutUs.backEnd") }}：a831123c</p>
         <div class="media-button-div">
           <div
-            style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 200px;
+            "
           >
             <img src="/img/portal-images/im-group/04.jpg" width="200" />
           </div>
@@ -223,7 +327,11 @@
             >
               <i class="fab fa-facebook fa-2x"></i>許家瑋
             </a>
-            <a class="media-button" href="https://github.com/a831123c" target="_blank">
+            <a
+              class="media-button"
+              href="https://github.com/a831123c"
+              target="_blank"
+            >
               <i class="fab fa-github fa-2x"></i>a831123c
             </a>
             <div class="media-button-fill"></div>
@@ -234,15 +342,25 @@
 
         <hr />
 
-        <p>{{ $t('portal.aboutUs.japaneseTranslator')}}：ナナナ</p>
+        <p>{{ $t("portal.aboutUs.japaneseTranslator") }}：ナナナ</p>
         <div class="media-button-div">
           <div
-            style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 200px;
+              height: 200px;
+            "
           >
             <img src="/img/portal-images/im-group/05.jpg" width="200" />
           </div>
           <div class="media-button-container">
-            <a class="media-button" href="https://twitter.com/Nanananananauw" target="_blank">
+            <a
+              class="media-button"
+              href="https://twitter.com/Nanananananauw"
+              target="_blank"
+            >
               <i class="fab fa-twitter fa-2x"></i>ナナナ Σ:3
             </a>
             <a
@@ -261,15 +379,17 @@
       <nav>
         <ul>
           <li>
-            <a href="#donation">{{ $t('portal.footer.donation')}}</a>
+            <a href="#donation">{{ $t("portal.footer.donation") }}</a>
           </li>
           <li>
-            <a href="#stat-of-2nd-creation">{{ $t('portal.footer.creation')}}</a>
+            <a href="#stat-of-2nd-creation">{{
+              $t("portal.footer.creation")
+            }}</a>
           </li>
           <li>
-            <a href="#about-us">{{ $t('portal.footer.aboutUs')}}</a>
+            <a href="#about-us">{{ $t("portal.footer.aboutUs") }}</a>
           </li>
-          <li style="color: #444;">v1.3.8</li>
+          <li style="color: #444">v1.3.8</li>
         </ul>
       </nav>
     </footer>
@@ -277,17 +397,17 @@
 </template>
 
 <script>
+import { /*mapState,*/ mapActions /* , mapMutations */ } from "vuex";
+
 export default {
   data: () => ({
     version: "3.0",
-    language: localStorage.getItem('footmark-lang') || 'zh',
+    language: localStorage.getItem("footmark-lang") || "zh",
   }),
   methods: {
-    
+    ...mapActions("profile", ["loadItem"]),
     toLogin() {
-      this.$router.push(
-        `/login?version=${this.version}`
-      );
+      this.$router.push(`/login?version=${this.version}`);
     },
     toRegister() {
       this.$router.push("/register");
@@ -308,24 +428,14 @@ export default {
         view.webkitRequestFullscreen();
       }
     },
-    setLang (value) {
-      //this.$store.commit('setLang', value);
+    setLang(value) {
       this.$i18n.locale = value;
-      localStorage.setItem('footmark-lang', value);
-      //console.log(this.$i18n.locale)
+      localStorage.setItem("footmark-lang", value);
     },
   },
-  mounted() {
-    /*var disabledRadioInputViews = [
-      ...document.querySelectorAll("input[type=radio][disabled]+*"),
-    ];*/
 
-    /*disabledRadioInputViews.forEach((disabledRadioInputView) =>
-      disabledRadioInputView.addEventListener("click", () =>
-        alert("Coming Soon!")
-      )
-    );*/
-    this.$i18n.locale = localStorage.getItem('footmark-lang') || 'zh';
+  async mounted() {
+    this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh";
 
     if (window.innerWidth < window.innerHeight) {
       var element = document.createElement("div");
@@ -333,6 +443,21 @@ export default {
       document.body.append(element);
       element.onclick = () => element.remove();
       setTimeout(element.onclick, 3 * 1000);
+    }
+
+    try {
+      const response = await this.loadItem();
+      if(response)
+      {
+        //alert(this.$t("已登入"));
+        this.$router.push("/articles");
+      }else{
+        //alert('未登入')
+      }
+      
+    } catch (err) {
+      alert('error')
+      //alert(this.$t("profile.update.fail"));
     }
   },
 };
@@ -381,7 +506,7 @@ body > .rotate-hint::after {
   max-height: 100vh;
   max-width: -webkit-fill-available;
   max-height: -webkit-fill-available;
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   background-color: #fff;
 }
 
@@ -391,7 +516,8 @@ header {
   height: 60px;
   line-height: 60px;
   text-align: center;
-  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
 }
 
 main {
@@ -468,7 +594,8 @@ section:target ~ section {
 }
 
 .version {
-  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   font-size: 26px;
   color: #fefefe;
   cursor: pointer;
@@ -549,7 +676,8 @@ input[type="radio"]:checked + .language {
 }
 
 .donation-method {
-  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   font-size: 26px;
   color: #fefefe;
   cursor: pointer;
@@ -573,7 +701,8 @@ input[type="radio"]:checked + .language {
 }
 
 .donation-method * {
-  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   position: absolute;
   font-size: 26px;
   top: 0;
@@ -669,7 +798,8 @@ input[type="submit"]:active {
   text-align: center;
   border-radius: 2px;
   line-height: 50px;
-  font-family: "Electrolize", "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   cursor: pointer;
   transition: all 0.5s;
   display: flex;

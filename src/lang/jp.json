@@ -69,6 +69,11 @@
 			"confirmPassword": "もう一度新パスワードを入力してください"
 		},
 		"done": "送出しました",
+		"logout": {
+			"text": "Logout",
+			"success": "Logout Successfully!",
+			"fail": "Logout Fail!"
+		},
 		"update": {
 			"success": "アップデートに成功しました！",
 			"fail": "アップデート失敗しました！"

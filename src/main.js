@@ -12,13 +12,6 @@ Vue.config.productionTip = false
 //window.axios.defaults.withCredentials = true;
 Vue.use(components)
 
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App)
-}).$mount('#app')
-
 //cookie global setting
 Object.defineProperty(window, 'TOKEN', {
   get: ()=> localStorage.getItem('token'),
@@ -29,3 +22,10 @@ Object.defineProperty(window, 'memberId', {
   get: ()=> localStorage.getItem('memberId'),
   set: (memberId) => localStorage.setItem('memberId', memberId)
 });
+
+new Vue({
+  router,
+  store,
+  i18n,
+  render: h => h(App)
+}).$mount('#app')

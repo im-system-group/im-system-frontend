@@ -24,6 +24,9 @@
           <span v-if="loading" class="blink">LOADING...</span>
           <span v-else>{{ $t('profile.done')}}</span>
         </div>
+        <div class="profile-done-button" @click="$emit('logout')">
+          <span>{{ $t('profile.logout.text')}}</span>
+        </div>
       </div>
       <div class="profile-bottom-border"></div>
     </div>
@@ -40,13 +43,12 @@ export default {
     newAvatarUrl: "",
     fileChangeHandler: null,
   }),
-  name: "profile",
-  props: ["name", "email", "avatarUrl", "color"],
   methods: {
     update() {
       if(this.loading === false)
       {
-        this.loading = true
+        this.loading = true;
+
         this.$emit("update", {
           name: this.name,
           email: this.email,
@@ -57,6 +59,8 @@ export default {
       }
     },
   },
+  name: "profile",
+  props: ["name", "email", "avatarUrl", "color"],
   mounted() {
     this.$refs.imageFile.addEventListener(
       "change",

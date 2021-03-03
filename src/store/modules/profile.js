@@ -14,7 +14,9 @@ const actions = {
     async loadItem({ commit }) {
         try {
             //console.log("test")
+            console.log('load loadItem')
             commit('set', { isItemLoading: true, isItemLoaded: false })
+            console.log('load loadItem set commit')
             const response = await apiRequest.get(
                 `member`,
                 {
@@ -23,9 +25,10 @@ const actions = {
                     },
                 }
             )
+            console.log('load loadItem post')
             //const item = response.data.data
             const [item] = [response.data.data].map((structuredItem) => ({
-                id:structuredItem.id,
+                id: structuredItem.id,
                 name: structuredItem.name,
                 email: structuredItem.email,
                 account: structuredItem.account,
@@ -33,33 +36,28 @@ const actions = {
                 color: structuredItem.color || "#FFF",
                 password: structuredItem.password || ""
             }));
-            
+
             //console.log(item.memberId)
             //window.memberId = item.id
-            
+
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
+            console.log('load loadItem set another commit')
+            return true
         }
         catch (err) {
             console.log(err)
+            return false
         }
     },
     async login({ commit }, { account, password }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false })
-            /*const getToken = await apiRequest.get(`sanctum/csrf-cookie`,{
-                withCredentials: true,
-                headers: {
-                    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-                    'Access-Control-Allow-Origin': 'http://220.135.99.236:8081',
-                    'Access-Control-Allow-Credentials': 'true'
-                }
-            })
-            console.log(getToken.headers)*/
+
             const response = await apiRequest.post(
                 `login`,
                 Object.entries({
-                  account:account,
-                  password:password,
+                    account: account,
+                    password: password,
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
@@ -73,7 +71,7 @@ const actions = {
             // item.avatarUrl = item.avatarUrl.replace("..", "https://imsystem.site")
 
             commit('set', { item, isItemLoading: false, isItemLoaded: false })
-            
+
             getMemberId()
 
         }
@@ -82,17 +80,36 @@ const actions = {
             commit('set', { isItemLoading: false, isItemLoaded: false })
         }
     },
+    async logout() {
+        try {
+            //commit('set', { isItemLoading: true, isItemLoaded: false })
+            const response = await apiRequest.delete(
+                `logout`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${window.TOKEN}`
+                    },
+                }
+            )
+            console.log(response)
+            localStorage.clear('token')
+            localStorage.clear('memberId')
+        }
+        catch (err) {
+            console.log(err)
+        }
+    },
     async updateItem({ commit }, { name, email, password, newPassword, imageFile }) {
         try {
             //name = encodeURI(name);
             //email = encodeURI(email);
-            
+
             await apiRequest.post(
                 `member/${window.memberId}`,
                 Object.entries({
-                    name:name,
-                    email:email,
-                    _method:'PATCH',
+                    name: name,
+                    email: email,
+                    _method: 'PATCH',
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
@@ -116,10 +133,10 @@ const actions = {
                 await apiRequest.post(
                     "password-reset",
                     Object.entries({
-                        old_password:encodeURI(password),
-                        password:encodeURI(newPassword),
-                        confirm_password:encodeURI(newPassword),
-                        _method:'PATCH',
+                        old_password: encodeURI(password),
+                        password: encodeURI(newPassword),
+                        confirm_password: encodeURI(newPassword),
+                        _method: 'PATCH',
                     }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                     {
                         headers: {
@@ -134,10 +151,10 @@ const actions = {
                 const response = await apiRequest.post(
                     `member/${window.memberId}`,
                     Object.entries({
-                        name:name,
-                        email:email,
-                        avatar:imageFile,
-                        _method:'PATCH',
+                        name: name,
+                        email: email,
+                        avatar: imageFile,
+                        _method: 'PATCH',
                     }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                     {
                         headers: {
@@ -165,10 +182,10 @@ const actions = {
         return apiRequest.post(
             "register",
             Object.entries({
-                account:account,
-                password:password,
-                name:name,
-                email:email
+                account: account,
+                password: password,
+                name: name,
+                email: email
             }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
             {
                 headers: {
@@ -184,8 +201,8 @@ const actions = {
         return apiRequest.post(
             "forgot-password",
             Object.entries({
-                account:account,
-                email:email
+                account: account,
+                email: email
             }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
             {
                 headers: {

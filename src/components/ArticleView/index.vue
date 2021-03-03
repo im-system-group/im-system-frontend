@@ -19,6 +19,8 @@
 
         <div class="article-title" v-html="article.title" />
 
+        <!-- <div class="scale-click edit-button" @click="$emit('edit')" /> -->
+
         <div :class="{ 'article-likes': true, 'active': article.isLiked }">
           <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
             <span class="mdi mdi-thumb-up"></span>
@@ -151,6 +153,12 @@ export default {
 .status-button {
   background-image: url(/img/article-images/status_button.svg);
   right: 15px;
+}
+
+.edit-button {
+  background-image: url(/img/article-images/edit_button.svg);
+  right: 500px;
+  left:unset;
 }
 </style>
 
