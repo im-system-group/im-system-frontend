@@ -4,8 +4,8 @@ const i18n = {
     },
     mutations: {
         // 切換語系設定
-        setLang (state, value) {
-          state.lang = value;
+        setLang(state, value) {
+            state.lang = value;
         }
     },
     actions: {},

@@ -4,19 +4,35 @@
       <div class="register-top-border"></div>
       <div class="register-header">
         <strong>&lt;</strong>
-        {{ $t('register.title')}}
+        {{ $t("register.title") }}
         <strong>&gt;</strong>
       </div>
       <div class="register-content-form-container">
         <div tabindex="0" class="register-content-form">
-          <input type="text" :placeholder="$t('register.form.account')" v-model="account" />
-          <input type="password" :placeholder="$t('register.form.password')" v-model="password" />
-          <input type="text" :placeholder="$t('register.form.name')" v-model="name" />
-          <input type="text" :placeholder="$t('register.form.email')" v-model="email" />
+          <input
+            type="text"
+            :placeholder="$t('register.form.account')"
+            v-model="account"
+          />
+          <input
+            type="password"
+            :placeholder="$t('register.form.password')"
+            v-model="password"
+          />
+          <input
+            type="text"
+            :placeholder="$t('register.form.name')"
+            v-model="name"
+          />
+          <input
+            type="text"
+            :placeholder="$t('register.form.email')"
+            v-model="email"
+          />
         </div>
         <div class="register-done-button" @click="create">
           <span v-if="loading" class="blink">LOADING...</span>
-          <span v-else>{{ $t('register.done')}}</span>
+          <span v-else>{{ $t("register.done") }}</span>
         </div>
       </div>
       <div class="register-bottom-border"></div>
@@ -39,8 +55,7 @@ export default {
   methods: {
     ...mapActions("profile", ["createItem"]),
     async create() {
-      if(this.loading === false)
-      {
+      if (this.loading === false) {
         this.loading = true;
         this.createItem({
           account: this.account,
@@ -49,9 +64,8 @@ export default {
           email: this.email,
         })
           .then((response) => {
-            if(response.status === 201)
-            {
-              alert(this.$t('register.success'));
+            if (response.status === 201) {
+              alert(this.$t("register.success"));
             }
             this.$router.push("/");
           })
@@ -59,7 +73,7 @@ export default {
             alert(response);
             this.$router.push("/");
           });
-        }
+      }
     },
   },
   mounted() {},
@@ -131,7 +145,7 @@ export default {
 .register-header {
   user-select: none;
   font-size: 22px;
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   font-weight: 100;
   color: #fff;
   height: 40px;
@@ -211,7 +225,7 @@ export default {
 .register-done-button {
   cursor: pointer;
   user-select: none;
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   margin: 0px auto;
   color: rgba(255, 255, 255, 0.4);
   border: 2px rgba(255, 255, 255, 0.4) solid;

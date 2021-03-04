@@ -5,7 +5,7 @@
         class="article-less-info"
         v-for="article in $props.articles"
         :key="article.id"
-        @click="$emit('ahead', article.id)"
+        @click="!article.isDeleted && $emit('ahead', article.id)"
       >
         <div class="article-poster">
           <div
@@ -23,12 +23,19 @@
         <div class="article-top-border" />
 
         <div class="article-title">
-          <div class="article-title-image" v-if="article.imageUrl" :style="`background-image: url('${article.imageUrl}');`"></div>
-          <div class="article-title-text" v-html="article.title"/>
+          <div
+            class="article-title-image"
+            v-if="article.imageUrl"
+            :style="`background-image: url('${article.imageUrl}');`"
+          ></div>
+          <div class="article-title-text" v-html="article.title" />
         </div>
 
-        <div :class="{ 'article-likes': true, 'active': article.isLiked }">
-          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
+        <div :class="{ 'article-likes': true, active: article.isLiked }">
+          <div
+            class="article-like-thumb-container"
+            @click.stop="$emit('like', article.id)"
+          >
             <span class="mdi mdi-thumb-up"></span>
           </div>
           <div class="article-likes-count" v-text="article.likesCount" />
@@ -170,7 +177,8 @@ main {
   color: #fff;
   text-align: center;
   font-size: 12.5px;
-  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   width: 81px;
   height: 18px;
   overflow: hidden;
@@ -181,7 +189,7 @@ main {
   cursor: pointer;
   font-size: 23px;
   letter-spacing: 0.25px;
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   margin-left: 6px;
   width: calc(100% - 106px - 141px);
   line-height: 95px;
@@ -256,7 +264,8 @@ main {
 
 .article-likes-count {
   font-size: 18.5px;
-  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   color: rgb(140, 228, 230);
   text-shadow: 0px 4px rgba(140, 228, 230, 0.2);
 }

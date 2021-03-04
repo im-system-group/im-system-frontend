@@ -2,7 +2,8 @@
 
 import { register } from 'register-service-worker'
 
-if (process.env.NODE_ENV === 'production') {
+//console.log(process.env.NODE_ENV)
+if (process.env.NODE_ENV === 'development') {
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready () {
       console.log(

@@ -379,7 +379,9 @@
       <nav>
         <ul>
           <li>
-            <a href="#donation">{{ $t("portal.footer.donation") }}</a>
+            <a v-if="mobile" id="donation" href="#donation">{{
+              $t("portal.footer.donation")
+            }}</a>
           </li>
           <li>
             <a href="#stat-of-2nd-creation">{{
@@ -401,6 +403,7 @@ import { /*mapState,*/ mapActions /* , mapMutations */ } from "vuex";
 
 export default {
   data: () => ({
+    mobile: false,
     version: "3.0",
     language: localStorage.getItem("footmark-lang") || "zh",
   }),
@@ -437,6 +440,14 @@ export default {
   async mounted() {
     this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh";
 
+    try {
+      document.createEvent("TouchEvent");
+      this.mobile = false;
+    } catch (e) {
+      this.mobile = true;
+      return false;
+    }
+
     if (window.innerWidth < window.innerHeight) {
       var element = document.createElement("div");
       element.className = "rotate-hint";
@@ -447,16 +458,14 @@ export default {
 
     try {
       const response = await this.loadItem();
-      if(response)
-      {
+      if (response) {
         //alert(this.$t("已登入"));
         this.$router.push("/articles");
-      }else{
+      } else {
         //alert('未登入')
       }
-      
     } catch (err) {
-      alert('error')
+      alert("error");
       //alert(this.$t("profile.update.fail"));
     }
   },

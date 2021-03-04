@@ -13,10 +13,7 @@ const getters = {
 const actions = {
     async loadItem({ commit }) {
         try {
-            //console.log("test")
-            console.log('load loadItem')
             commit('set', { isItemLoading: true, isItemLoaded: false })
-            console.log('load loadItem set commit')
             const response = await apiRequest.get(
                 `member`,
                 {
@@ -25,8 +22,6 @@ const actions = {
                     },
                 }
             )
-            console.log('load loadItem post')
-            //const item = response.data.data
             const [item] = [response.data.data].map((structuredItem) => ({
                 id: structuredItem.id,
                 name: structuredItem.name,
@@ -37,11 +32,7 @@ const actions = {
                 password: structuredItem.password || ""
             }));
 
-            //console.log(item.memberId)
-            //window.memberId = item.id
-
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
-            console.log('load loadItem set another commit')
             return true
         }
         catch (err) {
@@ -68,7 +59,6 @@ const actions = {
 
             const item = response.data.data
             window.TOKEN = item.token
-            // item.avatarUrl = item.avatarUrl.replace("..", "https://imsystem.site")
 
             commit('set', { item, isItemLoading: false, isItemLoaded: false })
 
@@ -101,9 +91,6 @@ const actions = {
     },
     async updateItem({ commit }, { name, email, password, newPassword, imageFile }) {
         try {
-            //name = encodeURI(name);
-            //email = encodeURI(email);
-
             await apiRequest.post(
                 `member/${window.memberId}`,
                 Object.entries({
@@ -119,16 +106,10 @@ const actions = {
                 }
             );
 
-            //name = decodeURI(name);
-            //email = decodeURI(email);
-
             commit("set", { name, email });
             commit('set', { isItemLoading: false, isItemLoaded: false })
 
             if (password || newPassword) {
-                //password = encodeURI(password);
-                //newPassword = encodeURI(newPassword);
-
                 //TODO:前端畫面需要加上confirm的欄位
                 await apiRequest.post(
                     "password-reset",
@@ -174,11 +155,6 @@ const actions = {
         }
     },
     createItem(_, { name, email, account, password }) {
-        //name = encodeURI(name);
-        //email = encodeURI(email);
-        //account = encodeURI(account);
-        //password = encodeURI(password);
-
         return apiRequest.post(
             "register",
             Object.entries({
@@ -195,9 +171,6 @@ const actions = {
         );
     },
     createForgotPasswordRequest(_, { account, email }) {
-        //account = encodeURI(account);
-        //email = encodeURI(email);
-
         return apiRequest.post(
             "forgot-password",
             Object.entries({

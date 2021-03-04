@@ -19,6 +19,7 @@ body,
   max-width: -webkit-fill-available;
   max-height: -webkit-fill-available;
   margin: 0;
+  background-color: #153048;
 }
 
 #app {

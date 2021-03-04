@@ -20,22 +20,19 @@ const actions = {
 
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
-            //var response = ''
-            //var auth = ''
+
             var response
-            if(window.TOKEN === null)
-            {
+            if (window.TOKEN === null) {
                 response = await apiRequest.get(`articles?perPage=10&page=${page}`)
-            }else{
+            } else {
                 response = await apiRequest.get(`articles?perPage=10&page=${page}`,
                     {
                         headers: {
-                        "Authorization":`Bearer ${window.TOKEN}`
-                    }
-                })
+                            "Authorization": `Bearer ${window.TOKEN}`
+                        }
+                    })
             }
-            //var response = await apiRequest.get(`articles?perPage=10&page=${page}`)
-            
+
             const items = response.data.data.map((structuredItem) => ({
                 id: structuredItem.id,
                 title: structuredItem.title,
@@ -44,13 +41,15 @@ const actions = {
                 userName: structuredItem.author.name,
                 userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
-                isLiked: structuredItem.isLiked
+                isLiked: structuredItem.isLiked,
+                isDeleted: structuredItem.isDeleted
             }));
 
             items.forEach(item => {
                 item.likesCount = item.likesCount | 0;
-            //     item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
-            //     item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
+                if(item.isDeleted){
+                    item.title = '「此文章已被刪除」'
+                }
             })
 
             commit('pushItems', { items })
@@ -66,8 +65,8 @@ const actions = {
             const response = await apiRequest.post(
                 `articles/${id}/favorite`,
                 Object.entries({
-                    favorite:+!item.isLiked,
-                    _method:'PATCH',
+                    favorite: +!item.isLiked,
+                    _method: 'PATCH',
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
@@ -76,7 +75,7 @@ const actions = {
                     },
                 }
             );
-            
+
             console.log(response)
 
             if (item.isLiked) {
@@ -88,12 +87,11 @@ const actions = {
         }
         catch (err) {
             console.log(err)
-            
+
         }
     },
     async addItem({ commit }, { title, content, imageFile }) {
-        if(title === '' || content === '')
-        {
+        if (title === '' || content === '') {
             alert('請輸入內容')
             return
         }
@@ -126,7 +124,6 @@ const actions = {
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
             const response = await apiRequest.get(`articles?perPage=1&page=1`)
-            //const items = response.data.data;
 
             const items = response.data.data.map((structuredItem) => ({
                 id: structuredItem.id,
@@ -141,8 +138,6 @@ const actions = {
 
             items.forEach(item => {
                 item.likesCount = item.likesCount | 0
-            //     item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
-            //     item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
             })
 
             commit('unshiftItems', { items })

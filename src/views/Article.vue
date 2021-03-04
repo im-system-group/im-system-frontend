@@ -6,6 +6,8 @@
     :user="profile"
     @like="likeArticle"
     @back="$router.push('/articles')"
+    @del="deleteArticle"
+    @edit="editArticle"
     @add-comment="addArticleComment"
   />
 </template>
@@ -16,6 +18,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data: () => ({
     user: {},
+    login: false,
   }),
   computed: {
     ...mapState("article", [
@@ -41,6 +44,8 @@ export default {
     ...mapMutations("article", ["set"]),
     ...mapActions("profile", {
       loadProfile: "loadItem",
+      delArticle: "delArticle",
+      editArticle: "editArticle",
     }),
     addArticleComment(content) {
       const { id } = this.$route.params;
@@ -49,6 +54,18 @@ export default {
     likeArticle() {
       const { id } = this.$route.params;
       this.likeItem({ id });
+    },
+    deleteArticle() {
+      var _confirm = confirm("確定要刪除嗎？");
+      if (_confirm) {
+        const { id } = this.$route.params;
+        this.delArticle({ id });
+        this.$router.push("/articles");
+      }
+    },
+    editArticle() {
+      const { id } = this.$route.params;
+      this.editArticle({ id });
     },
   },
   async mounted() {

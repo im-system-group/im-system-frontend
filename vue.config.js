@@ -8,12 +8,18 @@ module.exports = {
         manifestOptions: {
             background_color: '#3d403f',
             orientation: "landscape",
-            categories: "social",
             display: "fullscreen"
         },
         msTileColor: '#3d403f',
         assetsVersion: '0.020173',
         appleMobileWebAppCapable: 'yes',
+        workboxOptions: {
+            // swSrc is required in InjectManifest mode.
+            swSrc: 'src/service-worker.js',
+            importWorkboxFrom: 'disabled',
+            importScripts: 'https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js'
+            // ...other Workbox options...
+            },
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin

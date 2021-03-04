@@ -19,20 +19,29 @@
 
         <div class="article-title" v-html="article.title" />
 
-        <!-- <div class="scale-click edit-button" @click="$emit('edit')" /> -->
-
-        <div :class="{ 'article-likes': true, 'active': article.isLiked }">
-          <div class="article-like-thumb-container" @click.stop="$emit('like', article.id)">
+        <div :class="{ 'article-likes': true, active: article.isLiked }">
+          <div
+            class="article-like-thumb-container"
+            @click.stop="$emit('like', article.id)"
+          >
             <span class="mdi mdi-thumb-up"></span>
           </div>
           <div class="article-likes-count" v-text="article.likesCount" />
         </div>
       </div>
       <div class="article-content-and-comments-container">
-        <img v-if="article.imageUrl" :src="article.imageUrl" style="max-width: calc(100% - 186px); margin-bottom: 10px;" />
+        <img
+          v-if="article.imageUrl"
+          :src="article.imageUrl"
+          style="max-width: calc(100% - 186px); margin-bottom: 10px"
+        />
         <div class="article-content" v-html="article.content" />
         <div class="article-comments">
-          <div class="article-comment-container" v-for="comment in comments" :key="comment.id">
+          <div
+            class="article-comment-container"
+            v-for="comment in comments"
+            :key="comment.id"
+          >
             <div class="article-commenter">
               <div
                 class="article-commenter-avatar"
@@ -56,7 +65,9 @@
               />
             </div>
             <div class="article-comment">
-              <div class="article-commenter-name">{{ $t('article.youHint')}}</div>
+              <div class="article-commenter-name">
+                {{ $t("article.youHint") }}
+              </div>
               <textarea
                 class="article-comment-content"
                 ref="commentTextBox"
@@ -68,7 +79,9 @@
         </div>
       </div>
     </div>
+    <!-- <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" /> -->
     <div class="scale-click back-button" @click="$emit('back')" />
+    <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
   </main>
 </template>
 
@@ -76,7 +89,8 @@
 export default {
   data: () => ({
     handleCommentTextBoxKeyDown: null,
-    handleCommentTextBoxInput: null
+    handleCommentTextBoxInput: null,
+    login: false,
   }),
   name: "article-view",
   props: ["article", "comments", "user"],
@@ -97,9 +111,16 @@ export default {
       }
 
       if (!this.handleCommentTextBoxKeyDown) {
-        this.handleCommentTextBoxKeyDown = event => {
-          if (event.keyCode === 13 && this.$refs.commentTextBox.value.replace(/\n| |\t/g, "")) {
-            if (!event.shiftKey && this.$refs.commentTextBox.selectionEnd === this.$refs.commentTextBox.value.length) {
+        this.handleCommentTextBoxKeyDown = (event) => {
+          if (
+            event.keyCode === 13 &&
+            this.$refs.commentTextBox.value.replace(/\n| |\t/g, "")
+          ) {
+            if (
+              !event.shiftKey &&
+              this.$refs.commentTextBox.selectionEnd ===
+                this.$refs.commentTextBox.value.length
+            ) {
               event.preventDefault();
               this.$emit("add-comment", this.$refs.commentTextBox.value);
               this.$refs.commentTextBox.value = "";
@@ -116,6 +137,12 @@ export default {
     }
   },
   mounted() {
+    if (this.article.authorId === window.memberId) {
+      this.login = true;
+    } else {
+      this.login = false;
+    }
+    console.log(this.login);
     this.$forceUpdate();
   },
   beforeDestroy() {
@@ -130,13 +157,12 @@ export default {
         this.handleCommentTextBoxKeyDown
       );
     }
-  }
+  },
 };
 </script>
 
 <style>
-.back-button,
-.status-button {
+.back-button {
   background-size: 64px;
   background-repeat: no-repeat;
   width: 64px;
@@ -150,20 +176,39 @@ export default {
   left: 15px;
 }
 
-.status-button {
-  background-image: url(/img/article-images/status_button.svg);
-  right: 15px;
-}
+.del-button {
+  background-image: url(/img/article-images/del_button.svg);
+  left: calc(100vw -20px);
 
-.edit-button {
-  background-image: url(/img/article-images/edit_button.svg);
-  right: 500px;
-  left:unset;
+  background-size: 64px;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  bottom: 15px;
+  right: 16px;
+
+  border: 2.5px solid #fff;
+  border-radius: 999px;
+  background-position: center;
 }
 </style>
 
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
+
+.edit-button {
+  background-image: url(/img/article-images/edit_button.svg);
+  /* left: calc(100vw - 80px); */
+
+  background-size: 64px;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  left: unset;
+  right: 95px;
+}
 
 main {
   width: 100%;
@@ -231,7 +276,8 @@ img {
   color: #fff;
   text-align: center;
   font-size: 12.5px;
-  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   width: 81px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -240,7 +286,7 @@ img {
 .article-title {
   font-size: 23px;
   letter-spacing: 0.25px;
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   margin-left: 6px;
   width: calc(100% - 106px - 141px);
   height: 95px;
@@ -291,7 +337,8 @@ img {
 
 .article-likes-count {
   font-size: 18.5px;
-  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   color: rgb(140, 228, 230);
   text-shadow: 0px 4px rgba(140, 228, 230, 0.2);
 }
@@ -359,7 +406,7 @@ img {
 
 .article-content,
 .article-comments {
-  font-family: "Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
   width: 100%;
   white-space: pre-wrap;
 }
@@ -397,7 +444,8 @@ img {
 .article-commenter-name {
   color: #fff;
   font-size: 14px;
-  font-family: "Electrolize","Noto Sans TC","Noto Sans JP","Noto Sans KR","Roboto";
+  font-family: "Electrolize", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR",
+    "Roboto";
   width: 100%;
   margin-bottom: 8px;
   overflow: hidden;

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions } from "vuex";
 
 export default {
   data: () => ({}),
@@ -13,8 +13,8 @@ export default {
   methods: mapActions("profile", ["loadItem"]),
   async mounted() {
     if (!this.isItemLoaded) {
-      await this.loadItem()
+      await this.loadItem();
     }
-  }
-}
+  },
+};
 </script>

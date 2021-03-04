@@ -18,21 +18,17 @@ const actions = {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false });
             var response
-            if(window.TOKEN === null)
-            {
+            if (window.TOKEN === null) {
                 response = await apiRequest.get(`articles/${id}`)
-            }else{
+            } else {
                 response = await apiRequest.get(`articles/${id}`,
                     {
                         headers: {
-                        "Authorization":`Bearer ${window.TOKEN}`
-                    }
-                })
+                            "Authorization": `Bearer ${window.TOKEN}`
+                        }
+                    })
             }
 
-            //const response = await apiRequest.get(`articles/${id}`)
-            //const item = response.data.data
-            //item.likesCount = item.likesCount | 0
             const [item] = [response.data.data].map((structuredItem) => ({
                 id: structuredItem.id,
                 title: structuredItem.title,
@@ -43,10 +39,10 @@ const actions = {
                 userName: structuredItem.author.name,
                 userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
-                isLiked: structuredItem.isLiked
+                isLiked: structuredItem.isLiked,
+                authorId: structuredItem.author.id
             }));
-            // item.imageUrl = item.imageUrl.replace("..", "https://imsystem.site")
-            // item.userAvatarUrl = item.userAvatarUrl.replace("..", "https://imsystem.site")
+
             commit('pushItems', { item })
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
@@ -60,19 +56,15 @@ const actions = {
             //TODO:更改為分頁設計
             //const response = await apiRequest.get(`/articles/${id}/comments?perPage=10&page=1`)
             const response = await apiRequest.get(`/articles/${id}/comments/all`)
-            //const comments = response.data.data
+
             const comments = response.data.data.map((structuredItem) => ({
                 id: structuredItem.id,
                 content: structuredItem.content,
                 userName: structuredItem.author.name,
-                userAvatarUrl:structuredItem.author.avatar || '/img/def_picture.jpg',
+                userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff'
             }));
-            
 
-            // comments.forEach(comment =>
-            //     comment.userAvatarUrl = comment.userAvatarUrl.replace("..", "https://imsystem.site")
-            // )
             commit('pushItems', { comments })
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
         }
@@ -85,7 +77,7 @@ const actions = {
             await apiRequest.post(
                 `articles/${id}/comments`,
                 Object.entries({
-                    content:content,
+                    content: content,
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
@@ -108,8 +100,8 @@ const actions = {
             const response = await apiRequest.post(
                 `articles/${id}/favorite`,
                 Object.entries({
-                    favorite:+!item.isLiked,
-                    _method:'PATCH',
+                    favorite: +!item.isLiked,
+                    _method: 'PATCH',
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
@@ -122,16 +114,43 @@ const actions = {
             console.log(response.data)
 
             if (item.isLiked) {
-                commit('set', { item: { ...state.item, 
-                                        likesCount: state.item.likesCount - 1, 
-                                        isLiked: !state.item.isLiked } })
+                commit('set', {
+                    item: {
+                        ...state.item,
+                        likesCount: state.item.likesCount - 1,
+                        isLiked: !state.item.isLiked
+                    }
+                })
             }
             else {
-                commit('set', { item: { ...state.item, 
-                                        likesCount: state.item.likesCount + 1, 
-                                        isLiked: !state.item.isLiked } })
+                commit('set', {
+                    item: {
+                        ...state.item,
+                        likesCount: state.item.likesCount + 1,
+                        isLiked: !state.item.isLiked
+                    }
+                })
             }
         }
+        catch (err) {
+            console.log(err)
+        }
+    },
+    async delArticle({ state }, { id }) {
+        const item = state.item
+        console.log(item)
+        console.log('test')
+        try {
+            const response = await apiRequest.delete(`articles/${id}`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${window.TOKEN}`
+                    }
+                })
+            console.log(response)
+        }
+
+
         catch (err) {
             console.log(err)
         }
