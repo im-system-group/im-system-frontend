@@ -445,7 +445,6 @@ export default {
       this.mobile = false;
     } catch (e) {
       this.mobile = true;
-      return false;
     }
 
     if (window.innerWidth < window.innerHeight) {
@@ -458,6 +457,7 @@ export default {
 
     try {
       const response = await this.loadItem();
+      
       if (response) {
         //alert(this.$t("已登入"));
         this.$router.push("/articles");
@@ -465,7 +465,7 @@ export default {
         //alert('未登入')
       }
     } catch (err) {
-      alert("error");
+      console.log("error");
       //alert(this.$t("profile.update.fail"));
     }
   },
