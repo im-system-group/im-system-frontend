@@ -56,16 +56,19 @@ export default {
       this.likeItem({ id });
     },
     deleteArticle() {
-      var _confirm = confirm("確定要刪除嗎？");
-      if (_confirm) {
-        const { id } = this.$route.params;
-        this.delArticle({ id });
-        this.$router.push("/articles");
-      }
+      alert('Coming Soon!');
+      // var _confirm = confirm("確定要刪除嗎？");
+      // if (_confirm) {
+      //   const { id } = this.$route.params;
+      //   console.log({ id });
+      //   this.delArticle({ id });
+      //   this.$router.push("/articles");
+      // }
     },
     editArticle() {
-      const { id } = this.$route.params;
-      this.editArticle({ id });
+      alert('Coming Soon!')
+      // const { id } = this.$route.params;
+      // this.editArticle({ id });
     },
   },
   async mounted() {

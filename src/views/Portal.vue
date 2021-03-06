@@ -391,7 +391,7 @@
           <li>
             <a href="#about-us">{{ $t("portal.footer.aboutUs") }}</a>
           </li>
-          <li style="color: #444">v1.3.8</li>
+          <li style="color: #444">v1.3.8-1</li>
         </ul>
       </nav>
     </footer>

@@ -59,9 +59,9 @@
 		"success": "Registration success!"
 	},
 	"profile": {
-        "title": "PROFILE",
+		"title": "PROFILE",
 		"form": {
-			"name":"Input Name",
+			"name": "Input Name",
 			"email": "Input Email",
 			"oldPassword": "Input old password",
 			"newPassword": "Input new password",
@@ -77,10 +77,10 @@
 			"success": "Updated Successfully!",
 			"fail": "Updated Fail!"
 		}
-    },
+	},
 	"article": {
-	  "comment": "Comment...",
-	  "youHint": "You"
+		"comment": "Comment...",
+		"youHint": "You"
 	},
 	"articleCreate": {
 		"title": "POST CREATE",

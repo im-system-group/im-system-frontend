@@ -79,6 +79,7 @@
         </div>
       </div>
     </div>
+    <!-- TODO:edit button -->
     <!-- <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" /> -->
     <div class="scale-click back-button" @click="$emit('back')" />
     <div v-if="login" class="scale-click del-button" @click="$emit('del')" />

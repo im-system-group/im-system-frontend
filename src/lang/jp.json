@@ -60,9 +60,9 @@
 		"success": "Registration success!"
 	},
 	"profile": {
-        "title": "プロフィール",
+		"title": "プロフィール",
 		"form": {
-			"name":"名前を入力してください",
+			"name": "名前を入力してください",
 			"email": "メールアドレスを入力してください",
 			"oldPassword": "旧パスワードを入力してください",
 			"newPassword": "新パスワードを入力してください",
@@ -78,10 +78,10 @@
 			"success": "アップデートに成功しました！",
 			"fail": "アップデート失敗しました！"
 		}
-    },
+	},
 	"article": {
-	  "comment": "リプライ...",
-	  "youHint": "You"
+		"comment": "リプライ...",
+		"youHint": "You"
 	},
 	"articleCreate": {
 		"title": "新しい文章を書きましょう",

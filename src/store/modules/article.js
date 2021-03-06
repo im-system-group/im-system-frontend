@@ -136,9 +136,7 @@ const actions = {
             console.log(err)
         }
     },
-    async delArticle({ state }, { id }) {
-        const item = state.item
-        console.log(item)
+    async delArticle({ id }) {
         console.log('test')
         try {
             const response = await apiRequest.delete(`articles/${id}`,
