@@ -70,9 +70,9 @@
 		},
 		"done": "送出しました",
 		"logout": {
-			"text": "Logout",
-			"success": "Logout Successfully!",
-			"fail": "Logout Fail!"
+			"text": "ログアウト",
+			"success": "ログアウト成功！",
+			"fail": "ログアウト失敗！"
 		},
 		"update": {
 			"success": "アップデートに成功しました！",

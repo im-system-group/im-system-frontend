@@ -13,6 +13,7 @@ module.exports = {
         msTileColor: '#3d403f',
         assetsVersion: '0.020173',
         appleMobileWebAppCapable: 'yes',
+        workboxPluginMode: 'InjectManifest',
         workboxOptions: {
             // swSrc is required in InjectManifest mode.
             swSrc: 'src/service-worker.js',
