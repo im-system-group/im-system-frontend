@@ -18,7 +18,7 @@ const actions = {
                 `member`,
                 {
                     headers: {
-                        "Authorization": `Bearer ${window.TOKEN}`
+                        "Authorization": `Bearer ${window.TOKEN}`,
                     },
                 }
             )
@@ -36,7 +36,7 @@ const actions = {
             return true
         }
         catch (err) {
-            console.log(err)
+            console.log(err.response.status)
             return false
         }
     },

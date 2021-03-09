@@ -80,7 +80,7 @@
       </div>
     </div>
     <!-- TODO:edit button -->
-    <!-- <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" /> -->
+    <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
     <div class="scale-click back-button" @click="$emit('back')" />
     <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
   </main>
@@ -143,7 +143,7 @@ export default {
     } else {
       this.login = false;
     }
-    console.log(this.login);
+    //console.log(this.login);
     this.$forceUpdate();
   },
   beforeDestroy() {
@@ -179,7 +179,7 @@ export default {
 
 .del-button {
   background-image: url(/img/article-images/del_button.svg);
-  left: calc(100vw -20px);
+  /* left: calc(100vw -20px); */
 
   background-size: 64px;
   background-repeat: no-repeat;

@@ -16,11 +16,12 @@ module.exports = {
         workboxPluginMode: 'InjectManifest',
         workboxOptions: {
             // swSrc is required in InjectManifest mode.
-            swSrc: 'src/service-worker.js',
+            swSrc: 'public/service-worker.js',
             importWorkboxFrom: 'disabled',
-            importScripts: 'https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js'
+            importScripts:"https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js"
+            //importScripts: 'https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js'
             // ...other Workbox options...
-            },
+        },
     },
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
