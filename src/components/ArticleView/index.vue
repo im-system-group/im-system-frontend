@@ -17,7 +17,7 @@
 
         <div class="article-top-border" />
 
-        <div class="article-title" v-html="article.title" />
+        <div class="article-title" v-text="article.title" />
 
         <div :class="{ 'article-likes': true, active: article.isLiked }">
           <div
@@ -35,7 +35,7 @@
           :src="article.imageUrl"
           style="max-width: calc(100% - 186px); margin-bottom: 10px"
         />
-        <div class="article-content" v-html="article.content" />
+        <div class="article-content" v-text="article.content" />
         <div class="article-comments">
           <div
             class="article-comment-container"
@@ -54,7 +54,7 @@
                 v-html="comment.userName"
                 :style="`color: ${comment.userColor};`"
               />
-              <div class="article-comment-content" v-html="comment.content" />
+              <div class="article-comment-content" v-text="comment.content" />
             </div>
           </div>
           <div class="article-comment-container" v-if="user">
