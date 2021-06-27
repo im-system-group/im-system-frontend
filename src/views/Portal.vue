@@ -378,11 +378,11 @@
     <footer>
       <nav>
         <ul>
-          <li>
+          <!-- <li>
             <a v-if="mobile" id="donation" href="#donation">{{
               $t("portal.footer.donation")
             }}</a>
-          </li>
+          </li> -->
           <li>
             <a href="#stat-of-2nd-creation">{{
               $t("portal.footer.creation")
@@ -391,7 +391,7 @@
           <li>
             <a href="#about-us">{{ $t("portal.footer.aboutUs") }}</a>
           </li>
-          <li style="color: #444">v1.3.8-1</li>
+          <li style="color: #444">v1.3.8-2</li>
         </ul>
       </nav>
     </footer>
