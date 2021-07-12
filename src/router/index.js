@@ -22,32 +22,32 @@ const routes = [
   {
     path: '/articles',
     name: 'Articles',
-    component: () => import(/* webpackChunkName: "main" */ '../views/Articles.vue')
+    component: () => import('../views/Articles.vue')
   },
   {
     path: '/article/:id',
     name: 'Article',
-    component: () => import(/* webpackChunkName: "main" */ '../views/Article.vue')
+    component: () => import('../views/Article.vue')
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "main" */ '../views/Profile.vue')
+    component: () => import('../views/Profile.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import(/* webpackChunkName: "main" */ '../views/Register.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import(/* webpackChunkName: "main" */ '../views/ForgotPassword.vue')
+    component: () => import('../views/ForgotPassword.vue')
   },
   {
     path: '/article-create',
     name: 'ArticleCreate',
-    component: () => import(/* webpackChunkName: "main" */ '../views/ArticleCreate.vue')
+    component: () => import('../views/ArticleCreate.vue')
   },
 ]
 

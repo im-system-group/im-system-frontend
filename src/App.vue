@@ -4,6 +4,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  watch: {
+    'window.TOKEN'(token) {
+      window.TOKEN = token
+    },
+    'window.memberId'(id) {
+      window.memberId = id
+    }
+  },
+
+  created() {
+    // localStorage global setting
+    window.TOKEN = localStorage.getItem('token')
+    window.memberId = localStorage.getItem('memberId')
+  },
+}
+</script>
+
 <style>
 * {
   box-sizing: border-box;

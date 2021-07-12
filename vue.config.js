@@ -1,4 +1,14 @@
 module.exports = {
+    // 遠端開發 api proxy
+    devServer: {
+        proxy: {
+            'https://api.imsystem.site': {
+                target: 'https://api.imsystem.site', // target host
+                changeOrigin: true
+            },
+        }
+    },
+
     publicPath: '/',
     productionSourceMap: false,
     pwa: {
