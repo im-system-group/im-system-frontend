@@ -7,9 +7,8 @@
         {{ $t('profile.title')}}
         <strong>&gt;</strong>
       </div>
-
       <div v-if="!loading" class="profile-content-form-container">
-        <input id="upload-avatar" type="file" ref="imageFile" />
+        <input id="upload-avatar" type="file" @change="onFileChange" refs="imageFile"/>
         <label
           for="upload-avatar"
           class="profile-avatar"
@@ -42,21 +41,14 @@ export default {
   props: ["name", "email", "avatarUrl", "color"],
 
   data() {
-    return { 
+    return {
+      userName: this.name,
+      userEmail: this.email,
+
       loading: false,
       password: "",
       newPassword: "",
       newAvatarUrl: "",
-      fileChangeHandler: null,
-    }
-  },
-
-  computed: {
-    userName() {
-      return this.name
-    },
-    userEmail() {
-      return this.email
     }
   },
 
@@ -65,31 +57,23 @@ export default {
       if(this.loading === false)
       {
         this.loading = true;
-        
-        /*
+
         this.$emit("update", {
-          name: this.name,
-          email: this.email,
+          name: this.userName,
+          email: this.userEmail,
           password: this.password,
           newPassword: this.newPassword,
-          imageFile: this.$refs.imageFile.files[0],
-        });*/
+          imageFile: this.newAvatarUrl,
+        });
       }
     },
+
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.newAvatarUrl = URL.createObjectURL(file);
+    }
   },
 
-  mounted() {
-    this.$refs.imageFile.addEventListener(
-      "change",
-      (this.fileChangeHandler = () => {
-        this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
-      })
-    );
-  },
-
-  beforeDestroy() {
-    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
-  },
 };
 </script>
 
