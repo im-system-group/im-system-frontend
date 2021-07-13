@@ -2,9 +2,16 @@ module.exports = {
     // 遠端開發 api proxy
     devServer: {
         proxy: {
-            'https://api.imsystem.site': {
+            '/api': {
                 target: 'https://api.imsystem.site', // target host
-                changeOrigin: true
+                secure: false,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api/': '/'
+                },
+                onProxyReq: (request) => {
+                    request.setHeader("origin", "https://imsystem.site");
+                },
             },
         }
     },

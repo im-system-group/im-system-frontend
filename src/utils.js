@@ -2,6 +2,7 @@ import Axios from 'axios'
 
 export const apiRequest = Axios.create({
     //baseURL: "http://domain:8080/",
-    baseURL: "https://api.imsystem.site/",
+    //baseURL: "https://api.imsystem.site/",
+    baseURL: "/api/",
     //withCredentials: true
 })
