@@ -1,27 +1,24 @@
 import { apiRequest } from '../../utils'
 
-const state = {
+const state = () => ({
     item: null,
     isItemLoading: true,
     isItemLoaded: false,
-
-    localStorageToken: window.localStorage.getItem('token_v1') || '',
-    localStorageMemberId: window.localStorage.getItem('identity_id_v1') || ''
-}
+})
 
 const getters = {
 
 }
 
 const actions = {
-    async loadItem({ commit, state }) {
+    async loadItem({ commit }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false })
             const response = await apiRequest.get(
                 `member`,
                 {
                     headers: {
-                        "Authorization": `Bearer ${state.localStorageToken}`,
+                        "Authorization": `Bearer ${window.TOKEN}`,
                     },
                 }
             )
@@ -43,7 +40,7 @@ const actions = {
             return false
         }
     },
-    async login({ commit, state }, { account, password }) {
+    async login({ commit }, { account, password }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false })
 
@@ -61,31 +58,11 @@ const actions = {
             )
 
             const item = response.data.data
-
-            //window.TOKEN = item.token
-            
-            // set token into localStorage
-            window.localStorage.setItem('token_v1', item.token)
-            state.localStorageToken = item.token
-
-        
+            window.TOKEN = item.token
 
             commit('set', { item, isItemLoading: false, isItemLoaded: false })
 
-            
-            // get memberId
-           await apiRequest.get(`member`, {
-                headers: {
-                    "Authorization": `Bearer ${item.token}`
-                },
-            }).then((res) =>{
-                let memberId = res.data.data.id
-                
-                console.log(memberId)
-                // set memberId into localStorage
-                window.localStorage.setItem('identity_id_v1', memberId)
-                state.localStorageMemberId = memberId
-            })
+            getMemberId()
 
         }
         catch (err) {
@@ -93,29 +70,29 @@ const actions = {
             commit('set', { isItemLoading: false, isItemLoaded: false })
         }
     },
-    async logout({ state }) {
+    async logout() {
         try {
             //commit('set', { isItemLoading: true, isItemLoaded: false })
-            await apiRequest.delete(
+            const response = await apiRequest.delete(
                 `logout`,
                 {
                     headers: {
-                        "Authorization": `Bearer ${state.localStorageToken}`
+                        "Authorization": `Bearer ${window.TOKEN}`
                     },
                 }
             )
-            //console.log(response)
-            localStorage.clear('token_v1')
-            localStorage.clear('identity_id_v1')
+            console.log(response)
+            localStorage.clear('token')
+            localStorage.clear('memberId')
         }
         catch (err) {
             console.log(err)
         }
     },
-    async updateItem({ commit, state }, { name, email, password, newPassword, imageFile }) {
+    async updateItem({ commit }, { name, email, password, newPassword, imageFile }) {
         try {
             await apiRequest.post(
-                `member/${state.localStorageMemberId}`,
+                `member/${window.memberId}`,
                 Object.entries({
                     name: name,
                     email: email,
@@ -123,7 +100,7 @@ const actions = {
                 }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                 {
                     headers: {
-                        "Authorization": `Bearer ${state.localStorageToken}`,
+                        "Authorization": `Bearer ${window.TOKEN}`,
                         "Content-Type": "multipart/form-data",
                     },
                 }
@@ -144,7 +121,7 @@ const actions = {
                     }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                     {
                         headers: {
-                            "Authorization": `Bearer ${state.localStorageToken}`,
+                            "Authorization": `Bearer ${window.TOKEN}`,
                             "Content-Type": "multipart/form-data"
                         },
                     }
@@ -153,7 +130,7 @@ const actions = {
 
             if (imageFile) {
                 const response = await apiRequest.post(
-                    `member/${state.localStorageMemberId}`,
+                    `member/${window.memberId}`,
                     Object.entries({
                         name: name,
                         email: email,
@@ -162,7 +139,7 @@ const actions = {
                     }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
                     {
                         headers: {
-                            "Authorization": `Bearer ${state.localStorageToken}`,
+                            "Authorization": `Bearer ${window.TOKEN}`,
                             "Content-Type": "multipart/form-data"
                         },
                     }
@@ -221,6 +198,21 @@ const profile = {
     getters,
     actions,
     mutations
+}
+
+async function getMemberId() {
+    console.log(window.TOKEN)
+    const response = await apiRequest.get(
+        `member`,
+        {
+            headers: {
+                "Authorization": `Bearer ${window.TOKEN}`
+            },
+        }
+    )
+
+    const memberId = response.data.data.id
+    window.memberId = memberId
 }
 
 export default profile

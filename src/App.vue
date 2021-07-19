@@ -4,18 +4,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'App',
-
-  created() {
-    // localStorage global setting init
-    window.TOKEN = window.localStorage.getItem('token_v1')
-    window.memberId = window.localStorage.getItem('identity_id_v1')
-  }
-}
-</script>
-
 <style>
 * {
   box-sizing: border-box;

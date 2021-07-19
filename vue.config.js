@@ -1,21 +1,4 @@
 module.exports = {
-    // 遠端開發 api proxy
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'https://api.imsystem.site', // target host
-                secure: false,
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api/': '/'
-                },
-                onProxyReq: (request) => {
-                    request.setHeader("origin", "https://imsystem.site");
-                },
-            },
-        }
-    },
-
     publicPath: '/',
     productionSourceMap: false,
     pwa: {
@@ -40,7 +23,6 @@ module.exports = {
             // ...other Workbox options...
         },
     },
-    
     css: {
         // 是否使用css分離外掛 ExtractTextPlugin
         //extract: true,
@@ -51,17 +33,12 @@ module.exports = {
         // 啟用 CSS modules for all css / pre-processor files.
         requireModuleExtension: true
     },
-
     pluginOptions: {
         i18n: {
-            locale: 'en',
-            fallbackLocale: 'en',
-            localeDir: 'locales',
-            enableInSFC: true,
-            enableLegacy: false,
-            runtimeOnly: false,
-            compositionOnly: false,
-            fullInstall: true
+            locale: 'zh-TW',
+            fallbackLocale: 'zh-TW',
+            localeDir: 'lang',
+            enableInSFC: true
         }
     }
 }

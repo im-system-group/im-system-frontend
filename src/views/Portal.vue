@@ -402,13 +402,11 @@
 import { /*mapState,*/ mapActions /* , mapMutations */ } from "vuex";
 
 export default {
-
   data: () => ({
     mobile: false,
     version: "3.0",
     language: localStorage.getItem("footmark-lang") || "zh",
   }),
-
   methods: {
     ...mapActions("profile", ["loadItem"]),
     toLogin() {

@@ -16,25 +16,21 @@ import { mapState, mapActions /* , mapMutations */ } from "vuex";
 
 export default {
   data: () => ({}),
-
   computed: {
     ...mapState("profile", {
       item: (state) => state.item,
       isItemLoaded: (state) => state.isItemLoaded,
     }),
   },
-
   methods: {
     redirectToArticles() {
       this.$router.push("/articles");
     },
-
     ...mapActions("profile", {
       updateItem: "updateItem",
       loadItem: "loadItem",
       logout: "logout",
     }),
-  
     async updateProfile(form) {
       try {
         await this.updateItem(form);
@@ -44,7 +40,6 @@ export default {
         alert(this.$t("profile.update.fail"));
       }
     },
-
     async logoutBtn() {
       try {
         await this.logout();
@@ -55,7 +50,6 @@ export default {
       }
     },
   },
-
   async updated() {
     console.log("load updated");
     console.log(this.isItemLoaded);
@@ -69,7 +63,6 @@ export default {
       this.$router.push("/");
     }
   },
-
   mounted() {
     console.log("load mounted");
     this.$forceUpdate();
