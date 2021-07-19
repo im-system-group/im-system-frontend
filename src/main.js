@@ -1,20 +1,15 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
-import components from './components'
 import router from './router'
 import store from './store'
 import i18n from './i18n'
-// css
-import './css'
+//import components from './components'
 
-Vue.config.productionTip = false
-//window.axios.defaults.withCredentials = true;
-Vue.use(components)
 
-new Vue({
-  router,
-  store,
-  i18n,
-  render: h => h(App)
-}).$mount('#app')
+let Vue = createApp(App)
+
+Vue.use(store)
+.use(i18n)
+.use(router)
+.mount('#app')

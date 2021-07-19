@@ -96,7 +96,7 @@ const actions = {
     async logout({ state }) {
         try {
             //commit('set', { isItemLoading: true, isItemLoaded: false })
-            const response = await apiRequest.delete(
+            await apiRequest.delete(
                 `logout`,
                 {
                     headers: {
@@ -221,21 +221,6 @@ const profile = {
     getters,
     actions,
     mutations
-}
-
-async function getMemberId() {
-    //console.log(window.TOKEN)
-    const response = await apiRequest.get(
-        `member`,
-        {
-            headers: {
-                "Authorization": `Bearer ${window.TOKEN}`
-            },
-        }
-    )
-
-    const memberId = response.data.data.id
-    window.memberId = memberId
 }
 
 export default profile

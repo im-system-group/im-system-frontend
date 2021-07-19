@@ -80,7 +80,7 @@ export default {
     await this.loadItem({ id });
     await this.loadComments({ id });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.dropItemAndComments();
   },
 };

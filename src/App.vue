@@ -6,6 +6,8 @@
 
 <script>
 export default {
+  name: 'App',
+
   created() {
     // localStorage global setting init
     window.TOKEN = window.localStorage.getItem('token_v1')

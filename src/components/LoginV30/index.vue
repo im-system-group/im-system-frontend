@@ -578,6 +578,16 @@
 <script>
 export default {
   name: "login-v30",
+  setup() {
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local'
+    })
+
+    // Something todo ..
+
+    return { t }
+  },
   async mounted() {
     const main = require("./scripts/main").default;
     await main(
