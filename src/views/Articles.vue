@@ -1,5 +1,5 @@
 <template>
-  <div class="articles-main">
+  <div class="background-main">
 
     <div class="articles-container" ref="articlesContainer" @scroll="scrollTopChecker">
       <articles-item v-for="(article, index) in items" :key="index" :source="article">
@@ -78,6 +78,7 @@ export default {
       this.$refs.articlesContainer.scrollTop = this.scrollTop
     }
 
+    // if item is not loaded
     if (!this.isItemsLoaded) {
       await this.loadItems({ page: 1, itemHeight: (95 + this.maxView) });
 
@@ -112,18 +113,6 @@ export default {
 
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
-
-.articles-main {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-image: url(/img/article-images/background.svg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #153048;
-}
-
 .articles-container {
   margin: 59px auto 0;
   width: calc(100% - 10px);

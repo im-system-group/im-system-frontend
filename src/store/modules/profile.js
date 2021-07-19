@@ -206,7 +206,7 @@ const actions = {
                 },
             }
         );
-    }
+    },
 }
 
 const mutations = {

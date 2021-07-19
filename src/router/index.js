@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Portal from '../views/Portal.vue'
-import Login from '../views/Login.vue'
+import Portal from '@/views/Portal.vue'
+import Login from '@/views/Login.vue'
 
 const routes = [
   {
@@ -16,32 +16,32 @@ const routes = [
   {
     path: '/articles',
     name: 'Articles',
-    component: () => import('../views/Articles.vue')
+    component: () => import('@/views/Articles.vue')
   },
   {
     path: '/article/:id',
     name: 'Article',
-    component: () => import('../views/Article.vue')
+    component: () => import('@/views/Article.vue')
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import('../views/Profile.vue')
+    component: () => import('@/views/Profile.vue')
   },
   {
     path: '/register',
     name: 'Register',
-    component: () => import('../views/Register.vue')
+    component: () => import('@/views/Register.vue')
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: () => import('../views/ForgotPassword.vue')
+    component: () => import('@/views/ForgotPassword.vue')
   },
   {
     path: '/article-create',
     name: 'ArticleCreate',
-    component: () => import('../views/ArticleCreate.vue')
+    component: () => import('@/views/ArticleCreate.vue')
   },
 ]
 

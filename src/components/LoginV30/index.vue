@@ -576,18 +576,11 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: "login-v30",
-  setup() {
-    const { t } = useI18n({
-      inheritLocale: true,
-      useScope: 'local'
-    })
 
-    // Something todo ..
-
-    return { t }
-  },
   async mounted() {
     const main = require("./scripts/main").default;
     await main(
@@ -599,7 +592,7 @@ export default {
 
     this.$emit("logged");
   }
-};
+});
 </script>
 
 <style scoped src="./styles/main.css"></style>
