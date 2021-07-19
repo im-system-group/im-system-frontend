@@ -112,21 +112,23 @@
           </g>
         </svg>
         <div class="account-field-container">
-          <input
-            type="text"
-            class="account-field-asterisk"
-            tabindex="-1"
-            spellcheck="false"
-            autocomplete="off"
-          />
-          <input
-            type="text"
-            class="account-field"
-            name="account"
-            tabindex="0"
-            spellcheck="false"
-            autocomplete="off"
-          />
+          <form>
+            <input
+              type="text"
+              class="account-field-asterisk"
+              tabindex="-1"
+              spellcheck="false"
+              autocomplete="off"
+            />
+            <input
+              type="text"
+              class="account-field"
+              name="account"
+              tabindex="0"
+              spellcheck="false"
+              autocomplete="off"
+            />
+          </form>
         </div>
         <div class="password-field-container">
           <input
@@ -576,6 +578,16 @@
 <script>
 export default {
   name: "login-v30",
+  setup() {
+    const { t } = useI18n({
+      inheritLocale: true,
+      useScope: 'local'
+    })
+
+    // Something todo ..
+
+    return { t }
+  },
   async mounted() {
     const main = require("./scripts/main").default;
     await main(

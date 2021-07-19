@@ -7,16 +7,16 @@
         {{ $t('profile.title')}}
         <strong>&gt;</strong>
       </div>
-      <div class="profile-content-form-container">
-        <input id="upload-avatar" type="file" ref="imageFile" />
+      <div v-if="!loading" class="profile-content-form-container">
+        <input id="upload-avatar" type="file" @change="onFileChange" refs="imageFile"/>
         <label
           for="upload-avatar"
           class="profile-avatar"
           :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
         />
         <div tabindex="0" class="profile-content-form">
-          <input type="text" :placeholder="$t('profile.form.name')" v-model="name" />
-          <input type="text" :placeholder="$t('profile.form.email')" v-model="email" />
+          <input type="text" :placeholder="$t('profile.form.name')" v-model="userName" />
+          <input type="text" :placeholder="$t('profile.form.email')" v-model="userEmail" />
           <input type="password" :placeholder="$t('profile.form.oldPassword')" v-model="password" />
           <input type="password" :placeholder="$t('profile.form.newPassword')" v-model="newPassword" />
         </div>
@@ -36,13 +36,22 @@
 
 <script>
 export default {
-  data: () => ({
-    loading: false,
-    password: "",
-    newPassword: "",
-    newAvatarUrl: "",
-    fileChangeHandler: null,
-  }),
+  name: "profile",
+
+  props: ["name", "email", "avatarUrl", "color"],
+
+  data() {
+    return {
+      userName: this.name,
+      userEmail: this.email,
+
+      loading: false,
+      password: "",
+      newPassword: "",
+      newAvatarUrl: "",
+    }
+  },
+
   methods: {
     update() {
       if(this.loading === false)
@@ -50,28 +59,21 @@ export default {
         this.loading = true;
 
         this.$emit("update", {
-          name: this.name,
-          email: this.email,
+          name: this.userName,
+          email: this.userEmail,
           password: this.password,
           newPassword: this.newPassword,
-          imageFile: this.$refs.imageFile.files[0],
+          imageFile: this.newAvatarUrl,
         });
       }
     },
+
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.newAvatarUrl = URL.createObjectURL(file);
+    }
   },
-  name: "profile",
-  props: ["name", "email", "avatarUrl", "color"],
-  mounted() {
-    this.$refs.imageFile.addEventListener(
-      "change",
-      (this.fileChangeHandler = () => {
-        this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
-      })
-    );
-  },
-  beforeDestroy() {
-    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
-  },
+
 };
 </script>
 

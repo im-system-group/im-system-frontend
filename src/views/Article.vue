@@ -5,7 +5,7 @@
     :comments="comments"
     :user="profile"
     @like="likeArticle"
-    @back="$router.push('/articles')"
+    @back="$router.back('/articles')"
     @del="deleteArticle"
     @edit="editArticle"
     @add-comment="addArticleComment"
@@ -80,7 +80,7 @@ export default {
     await this.loadItem({ id });
     await this.loadComments({ id });
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.dropItemAndComments();
   },
 };

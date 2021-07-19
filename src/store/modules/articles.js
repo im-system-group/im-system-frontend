@@ -21,7 +21,7 @@ const actions = {
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
 
-            var response
+            let response
             if (window.TOKEN === null) {
                 response = await apiRequest.get(`articles?perPage=10&page=${page}`)
             } else {
@@ -45,6 +45,7 @@ const actions = {
                 isDeleted: structuredItem.isDeleted
             }));
 
+            //console.log(items)
             items.forEach(item => {
                 item.likesCount = item.likesCount | 0;
                 if(item.isDeleted){

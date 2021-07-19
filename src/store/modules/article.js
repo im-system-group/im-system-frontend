@@ -43,7 +43,7 @@ const actions = {
                 authorId: structuredItem.author.id
             }));
 
-            commit('pushItems', { item })
+            //commit('pushItems', { item })
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
         catch (err) {
@@ -65,7 +65,7 @@ const actions = {
                 userColor: structuredItem.author.color || '#fff'
             }));
 
-            commit('pushItems', { comments })
+            //commit('pushItems', { comments })
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
         }
         catch (err) {
