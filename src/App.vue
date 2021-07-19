@@ -6,20 +6,11 @@
 
 <script>
 export default {
-  watch: {
-    'window.TOKEN'(token) {
-      window.TOKEN = token
-    },
-    'window.memberId'(id) {
-      window.memberId = id
-    }
-  },
-
   created() {
-    // localStorage global setting
-    window.TOKEN = localStorage.getItem('token')
-    window.memberId = localStorage.getItem('memberId')
-  },
+    // localStorage global setting init
+    window.TOKEN = window.localStorage.getItem('token_v1')
+    window.memberId = window.localStorage.getItem('identity_id_v1')
+  }
 }
 </script>
 

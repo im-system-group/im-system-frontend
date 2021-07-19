@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="articles-main">
 
     <div class="articles-container" ref="articlesContainer" @scroll="scrollTopChecker">
       <articles-item v-for="(article, index) in items" :key="index" :source="article">
@@ -10,7 +10,7 @@
     <div class="scale-click edit-button" @click.stop="postArticle" />
     <div class="scale-click status-button" @click.stop="editProfile" />
 
-  </main>
+  </div>
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
 
   data(){
     return { 
-      maxView: 10,
+      maxView: 15,
 
       articlesContainerheight: 0,
     }
@@ -110,10 +110,10 @@ export default {
 }
 </style>
 
-<style>
+<style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
-main {
+.articles-main {
   width: 100%;
   height: 100%;
   position: absolute;
