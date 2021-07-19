@@ -94,6 +94,14 @@ export default {
 
   name: "article-view",
 
+  emits: [
+    "like",
+    "back",
+    "del",
+    "edit",
+    "addComment"
+  ],
+
   props: ["article", "comments", "user"],
 
   updated() {
