@@ -1,48 +1,36 @@
 <template>
-  <main>
+  <div class="articles-main">
 
-      <virtual-list
-        class="articles-container"
-        :data-key="'id'"
-        :data-sources="items"
-        :data-component="itemComponent"
-        :estimate-size="maxView"
-        ref="vsl"
-        @totop="onScrollToTop"
-      >
-      </virtual-list>
+    <div class="articles-container" ref="articlesContainer" @scroll="scrollTopChecker">
+      <articles-item v-for="(article, index) in items" :key="index" :source="article">
+
+      </articles-item>
+    </div>
   
     <div class="scale-click edit-button" @click.stop="postArticle" />
     <div class="scale-click status-button" @click.stop="editProfile" />
 
-  </main>
+  </div>
 </template>
 
 <script>
 import { mapState, mapActions, mapMutations } from "vuex";
 
-import Item from '@/components/ArticlesView/items'
-import VirtualList from 'vue-virtual-scroll-list'
+import ArticlesItem from '@/components/ArticlesView/items'
 
 export default {
   name: "articles-view",
 
-  props: {
-    articles: Array,
-  },
-
   data(){
     return { 
-      maxView: 10,
-  
-      itemComponent: Item,
-      handleArticleContainerScroll: null,
-      scrollTopCache: Number,
+      maxView: 15,
+
+      articlesContainerheight: 0,
     }
   },
 
   components: {
-    'virtual-list': VirtualList
+    'articles-item': ArticlesItem
   },
 
   computed: {
@@ -67,25 +55,34 @@ export default {
       this.$router.push("/profile");
     },
 
-    async onScrollToTop () {
-      const page = this.loadedPagesCount + 1;
-      await this.loadItems({ page, itemHeight: (95 + this.maxView) });
+    async scrollTopChecker() {
+      this.set({scrollTop: this.$refs.articlesContainer.scrollTop})
 
-      this.$nextTick(() => {
-        this.$refs.vsl.scrollToIndex(this.maxView)
-      })
-    },
-    setVirtualListToBottom () {
-      if (this.$refs.vsl) {
-        this.$refs.vsl.scrollToBottom()
+      if(this.scrollTop === 0) {
+        const page = this.loadedPagesCount + 1;
+        await this.loadItems({ page, itemHeight: (95 + this.maxView) });
+
+        this.$nextTick(() => {
+          this.$refs.articlesContainer.scrollTop = this.scrollTop;
+        })
       }
-    }
+    },
+
   },
 
   async mounted() {
+    this.articlesContainerheight = this.$refs.articlesContainer.clientHeight
+
+    // scrollTop cache checker
+    if(this.scrollTop !== this.articlesContainerheight && this.scrollTop !== 0) {
+      this.$refs.articlesContainer.scrollTop = this.scrollTop
+    }
+
     if (!this.isItemsLoaded) {
       await this.loadItems({ page: 1, itemHeight: (95 + this.maxView) });
-      this.setVirtualListToBottom()
+
+      //init first load scrollTop
+      this.$refs.articlesContainer.scrollTop = this.articlesContainerheight
     }
   }
 };
@@ -113,10 +110,10 @@ export default {
 }
 </style>
 
-<style>
+<style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
-main {
+.articles-main {
   width: 100%;
   height: 100%;
   position: absolute;

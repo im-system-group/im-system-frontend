@@ -26,7 +26,7 @@
       ></div>-->
       <div class="articles-title-text">
         <span v-if="source.imageUrl !== null">🖼️</span>
-        {{ source.title }}
+        <span v-html="source.title"></span>
       </div>
     </div>
 
@@ -47,7 +47,7 @@
 import { mapActions } from "vuex";
 
 export default {
-  name: 'item-component',
+  name: 'article-item',
   props: {
     index: { // index of current item
       type: Number
