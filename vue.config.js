@@ -51,7 +51,7 @@ module.exports = {
         // 啟用 CSS modules for all css / pre-processor files.
         requireModuleExtension: true
     },
-
+    
     pluginOptions: {
         i18n: {
             locale: 'en',
@@ -62,6 +62,40 @@ module.exports = {
             runtimeOnly: false,
             compositionOnly: false,
             fullInstall: true
-        }
+        },
+        electronBuilder: {
+            nodeIntegration: false,
+            preload: 'src/preload.js', // preload 檔案位置
+            builderOptions: {
+                appId: 'site.imsystem.app', // 應用程式 ID
+                productName: 'iM', // 專案名稱
+                copyright: `2021 iM System Group`,
+                win: { // Windows 相關設定
+                    icon: 'public/favicon.ico', // 安裝檔圖示
+                    target: ['nsis', 'portable', 'zip'] // 安裝、免安裝、ZIP
+                },
+                linux: { // Linux 相關設定
+                    icon: 'build/icons'
+                },
+                mac: { // Mac 相關設定
+                    icon: 'build/icons/icon.icns'
+                },
+                nsis: {
+                    oneClick: false, // 是否一鍵安裝
+                    perMachine: true, // 是否為每一台機器安裝
+                    installerIcon: 'public/favicon.ico', // 安裝圖示
+                    uninstallerIcon: 'public/favicon.ico', // 卸載圖示
+                    installerHeaderIcon: 'public/favicon.ico', // 安裝頂部圖示
+                    allowToChangeInstallationDirectory: true, // 是否可更改安裝目錄
+                    createDesktopShortcut: true, // 是否建立桌面捷徑
+                    createStartMenuShortcut: true // 是否建立開始捷徑
+                },
+                publish: [{
+                    provider: 'github',
+                    owner: 'iM System Group',
+                    repo: 'https://github.com/im-system-group/im-system-frontend'
+                }]
+            }
+        },
     }
 }
