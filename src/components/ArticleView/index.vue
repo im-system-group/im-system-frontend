@@ -1,89 +1,87 @@
 <template>
-  <main>
-    <div v-if="article !== null" class="article-container">
-      <div class="article-less-info">
-        <div class="article-poster">
-          <div
-            class="article-poster-avatar"
-            :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
-          />
-          <div
-            class="article-poster-name"
-            :title="article.userName"
-            v-html="article.userName"
-            :style="`color: ${article.userColor};`"
-          />
-        </div>
-
-        <div class="article-top-border" />
-
-        <div class="article-title" v-text="article.title" />
-
-        <div :class="{ 'article-likes': true, active: article.isLiked }">
-          <div
-            class="article-like-thumb-container"
-            @click.stop="$emit('like', article.id)"
-          >
-            <span class="mdi mdi-thumb-up"></span>
-          </div>
-          <div class="article-likes-count" v-text="article.likesCount" />
-        </div>
-      </div>
-      <div class="article-content-and-comments-container">
-        <img
-          v-if="article.imageUrl"
-          :src="article.imageUrl"
-          style="max-width: calc(100% - 186px); margin-bottom: 10px"
+  <div v-if="article !== null" class="article-container">
+    <div class="article-less-info">
+      <div class="article-poster">
+        <div
+          class="article-poster-avatar"
+          :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
         />
-        <div class="article-content" v-text="article.content" />
-        <div class="article-comments">
-          <div
-            class="article-comment-container"
-            v-for="comment in comments"
-            :key="comment.id"
-          >
-            <div class="article-commenter">
-              <div
-                class="article-commenter-avatar"
-                :style="`background-image: url(${comment.userAvatarUrl}); border-color: ${comment.userColor};`"
-              />
-            </div>
-            <div class="article-comment">
-              <div
-                class="article-commenter-name"
-                v-html="comment.userName"
-                :style="`color: ${comment.userColor};`"
-              />
-              <div class="article-comment-content" v-text="comment.content" />
-            </div>
+        <div
+          class="article-poster-name"
+          :title="article.userName"
+          v-html="article.userName"
+          :style="`color: ${article.userColor};`"
+        />
+      </div>
+
+      <div class="article-top-border" />
+
+      <div class="article-title" v-text="article.title" />
+
+      <div :class="{ 'article-likes': true, active: article.isLiked }">
+        <div
+          class="article-like-thumb-container"
+          @click.stop="$emit('like', article.id)"
+        >
+          <span class="mdi mdi-thumb-up"></span>
+        </div>
+        <div class="article-likes-count" v-text="article.likesCount" />
+      </div>
+    </div>
+    <div class="article-content-and-comments-container">
+      <img
+        v-if="article.imageUrl"
+        :src="article.imageUrl"
+        style="max-width: calc(100% - 186px); margin-bottom: 10px"
+      />
+      <div class="article-content" v-text="article.content" />
+      <div class="article-comments">
+        <div
+          class="article-comment-container"
+          v-for="comment in comments"
+          :key="comment.id"
+        >
+          <div class="article-commenter">
+            <div
+              class="article-commenter-avatar"
+              :style="`background-image: url(${comment.userAvatarUrl}); border-color: ${comment.userColor};`"
+            />
           </div>
-          <div class="article-comment-container" v-if="user">
-            <div class="article-commenter">
-              <div
-                class="article-commenter-avatar"
-                :style="`background-image: url(${user.avatarUrl}); border-color: ${user.color}; color: ${user.color};`"
-              />
+          <div class="article-comment">
+            <div
+              class="article-commenter-name"
+              v-html="comment.userName"
+              :style="`color: ${comment.userColor};`"
+            />
+            <div class="article-comment-content" v-text="comment.content" />
+          </div>
+        </div>
+        <div class="article-comment-container" v-if="user">
+          <div class="article-commenter">
+            <div
+              class="article-commenter-avatar"
+              :style="`background-image: url(${user.avatarUrl}); border-color: ${user.color}; color: ${user.color};`"
+            />
+          </div>
+          <div class="article-comment">
+            <div class="article-commenter-name">
+              {{ $t("article.youHint") }}
             </div>
-            <div class="article-comment">
-              <div class="article-commenter-name">
-                {{ $t("article.youHint") }}
-              </div>
-              <textarea
-                class="article-comment-content"
-                ref="commentTextBox"
-                :placeholder="$t('article.comment')"
-                rows="1"
-              ></textarea>
-            </div>
+            <textarea
+              class="article-comment-content"
+              ref="commentTextBox"
+              :placeholder="$t('article.comment')"
+              rows="1"
+            ></textarea>
           </div>
         </div>
       </div>
     </div>
-    <!-- TODO:edit button -->
-    <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
-    <div class="scale-click back-button" @click="$emit('back')" />
-    <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
-  </main>
+  </div>
+  <!-- TODO:edit button -->
+  <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
+  <div class="scale-click back-button" @click="$emit('back')" />
+  <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
 </template>
 
 <script>
@@ -93,8 +91,19 @@ export default {
     handleCommentTextBoxInput: null,
     login: false,
   }),
+
   name: "article-view",
+
+  emits: [
+    "like",
+    "back",
+    "del",
+    "edit",
+    "addComment"
+  ],
+
   props: ["article", "comments", "user"],
+
   updated() {
     if (this.$refs.commentTextBox) {
       if (!this.handleCommentTextBoxInput) {
@@ -137,6 +146,7 @@ export default {
       }
     }
   },
+
   mounted() {
     if (this.article.authorId === window.memberId) {
       this.login = true;
@@ -146,7 +156,8 @@ export default {
     //console.log(this.login);
     this.$forceUpdate();
   },
-  beforeDestroy() {
+  
+  beforeUnmount() {
     if (this.$refs.commentTextBox) {
       this.$refs.commentTextBox.removeEventListener(
         "input",
@@ -159,6 +170,7 @@ export default {
       );
     }
   },
+
 };
 </script>
 

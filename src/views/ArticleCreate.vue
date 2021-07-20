@@ -1,5 +1,7 @@
 <template>
-  <article-create-view @create="createArticle" @back="redirectToArticles" />
+  <div class="background-main">
+    <article-create-view @create="createArticle" @back="redirectToArticles" />
+  </div>
 </template>
 
 <script>

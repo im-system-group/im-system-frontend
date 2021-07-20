@@ -91,6 +91,22 @@ const actions = {
 
         }
     },
+    async delArticleFromArticles({ commit, state }, { id }) {
+        const item = state.items.find((item) => item.id === id)
+
+        try {
+            commit('set', {
+                item: {
+                    ...item,
+                    isDeleted: true
+                }
+            })
+        }
+
+        catch (err) {
+            console.log(err)
+        }
+    },
     async addItem({ commit }, { title, content, imageFile }) {
         if (title === '' || content === '') {
             alert('請輸入內容')

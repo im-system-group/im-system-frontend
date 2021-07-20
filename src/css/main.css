@@ -1,3 +1,20 @@
+/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
+
+.background-main {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-image: url(/img/article-images/background.svg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #153048;
+}
+
+
+
+
+/* articles */
 .articles-less-info {
   width: 100%;
   height: 95px;

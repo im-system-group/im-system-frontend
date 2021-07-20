@@ -1,40 +1,38 @@
 <template>
-  <main>
-    <div class="article-create">
-      <div class="article-create-top-border"></div>
-      <div class="article-create-header">
-        <strong>&lt;</strong>
-        {{ $t('articleCreate.title')}}
-        <strong>&gt;</strong>
-      </div>
-      <div class="article-create-content-form-container">
-        <div tabindex="0" class="article-create-content-form">
-          <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="title" required />
-          <textarea :placeholder="$t('articleCreate.form.content')" v-model="content" required></textarea>
-        </div>
-        <div class="article-create-upload-form">
-          <label class="plus-block" for="upload-file">
-            <span
-              :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"
-            ></span>
-          </label>
-          <input id="upload-file" type="file" ref="imageFile" />
-          <div class="plus-block">
-            <span class="mdi mdi-close"></span>
-          </div>
-          <div class="plus-block">
-            <span class="mdi mdi-close"></span>
-          </div>
-        </div>
-        <div class="article-create-post-button" @click="create">
-          <span v-if="loading" class="blink">LOADING...</span>
-          <span v-else>{{ $t('articleCreate.post')}}</span>
-        </div>
-      </div>
-      <div class="article-create-bottom-border"></div>
+  <div class="article-create">
+    <div class="article-create-top-border"></div>
+    <div class="article-create-header">
+      <strong>&lt;</strong>
+      {{ $t('articleCreate.title')}}
+      <strong>&gt;</strong>
     </div>
-    <div class="scale-click back-button" @click="$emit('back')" />
-  </main>
+    <div class="article-create-content-form-container">
+      <div tabindex="0" class="article-create-content-form">
+        <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="title" required />
+        <textarea :placeholder="$t('articleCreate.form.content')" v-model="content" required></textarea>
+      </div>
+      <div class="article-create-upload-form">
+        <label class="plus-block" for="upload-file">
+          <span
+            :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"
+          ></span>
+        </label>
+        <input id="upload-file" type="file" ref="imageFile" />
+        <div class="plus-block">
+          <span class="mdi mdi-close"></span>
+        </div>
+        <div class="plus-block">
+          <span class="mdi mdi-close"></span>
+        </div>
+      </div>
+      <div class="article-create-post-button" @click="create">
+        <span v-if="loading" class="blink">LOADING...</span>
+        <span v-else>{{ $t('articleCreate.post')}}</span>
+      </div>
+    </div>
+    <div class="article-create-bottom-border"></div>
+  </div>
+  <div class="scale-click back-button" @click="$emit('back')" />
 </template>
 
 <script>
@@ -69,7 +67,7 @@ export default {
       })
     );
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
   },
 };

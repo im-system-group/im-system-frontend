@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="background-main">
     <div class="profile">
       <div class="profile-top-border"></div>
       <div class="profile-header">
@@ -31,7 +31,7 @@
       <div class="profile-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
-  </main>
+  </div>
 </template>
 
 <script>
@@ -256,21 +256,6 @@ export default {
 .back-button {
   background-image: url(/img/article-images/back_button.svg);
   left: 15px;
-}
-</style>
-
-<style scoped>
-/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
-
-main {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-image: url(/img/article-images/background.svg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #153048;
 }
 </style>
 
