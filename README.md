@@ -1,4 +1,4 @@
-# im-sys-vue3
+# iM System Frontend & Desktop App
 
 ## Project setup
 ```
