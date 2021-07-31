@@ -112,21 +112,23 @@
           </g>
         </svg>
         <div class="account-field-container">
-          <input
-            type="text"
-            class="account-field-asterisk"
-            tabindex="-1"
-            spellcheck="false"
-            autocomplete="off"
-          />
-          <input
-            type="text"
-            class="account-field"
-            name="account"
-            tabindex="0"
-            spellcheck="false"
-            autocomplete="off"
-          />
+          <form>
+            <input
+              type="text"
+              class="account-field-asterisk"
+              tabindex="-1"
+              spellcheck="false"
+              autocomplete="off"
+            />
+            <input
+              type="text"
+              class="account-field"
+              name="account"
+              tabindex="0"
+              spellcheck="false"
+              autocomplete="off"
+            />
+          </form>
         </div>
         <div class="password-field-container">
           <input
@@ -574,8 +576,11 @@
 </template>
 
 <script>
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: "login-v30",
+
   async mounted() {
     const main = require("./scripts/main").default;
     await main(
@@ -587,7 +592,7 @@ export default {
 
     this.$emit("logged");
   }
-};
+});
 </script>
 
 <style scoped src="./styles/main.css"></style>

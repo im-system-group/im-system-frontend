@@ -1,4 +1,4 @@
-# im-system-fronted-new
+# iM System Frontend & Desktop App
 
 ## Project setup
 ```

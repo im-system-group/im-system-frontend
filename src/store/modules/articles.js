@@ -21,7 +21,7 @@ const actions = {
         try {
             commit('set', { isItemsLoading: true, isItemsLoaded: false })
 
-            var response
+            let response
             if (window.TOKEN === null) {
                 response = await apiRequest.get(`articles?perPage=10&page=${page}`)
             } else {
@@ -45,6 +45,7 @@ const actions = {
                 isDeleted: structuredItem.isDeleted
             }));
 
+            //console.log(items)
             items.forEach(item => {
                 item.likesCount = item.likesCount | 0;
                 if(item.isDeleted){
@@ -88,6 +89,22 @@ const actions = {
         catch (err) {
             console.log(err)
 
+        }
+    },
+    async delArticleFromArticles({ commit, state }, { id }) {
+        const item = state.items.find((item) => item.id === id)
+
+        try {
+            commit('set', {
+                item: {
+                    ...item,
+                    isDeleted: true
+                }
+            })
+        }
+
+        catch (err) {
+            console.log(err)
         }
     },
     async addItem({ commit }, { title, content, imageFile }) {

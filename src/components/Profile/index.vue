@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="background-main">
     <div class="profile">
       <div class="profile-top-border"></div>
       <div class="profile-header">
@@ -7,16 +7,16 @@
         {{ $t('profile.title')}}
         <strong>&gt;</strong>
       </div>
-      <div class="profile-content-form-container">
-        <input id="upload-avatar" type="file" ref="imageFile" />
+      <div v-if="!loading" class="profile-content-form-container">
+        <input id="upload-avatar" type="file" @change="onFileChange" refs="imageFile"/>
         <label
           for="upload-avatar"
           class="profile-avatar"
           :style="`background-image: url(${newAvatarUrl || avatarUrl}); border-color: ${color};`"
         />
         <div tabindex="0" class="profile-content-form">
-          <input type="text" :placeholder="$t('profile.form.name')" v-model="name" />
-          <input type="text" :placeholder="$t('profile.form.email')" v-model="email" />
+          <input type="text" :placeholder="$t('profile.form.name')" v-model="userName" />
+          <input type="text" :placeholder="$t('profile.form.email')" v-model="userEmail" />
           <input type="password" :placeholder="$t('profile.form.oldPassword')" v-model="password" />
           <input type="password" :placeholder="$t('profile.form.newPassword')" v-model="newPassword" />
         </div>
@@ -31,18 +31,27 @@
       <div class="profile-bottom-border"></div>
     </div>
     <div class="scale-click back-button" @click="$emit('back')" />
-  </main>
+  </div>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    loading: false,
-    password: "",
-    newPassword: "",
-    newAvatarUrl: "",
-    fileChangeHandler: null,
-  }),
+  name: "profile",
+
+  props: ["name", "email", "avatarUrl", "color"],
+
+  data() {
+    return {
+      userName: this.name,
+      userEmail: this.email,
+
+      loading: false,
+      password: "",
+      newPassword: "",
+      newAvatarUrl: "",
+    }
+  },
+
   methods: {
     update() {
       if(this.loading === false)
@@ -50,28 +59,21 @@ export default {
         this.loading = true;
 
         this.$emit("update", {
-          name: this.name,
-          email: this.email,
+          name: this.userName,
+          email: this.userEmail,
           password: this.password,
           newPassword: this.newPassword,
-          imageFile: this.$refs.imageFile.files[0],
+          imageFile: this.newAvatarUrl,
         });
       }
     },
+
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.newAvatarUrl = URL.createObjectURL(file);
+    }
   },
-  name: "profile",
-  props: ["name", "email", "avatarUrl", "color"],
-  mounted() {
-    this.$refs.imageFile.addEventListener(
-      "change",
-      (this.fileChangeHandler = () => {
-        this.newAvatarUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
-      })
-    );
-  },
-  beforeDestroy() {
-    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
-  },
+
 };
 </script>
 
@@ -254,21 +256,6 @@ export default {
 .back-button {
   background-image: url(/img/article-images/back_button.svg);
   left: 15px;
-}
-</style>
-
-<style scoped>
-/*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Passion+One&family=Noto+Sans+TC&family=Rubik:wght@300&family=Ubuntu+Mono:wght@700&family=Roboto+Mono&family=Mukta&display=swap";*/
-
-main {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-image: url(/img/article-images/background.svg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #153048;
 }
 </style>
 

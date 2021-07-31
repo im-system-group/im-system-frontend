@@ -43,7 +43,7 @@ const actions = {
                 authorId: structuredItem.author.id
             }));
 
-            commit('pushItems', { item })
+            //commit('pushItems', { item })
             commit('set', { item, isItemLoading: false, isItemLoaded: true })
         }
         catch (err) {
@@ -65,7 +65,7 @@ const actions = {
                 userColor: structuredItem.author.color || '#fff'
             }));
 
-            commit('pushItems', { comments })
+            //commit('pushItems', { comments })
             commit('set', { comments, isCommentsLoading: false, isCommentsLoaded: true })
         }
         catch (err) {
@@ -136,18 +136,22 @@ const actions = {
             console.log(err)
         }
     },
-    async delArticle({ id }) {
-        console.log('test')
+    async delArticle({ commit, state }, { id }) {
         try {
-            const response = await apiRequest.delete(`articles/${id}`,
+            await apiRequest.delete(`articles/${id}`,
                 {
                     headers: {
                         "Authorization": `Bearer ${window.TOKEN}`
                     }
                 })
-            console.log(response)
+            
+            commit('set', {
+                item: {
+                    ...state.item,
+                    isDeleted: true
+                }
+            })
         }
-
 
         catch (err) {
             console.log(err)
