@@ -3,6 +3,10 @@
 </template>
 
 <script>
+import { apiRequest } from './utils'
+
+
+
 export default {
   name: 'App',
 
@@ -10,6 +14,8 @@ export default {
     // localStorage global setting init
     window.TOKEN = window.localStorage.getItem('token_v1')
     window.memberId = window.localStorage.getItem('identity_id_v1')
+
+    apiRequest.get('/sanctum/csrf-cookie')
   }
 }
 </script>

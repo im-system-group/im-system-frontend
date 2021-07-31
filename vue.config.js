@@ -1,5 +1,6 @@
 module.exports = {
     // 遠端開發 api proxy
+    
     devServer: {
         proxy: {
             '/api': {
