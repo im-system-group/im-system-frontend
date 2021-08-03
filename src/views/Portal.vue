@@ -436,43 +436,73 @@ export default {
         view.webkitRequestFullscreen();
       }
     },
+
+    async initPage() {
+      try {
+        document.createEvent("TouchEvent");
+        this.mobile = false;
+      } catch (e) {
+        this.mobile = true;
+      }
+
+      if (window.innerWidth < window.innerHeight) {
+        var element = document.createElement("div");
+        element.className = "rotate-hint";
+        document.body.append(element);
+        element.onclick = () => element.remove();
+        setTimeout(element.onclick, 3 * 1000);
+      }
+
+      try {
+        const response = await this.loadItem();
+        
+        if (response) {
+          //alert(this.$t("已登入"));
+          this.$router.push("/articles");
+        } else {
+          //alert('未登入')
+        }
+      } catch (err) {
+        console.log("error");
+        //alert(this.$t("profile.update.fail"));
+      }
+    },
+  
+    initLanguage() {
+      let browserLang = navigator.language;
+      let localStorageLang = localStorage.getItem("footmark-lang");
+
+      // if local save lang is null
+      if(!localStorageLang) {
+        // user language check
+        if (/^en\b/.test(browserLang)) {
+          // English
+          this.setLang('en')
+        } else if (/^ja\b/.test(browserLang)){
+          // 日本語
+          this.setLang('jp')
+        } else if (/^ko\b/.test(browserLang)){
+          // 韓語
+          this.setLang('ko')
+        } else {
+          // 中文
+          this.setLang('zh-TW')
+        }
+      } else {
+        this.setLang(localStorageLang)
+      }
+
+    },
+
     setLang(value) {
       this.$i18n.locale = value;
       localStorage.setItem("footmark-lang", value);
     },
   },
 
-  async mounted() {
-    this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh-TW";
-
-    try {
-      document.createEvent("TouchEvent");
-      this.mobile = false;
-    } catch (e) {
-      this.mobile = true;
-    }
-
-    if (window.innerWidth < window.innerHeight) {
-      var element = document.createElement("div");
-      element.className = "rotate-hint";
-      document.body.append(element);
-      element.onclick = () => element.remove();
-      setTimeout(element.onclick, 3 * 1000);
-    }
-
-    try {
-      const response = await this.loadItem();
-      
-      if (response) {
-        //alert(this.$t("已登入"));
-        this.$router.push("/articles");
-      } else {
-        //alert('未登入')
-      }
-    } catch (err) {
-      console.log("error");
-      //alert(this.$t("profile.update.fail"));
-    }
+  mounted() {
+    this.initLanguage()
+    this.initPage()
   },
 };
 </script>
