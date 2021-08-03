@@ -39,12 +39,12 @@
           <input
             type="radio"
             name="language"
-            id="language-zh"
-            value="zh"
+            id="language-zh-TW"
+            value="zh-TW"
             v-model="language"
-            v-on:change="setLang('zh')"
+            v-on:change="setLang('zh-TW')"
           />
-          <label class="language" for="language-zh">中</label>
+          <label class="language" for="language-zh-TW">中</label>
           <input
             type="radio"
             name="language"
@@ -391,7 +391,7 @@
           <li>
             <a href="#about-us">{{ $t("portal.footer.aboutUs") }}</a>
           </li>
-          <li style="color: #444">v1.3.8-2</li>
+          <li style="color: #444">v{{ appVersion }}</li>
         </ul>
       </nav>
     </footer>
@@ -403,11 +403,14 @@ import { /*mapState,*/ mapActions /* , mapMutations */ } from "vuex";
 
 export default {
 
-  data: () => ({
-    mobile: false,
-    version: "3.0",
-    language: localStorage.getItem("footmark-lang") || "zh",
-  }),
+  data() {
+    return {
+      appVersion: process.env.VUE_APP_VERSION,
+      mobile: false,
+      version: "3.0",
+      language: localStorage.getItem("footmark-lang") || "zh-TW",
+    }
+  },
 
   methods: {
     ...mapActions("profile", ["loadItem"]),
@@ -440,7 +443,7 @@ export default {
   },
 
   async mounted() {
-    this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh";
+    this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh-TW";
 
     try {
       document.createEvent("TouchEvent");
