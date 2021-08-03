@@ -455,7 +455,7 @@ export default {
 
       try {
         const response = await this.loadItem();
-        
+
         if (response) {
           //alert(this.$t("已登入"));
           this.$router.push("/articles");
@@ -475,9 +475,9 @@ export default {
       // if local save lang is null
       if(!localStorageLang) {
         // user language check
-        if (/^en\b/.test(browserLang)) {
-          // English
-          this.setLang('en')
+        if (/^zh\b/.test(browserLang)) {
+          // 中文
+          this.setLang('zh-TW')
         } else if (/^ja\b/.test(browserLang)){
           // 日本語
           this.setLang('jp')
@@ -485,8 +485,8 @@ export default {
           // 韓語
           this.setLang('ko')
         } else {
-          // 中文
-          this.setLang('zh-TW')
+          // English
+          this.setLang('en')
         }
       } else {
         this.setLang(localStorageLang)
