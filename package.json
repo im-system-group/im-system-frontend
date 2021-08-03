@@ -32,15 +32,15 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.14.9",
     "@intlify/vue-i18n-loader": "^2.1.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
     "electron": "^13.1.7",
     "electron-devtools-installer": "^3.2.0",
     "electron-icon-builder": "^2.0.1",
