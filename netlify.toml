@@ -3,3 +3,6 @@
   to = "/index.html"
   status = 200
   headers = {X-From = "Netlify"}
+
+[context.production]
+  environment = { NODE_VERSION = "16.6.1" }
