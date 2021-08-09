@@ -4,7 +4,7 @@
     @click="!source.isDeleted && redirectToArticle(source.id)"
   >
     <div class="articles-poster">
-      <Avatar :src="source.userAvatarUrl" :color="source.userColor"/>
+      <Avatar :src="source.userAvatarUrl" :color="source.userColor" />
 
       <div
         class="articles-poster-name"
@@ -48,22 +48,19 @@ import Avatar from './Avatar'
 export default {
   name: 'article-item',
 
-  components: {
-    Avatar
-  },
-
   props: {
     index: { // index of current item
       type: Number
     },
     source: {
-      type: Object,
-      default () {
-        return {}
-      }
+      type: Object
     }
   },
-  
+
+  components: {
+    Avatar
+  },
+
   methods: {
     ...mapActions("articles", ["likeItem"]),
   
@@ -74,7 +71,6 @@ export default {
     likeArticle(id) {
       this.likeItem({ id })
     }
-  
   }
 }
 </script>

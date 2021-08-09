@@ -2,9 +2,11 @@
   <div
     class="articles-poster-avatar"
     :style="`background-image: url(${placeholderImg}); border-color: ${color}; color: ${color};`"
-    ref="articleAvatar"
-    v-bind="$attrs"
+    :data-src="src"
+    :ref="`articleAvatar-${id}`"
   />
+
+  <img :src="src" @load="onImgLoad" style="display: none;"/>
 </template>
 
 
@@ -14,6 +16,7 @@ export default {
   name: 'Avatar',
   
   props: {
+    id: String,
     src: {
       type: String,
       required: true
@@ -28,48 +31,29 @@ export default {
   },
 
   methods: {
-    avatarLoader(url) {
-      let image = new Image();
+    /*
+    async avatarLoader(url) {
+      let image = await new Image();
       // this will occur when the image is successfully loaded
       // no matter if seconds past
       image.src = url;
       //image.crossOrigin = "Anonymous";
 
+      let articleIdSelc = `articleAvatar-${this.id}`
       image.onload = () => {
-        /*
-        let canvas = document.createElement('canvas')
-
-        let width = image.width
-        let height = image.height
-        const maxHeight = 200
-        const maxWidth = 200
-
-        if (width > height) {
-          if (width > maxWidth) {
-            height = Math.round((height *= maxWidth / width))
-            width = maxWidth
-          }
-        } else {
-          if (height > maxHeight) {
-            width = Math.round((width *= maxHeight / height))
-            height = maxHeight
-          }
-        }
-        canvas.width = width
-        canvas.height = height
-
-        const ctx = canvas.getContext('2d')
-        ctx.drawImage(image, 0, 0, width, height)
-
-        console.log(canvas.toDataURL('image/jpeg', 0.7))*/
-
-        this.$refs.articleAvatar.style.backgroundImage = "url('" + url + "')";
+        this.$refs[articleIdSelc].style.backgroundImage = "url('" + url + "')";
       }
+    }*/
+    
+    onImgLoad() {
+      let articleIdSelc = `articleAvatar-${this.id}`
+      this.$refs[articleIdSelc].style.backgroundImage = "url('" + this.src + "')";
+      //console.log(`loaded ${this.id}`)
     }
   },
 
-  mounted() {
-    this.avatarLoader(this.src)
+  async created() {
+    //await this.avatarLoader(this.src)
   }
 }
 </script>

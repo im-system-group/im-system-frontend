@@ -1,0 +1,133 @@
+.modal-border-line {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.modal-border-line:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: -10px;
+  width: 2px;
+}
+
+.modal-border-line:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: calc(100% + 7px);
+  width: 2px;
+}
+
+.modal-border-line.top {
+  top: -.5em;
+  border-top: #77c6ce solid 2px;
+}
+
+.modal-border-line.top:after {
+  top: 0;
+  border-top: #77c6ce solid 2px;
+}
+
+.modal-border-line.top:before {
+  top: 0;
+  border-top: #77c6ce solid 2px;
+}
+
+.modal-border-line.bottom {
+  z-index: -1;
+  bottom: -.5em;
+  border-bottom: #77c6ce solid 2px;
+}
+
+.modal-border-line.bottom:after {
+  bottom: 0;
+  border-bottom: #77c6ce solid 2px;
+}
+
+.modal-border-line.bottom:before {
+  bottom: 0;
+  border-bottom: #77c6ce solid 2px;
+}
+
+
+
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 30vh; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.575); /* Black w/ opacity */
+  backdrop-filter: blur(10px);
+}
+
+/* Modal Content */
+.modal-card {
+  color: #ffffff;
+  background-color: rgba(49, 76, 85, 0.8);
+  margin: auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 720px;
+}
+
+.modal-card.blur {
+  backdrop-filter: blur(10px);
+}
+
+.modal-card-container {
+  padding: 1px;
+}
+
+.modal-actions {
+  margin-top: 1.9rem;
+  display: flex;
+}
+
+.modal-button {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: .7rem .5rem;
+  border: 2px solid #e6e6e6;
+  border-radius: 9px;
+  background: none;
+  margin-left: .8em;
+  margin-right: .8em;
+  transition: all .12s;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .1s;
+  font-weight: bold;
+}
+
+.modal-button:hover {
+  background-color:rgba(0, 0, 0, 0.123);
+}
+
+.modal-button:active {
+  transform: scale(0.9);
+}
+
+.modal-button.action {
+  color: #04012c;
+  background-color: #e6e6e6;
+}
+
+.modal-button.action:hover {
+  background-color: #f6f6f6;
+}

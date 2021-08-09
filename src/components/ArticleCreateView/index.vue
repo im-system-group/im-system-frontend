@@ -43,6 +43,11 @@ export default {
     content: "",
     fileChangeHandler: null,
   }),
+  // fix vue 3 emit warning
+  emits: [
+    'create',
+    'back'
+  ],
   methods: {
     create() {
       if(this.loading === false)

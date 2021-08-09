@@ -2,10 +2,7 @@
   <div v-if="article !== null" class="article-container">
     <div class="article-less-info">
       <div class="article-poster">
-        <div
-          class="article-poster-avatar"
-          :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
-        />
+        <Avatar :src="article.userAvatarUrl" :color="article.userColor" type="poster" />
         <div
           class="article-poster-name"
           :title="article.userName"
@@ -28,6 +25,7 @@
         <div class="article-likes-count" v-text="article.likesCount" />
       </div>
     </div>
+    <!-- article -->
     <div class="article-content-and-comments-container">
       <img
         v-if="article.imageUrl"
@@ -36,32 +34,28 @@
       />
       <div class="article-content" v-text="article.content" />
       <div class="article-comments">
-        <div
-          class="article-comment-container"
+        <template
           v-for="comment in comments"
           :key="comment.id"
         >
-          <div class="article-commenter">
-            <div
-              class="article-commenter-avatar"
-              :style="`background-image: url(${comment.userAvatarUrl}); border-color: ${comment.userColor};`"
-            />
-          </div>
-          <div class="article-comment">
-            <div
-              class="article-commenter-name"
-              v-html="comment.userName"
-              :style="`color: ${comment.userColor};`"
-            />
-            <div class="article-comment-content" v-text="comment.content" />
-          </div>
-        </div>
+          <Commenter
+            v-if="comment.isDeleted"
+            :comment="comment"
+            :articleId="article.id"
+          />
+
+          <Commenter
+            v-else
+            :comment="comment"
+            :articleId="article.id"
+          />
+        </template>
+        
+
+        <!-- new comments -->
         <div class="article-comment-container" v-if="user">
           <div class="article-commenter">
-            <div
-              class="article-commenter-avatar"
-              :style="`background-image: url(${user.avatarUrl}); border-color: ${user.color}; color: ${user.color};`"
-            />
+            <Avatar :src="user.avatarUrl" :color="user.color" type="comment" />
           </div>
           <div class="article-comment">
             <div class="article-commenter-name">
@@ -78,18 +72,40 @@
       </div>
     </div>
   </div>
-  <!-- TODO:edit button -->
+
+  <!-- Remove Modal -->
+  <BaseModal v-if="removeModal">
+    <div class="modal-border-line top"></div>
+
+    <div class="modal-card-container">
+      <h2>刪除文章</h2>
+      <p>確定要刪除這則文章嗎？</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-button action" @click="$emit('del');removeModal = false;">確認</button>
+      <button class="modal-button" @click="removeModal = false">取消</button>
+    </div>
+  </BaseModal>
+
+  <!-- TODO:edit delete button -->
   <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
   <div class="scale-click back-button" @click="$emit('back')" />
-  <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
+  <!-- 刪除按鈕-->
+  <div v-if="login" class="scale-click del-button" @click="removeModal = true" />
 </template>
 
 <script>
+import Avatar from './Avatar';
+import Commenter from './Commenter';
+
+
 export default {
   data: () => ({
     handleCommentTextBoxKeyDown: null,
     handleCommentTextBoxInput: null,
     login: false,
+    removeModal: false
   }),
 
   name: "article-view",
@@ -99,10 +115,18 @@ export default {
     "back",
     "del",
     "edit",
-    "addComment"
+    "add-comment"
   ],
 
   props: ["article", "comments", "user"],
+
+  components: {
+    Avatar,
+    Commenter
+  },
+
+  methods: {
+  },
 
   updated() {
     if (this.$refs.commentTextBox) {
@@ -148,6 +172,7 @@ export default {
   },
 
   mounted() {
+    // 檢查登入
     if (this.article.authorId === window.memberId) {
       this.login = true;
     } else {
@@ -335,7 +360,8 @@ img {
   background-color: rgba(81, 128, 144, 0.6);
   margin-left: 0.5px;
   margin-right: 6px;
-  transition: all 0.5s;
+  transition: all .12s;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
   cursor: pointer;
   font-size: 16px;
   color: rgb(140, 228, 230);
@@ -345,7 +371,7 @@ img {
 }
 
 .article-like-thumb-container:active {
-  transform: scale(0.7);
+  transform: scale(0.8);
 }
 
 .article-likes-count {
@@ -391,7 +417,7 @@ img {
 }
 </style>
 
-<style scoped>
+<style>
 .article-content-and-comments-container {
   margin-left: 92px;
   padding: 10px 40px 0px;

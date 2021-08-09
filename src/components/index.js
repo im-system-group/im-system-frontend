@@ -5,6 +5,10 @@ import ArticleView from './ArticleView/index.vue'
 import ArticleCreateView from './ArticleCreateView/index.vue'
 import Profile from './Profile/index.vue'
 
+import BaseModal from './BaseModal'
+
+
+
 export default {
     install(Vue) {
         Vue.component(LoginV24.name, LoginV24)
@@ -13,5 +17,6 @@ export default {
         //Vue.component(ArticlesView.name, ArticlesView)
         Vue.component(ArticleCreateView.name, ArticleCreateView)
         Vue.component(Profile.name, Profile)
+        Vue.component(BaseModal.name, BaseModal)
     },
 }

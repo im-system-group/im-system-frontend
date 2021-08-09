@@ -63,7 +63,7 @@ const actions = {
     async likeItem({ commit, state }, { id }) {
         const item = state.items.find((item) => item.id === id)
         try {
-            const response = await apiRequest.post(
+            await apiRequest.post(
                 `articles/${id}/favorite`,
                 Object.entries({
                     favorite: +!item.isLiked,
@@ -76,8 +76,6 @@ const actions = {
                     },
                 }
             );
-
-            console.log(response)
 
             if (item.isLiked) {
                 commit('likeItem', { id, like: -1 })

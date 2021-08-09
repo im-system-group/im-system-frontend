@@ -44,4 +44,24 @@ body,
   top: 0;
   left: 0;
 }
+
+.edit-button,
+.status-button {
+  background-size: 64px;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  bottom: 15px;
+}
+
+.edit-button {
+  background-image: url(/img/article-images/edit_button.svg);
+  left: 15px;
+}
+
+.status-button {
+  background-image: url(/img/article-images/status_button.svg);
+  right: 15px;
+}
 </style>
