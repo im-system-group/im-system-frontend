@@ -1,0 +1,9 @@
+{
+  "appId": "site.imsystem.app",
+  "appName": "iM-System",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "hostname": "imsystem.site"
+  }
+}

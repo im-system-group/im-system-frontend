@@ -36,6 +36,7 @@ body,
   max-height: -webkit-fill-available;
   margin: 0;
   background-color: #153048;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #app {
