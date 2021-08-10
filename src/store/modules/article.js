@@ -67,6 +67,7 @@ const actions = {
                 userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
                 userColor: structuredItem.author.color || '#fff',
                 isDeleted: structuredItem.isDeleted,
+                authorId: structuredItem.author.id
             }));
 
             //commit('pushItems', { comments })

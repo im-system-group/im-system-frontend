@@ -233,22 +233,6 @@ export default {
 }
 </style>
 
-<style>
-.back-button {
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-}
-
-.back-button {
-  background-image: url(/img/article-images/back_button.svg);
-  left: 15px;
-}
-</style>
-
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
@@ -269,16 +253,6 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-}
-</style>
-
-<style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
 }
 </style>
 

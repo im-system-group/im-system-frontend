@@ -46,6 +46,32 @@ body,
   left: 0;
 }
 
+
+
+
+.scale-click {
+  cursor: pointer;
+  transition: all 0.1s;
+}
+
+.scale-click:active {
+  transform: scale(0.85);
+}
+
+.back-button {
+  background-size: 64px;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  bottom: 15px;
+}
+
+.back-button {
+  background-image: url(/img/article-images/back_button.svg);
+  left: 15px;
+}
+
 .edit-button,
 .status-button {
   background-size: 64px;
@@ -59,6 +85,24 @@ body,
 .edit-button {
   background-image: url(/img/article-images/edit_button.svg);
   left: 15px;
+}
+
+
+.del-button {
+  background-image: url(/img/article-images/del_button.svg);
+  /* left: calc(100vw -20px); */
+
+  background-size: 64px;
+  background-repeat: no-repeat;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  bottom: 15px;
+  right: 16px;
+
+  border: 2.5px solid #fff;
+  border-radius: 999px;
+  background-position: center;
 }
 
 .status-button {

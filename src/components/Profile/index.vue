@@ -260,16 +260,6 @@ export default {
 </style>
 
 <style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
-}
-</style>
-
-<style scoped>
 .profile-avatar {
   display: block;
   width: 128px;

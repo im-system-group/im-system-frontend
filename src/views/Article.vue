@@ -21,7 +21,6 @@
       @back="$router.back('/articles')"
       @del="deleteArticle"
       @edit="editArticle"
-      @add-comment="addArticleComment"
     />
   </div>
 </template>
@@ -58,7 +57,6 @@ export default {
       "loadItem",
       "loadComments",
       "likeItem",
-      "addComment",
       "dropItemAndComments",
       "delArticle"
     ]),
@@ -72,10 +70,6 @@ export default {
       loadProfile: "loadItem",
       editArticle: "editArticle",
     }),
-    addArticleComment(content) {
-      const { id } = this.$route.params;
-      this.addComment({ id, content });
-    },
     likeArticle() {
       const { id } = this.$route.params;
       this.likeItem({ id });

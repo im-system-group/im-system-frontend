@@ -10,11 +10,8 @@
           :style="`color: ${article.userColor};`"
         />
       </div>
-
       <div class="article-top-border" />
-
-      <div class="article-title" v-text="article.title" />
-
+      <div class="article-title" v-text="articleTitle" />
       <div :class="{ 'article-likes': true, active: article.isLiked }">
         <div
           class="article-like-thumb-container"
@@ -25,89 +22,74 @@
         <div class="article-likes-count" v-text="article.likesCount" />
       </div>
     </div>
-    <!-- article -->
+    <!-- article content -->
     <div class="article-content-and-comments-container">
       <img
         v-if="article.imageUrl"
         :src="article.imageUrl"
         style="max-width: calc(100% - 186px); margin-bottom: 10px"
       />
-      <div class="article-content" v-text="article.content" />
+      <div class="article-content" v-text="articleContent" />
+      <!-- 留言 -->
       <div class="article-comments">
-        <template
+        <Commenter
           v-for="comment in comments"
           :key="comment.id"
-        >
-          <Commenter
-            v-if="comment.isDeleted"
-            :comment="comment"
-            :articleId="article.id"
-          />
-
-          <Commenter
-            v-else
-            :comment="comment"
-            :articleId="article.id"
-          />
-        </template>
-        
-
-        <!-- new comments -->
-        <div class="article-comment-container" v-if="user">
-          <div class="article-commenter">
-            <Avatar :src="user.avatarUrl" :color="user.color" type="comment" />
-          </div>
-          <div class="article-comment">
-            <div class="article-commenter-name">
-              {{ $t("article.youHint") }}
-            </div>
-            <textarea
-              class="article-comment-content"
-              ref="commentTextBox"
-              :placeholder="$t('article.comment')"
-              rows="1"
-            ></textarea>
-          </div>
-        </div>
+          :comment="comment"
+          :articleId="article.id"
+        />
+        <!-- 新留言 -->
+        <newComment
+          v-if="user"
+          @add-comment="add-comment"
+        ></newComment>
       </div>
     </div>
   </div>
 
   <!-- Remove Modal -->
   <BaseModal v-if="removeModal">
-    <div class="modal-border-line top"></div>
-
     <div class="modal-card-container">
-      <h2>刪除文章</h2>
+      <h2 class="modal-header">刪除文章</h2>
       <p>確定要刪除這則文章嗎？</p>
     </div>
-
     <div class="modal-actions">
       <button class="modal-button action" @click="$emit('del');removeModal = false;">確認</button>
       <button class="modal-button" @click="removeModal = false">取消</button>
     </div>
   </BaseModal>
 
-  <!-- TODO:edit delete button -->
-  <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
+  <!-- Edit Modal -->
+  <BaseModal v-if="editModal">
+    <div class="modal-card-container">
+      <h2 class="modal-header">編輯文章</h2>
+      <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="newArticleTitle" required />
+      <textarea v-model="newArticleContent" style="margin-top: 1em;">
+      </textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-button action" @click="editedDone();editModal = false;">確認</button>
+      <button class="modal-button" @click="editModal = false">取消</button>
+    </div>
+  </BaseModal>
+
+  <!-- 按鈕群 -->
   <div class="scale-click back-button" @click="$emit('back')" />
-  <!-- 刪除按鈕-->
+  <div v-if="login" class="scale-click edit-button" @click="editModal = true" />
   <div v-if="login" class="scale-click del-button" @click="removeModal = true" />
 </template>
 
+
+
 <script>
+import { mapActions } from 'vuex'
+import { apiRequest } from '@/utils'
+
 import Avatar from './Avatar';
 import Commenter from './Commenter';
-
+import newComment from './newComment';
 
 export default {
-  data: () => ({
-    handleCommentTextBoxKeyDown: null,
-    handleCommentTextBoxInput: null,
-    login: false,
-    removeModal: false
-  }),
-
   name: "article-view",
 
   emits: [
@@ -122,52 +104,60 @@ export default {
 
   components: {
     Avatar,
-    Commenter
+    Commenter,
+    newComment
+  },
+
+  data() {
+    return {
+      handleCommentTextBoxKeyDown: null,
+      handleCommentTextBoxInput: null,
+      login: false,
+
+      articleTitle: this.article.title,
+      articleContent: this.article.content,
+      newArticleTitle:  this.article.title,
+      newArticleContent:  this.article.content,
+
+      removeModal: false,
+      editModal: false,
+    }
   },
 
   methods: {
-  },
+    ...mapActions("articles", [
+      "editItem"
+    ]),
 
-  updated() {
-    if (this.$refs.commentTextBox) {
-      if (!this.handleCommentTextBoxInput) {
-        this.handleCommentTextBoxInput = () => {
-          this.$refs.commentTextBox.style.height = "auto";
+    // 編輯文章送出
+    async editedDone() {
+      let articleId = this.article.id;
+      let newTitle = this.newArticleTitle;
+      let newContent = this.newArticleContent;
 
-          this.$refs.commentTextBox.style.height =
-            this.$refs.commentTextBox.scrollHeight + "px";
-        };
+      this.articleTitle = newTitle;
+      this.articleContent = newContent;
 
-        this.$refs.commentTextBox.addEventListener(
-          "input",
-          this.handleCommentTextBoxInput
-        );
-      }
-
-      if (!this.handleCommentTextBoxKeyDown) {
-        this.handleCommentTextBoxKeyDown = (event) => {
-          if (
-            event.keyCode === 13 &&
-            this.$refs.commentTextBox.value.replace(/\n| |\t/g, "")
-          ) {
-            if (
-              !event.shiftKey &&
-              this.$refs.commentTextBox.selectionEnd ===
-                this.$refs.commentTextBox.value.length
-            ) {
-              event.preventDefault();
-              this.$emit("add-comment", this.$refs.commentTextBox.value);
-              this.$refs.commentTextBox.value = "";
-              this.handleCommentTextBoxInput();
-            }
+      // 編輯文章送出
+      await apiRequest.post(`/articles/${articleId}`, 
+        Object.entries({
+          title: newTitle,
+          content: newContent,
+          _method: 'PATCH'
+        }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
+        {
+          headers: {
+            "Authorization": `Bearer ${window.TOKEN}`,
+            "Content-Type": 'multipart/form-data'
           }
-        };
+        }
+      );
 
-        this.$refs.commentTextBox.addEventListener(
-          "keydown",
-          this.handleCommentTextBoxKeyDown
-        );
-      }
+      // 文章列表更新標題
+      this.editItem({
+        id: articleId,
+        title: newTitle
+      })
     }
   },
 
@@ -181,56 +171,8 @@ export default {
     //console.log(this.login);
     this.$forceUpdate();
   },
-  
-  beforeUnmount() {
-    if (this.$refs.commentTextBox) {
-      this.$refs.commentTextBox.removeEventListener(
-        "input",
-        this.handleCommentTextBoxInput
-      );
-
-      this.$refs.commentTextBox.removeEventListener(
-        "keydown",
-        this.handleCommentTextBoxKeyDown
-      );
-    }
-  },
-
 };
 </script>
-
-<style>
-.back-button {
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-}
-
-.back-button {
-  background-image: url(/img/article-images/back_button.svg);
-  left: 15px;
-}
-
-.del-button {
-  background-image: url(/img/article-images/del_button.svg);
-  /* left: calc(100vw -20px); */
-
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-  right: 16px;
-
-  border: 2.5px solid #fff;
-  border-radius: 999px;
-  background-position: center;
-}
-</style>
 
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
@@ -269,14 +211,6 @@ img {
 </style>
 
 <style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
-}
-
 .article-container {
   margin: 5px auto 0;
   width: calc(100% - 10px);
@@ -441,6 +375,7 @@ img {
   color: #fff;
   font-size: 18px;
   margin-bottom: 15px;
+  line-height: 1.9;
 }
 
 .article-content,

@@ -106,14 +106,6 @@ export default {
   border-radius: 2px;
   background-color: rgb(255, 255, 255);
 }
-
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
-}
 </style>
 
 <style>

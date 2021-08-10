@@ -60,6 +60,10 @@ const actions = {
             console.log(err)
         }
     },
+    editItem({ commit/*, state*/ }, { id, title }) {
+        //const item = state.items.find((item) => item.id === id)
+        commit('editTitle', { id, title })
+    },
     async likeItem({ commit, state }, { id }) {
         const item = state.items.find((item) => item.id === id)
         try {
@@ -190,6 +194,13 @@ const mutations = {
             if (item.id === id) {
                 item.isLiked = like === +1
                 item.likesCount += like
+            }
+        })
+    },
+    editTitle(state, { id, title }) {
+        state.items.forEach(item => {
+            if (item.id === id) {
+                item.title = title
             }
         })
     },

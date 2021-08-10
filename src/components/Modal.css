@@ -60,7 +60,7 @@
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 30vh; /* Location of the box */
+  padding-top: 10vh; /* Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -87,6 +87,10 @@
 
 .modal-card-container {
   padding: 1px;
+}
+
+.modal-header {
+  text-align: center;
 }
 
 .modal-actions {
@@ -130,4 +134,42 @@
 
 .modal-button.action:hover {
   background-color: #f6f6f6;
+}
+
+
+/** textarea **/
+.modal-card input,
+.modal-card textarea {
+  color: #fff;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border: 2px solid #eaeaeaea;
+  border-radius: 7px;
+  resize: none;
+  outline: none;
+  padding: 10px;
+}
+
+.modal-card input {
+  font-size: 1.1rem;
+  letter-spacing: .05em;
+}
+
+.modal-card textarea {
+  height: 35vh;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  letter-spacing: .05em;
+}
+
+.modal-card textarea::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modal-card textarea::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255);
 }
