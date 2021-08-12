@@ -89,5 +89,9 @@
 			"content": "Input Content"
 		},
 		"post": "POST"
-	}
+	},
+  "pwa": {
+    "title": "",
+    "description": ""
+  }
 }

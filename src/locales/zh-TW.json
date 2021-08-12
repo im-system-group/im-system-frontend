@@ -89,5 +89,9 @@
       "content": "請輸入內容"
     },
     "post": "發表文章"
+  },
+  "pwa": {
+    "title": "",
+    "description": ""
   }
 }
