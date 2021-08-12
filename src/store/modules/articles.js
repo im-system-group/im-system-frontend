@@ -8,9 +8,7 @@ const state = () => ({
     scrollTop: Infinity,
 })
 
-const getters = {
-
-}
+const getters = {}
 
 const actions = {
     async loadItems({ state, commit }, { page, itemHeight }) {

@@ -112,7 +112,6 @@ export default {
     return {
       handleCommentTextBoxKeyDown: null,
       handleCommentTextBoxInput: null,
-      login: false,
 
       articleTitle: this.article.title,
       articleContent: this.article.content,
@@ -121,6 +120,17 @@ export default {
 
       removeModal: false,
       editModal: false,
+    }
+  },
+
+  computed: {
+    login() {
+      // 檢查登入
+      if (this.article.authorId === window.memberId) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
 
@@ -159,17 +169,6 @@ export default {
         title: newTitle
       })
     }
-  },
-
-  mounted() {
-    // 檢查登入
-    if (this.article.authorId === window.memberId) {
-      this.login = true;
-    } else {
-      this.login = false;
-    }
-    //console.log(this.login);
-    this.$forceUpdate();
   },
 };
 </script>
@@ -231,17 +230,6 @@ img {
   margin-left: 5px;
   width: 81px;
   height: 95px;
-}
-
-.article-poster-avatar {
-  width: 64px;
-  height: 64px;
-  margin: 15px auto 2px;
-  border-radius: 64px;
-  border-width: 2.5px;
-  border-color: #fff;
-  border-style: solid;
-  background-size: 100%;
 }
 
 .article-poster-name {
@@ -361,16 +349,6 @@ img {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.article-content-and-comments-container::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.article-content-and-comments-container::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .article-content {
   color: #fff;
   font-size: 18px;
@@ -402,17 +380,6 @@ img {
   margin-right: 5px;
   width: 81px;
   height: 64px;
-}
-
-.article-commenter-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
-  border-width: 2.5px;
-  border-color: #fff;
-  border-style: solid;
-  background-size: cover;
-  background-position: center;
 }
 
 .article-commenter-name {

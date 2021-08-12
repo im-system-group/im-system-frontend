@@ -96,16 +96,6 @@ export default {
   max-width: 1028px;
   overflow-y: scroll;
 }
-
-.articles-container::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.articles-container::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
 </style>
 
 <style>

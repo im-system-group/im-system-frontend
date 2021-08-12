@@ -199,16 +199,6 @@ export default {
   height: 240px;
 }
 
-.forgot-password-content-form textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.forgot-password-content-form textarea::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .forgot-password-done-button {
   cursor: pointer;
   user-select: none;

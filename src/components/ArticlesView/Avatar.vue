@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'Avatar',
-  
+
   props: {
     id: String,
     src: {
@@ -46,9 +46,7 @@ export default {
     }*/
     
     onImgLoad() {
-      let articleIdSelc = `articleAvatar-${this.id}`
-      this.$refs[articleIdSelc].style.backgroundImage = "url('" + this.src + "')";
-      //console.log(`loaded ${this.id}`)
+      this.placeholderImg = this.src
     }
   },
 

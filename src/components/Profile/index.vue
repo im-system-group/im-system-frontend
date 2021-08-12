@@ -209,16 +209,6 @@ export default {
   height: 240px;
 }
 
-.profile-content-form textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.profile-content-form textarea::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .profile-done-button {
   cursor: pointer;
   user-select: none;

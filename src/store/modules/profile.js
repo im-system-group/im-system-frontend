@@ -75,7 +75,7 @@ const actions = {
             }).then((res) =>{
                 let memberId = res.data.data.id
 
-                console.log(memberId)
+                window.memberId = memberId
                 // set memberId into localStorage
                 window.localStorage.setItem('identity_id_v1', memberId)
                 state.localStorageMemberId = memberId

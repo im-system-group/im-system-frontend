@@ -21,6 +21,17 @@ export default {
 </script>
 
 <style>
+/* default scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255);
+}
+
 * {
   box-sizing: border-box;
 }

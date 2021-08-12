@@ -1,4 +1,6 @@
 <template>
+  <img v-if="!loaded" :src="src" @load="onImgLoad" style="display: none;"/>
+
   <div
     :class="avatarClass"
     :style="`background-image: url(${placeholderImg}); border-color: ${color}; color: ${color};`"
@@ -23,30 +25,50 @@ export default {
 
   data() {
     return {
+      loaded: false,
       avatarClass: '',
       placeholderImg: '/img/def_picture.jpg'
     }
   },
 
   methods: {
-    avatarLoader(url) {
-      let image = new Image();
-      image.src = url;
-      image.onload = () => {
-        this.$refs.articleAvatar.style.backgroundImage = "url('" + url + "')";
-      }
+    onImgLoad() {
+      this.loaded = true
+      this.placeholderImg = this.src
     }
   },
 
   mounted() {
-    this.avatarLoader(this.src)
-
     // component type checker
     if(this.type === 'poster') {
-      this.avatarClass = 'article-poster-avatar'
+      this.avatarClass = this.$style['article-poster-avatar'];
     } else if (this.type === 'comment') {
-      this.avatarClass = 'article-commenter-avatar'
+      this.avatarClass = this.$style['article-commenter-avatar'];
     }
   }
 }
 </script>
+
+<style module>
+.article-poster-avatar {
+  width: 64px;
+  height: 64px;
+  margin: 15px auto 2px;
+  border-radius: 64px;
+  border-width: 2.5px;
+  border-color: #fff;
+  border-style: solid;
+  background-size: 100%;
+}
+
+.article-commenter-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
+  border-width: 2.5px;
+  border-color: #fff;
+  border-style: solid;
+  background-size: cover;
+  background-position: center;
+}
+</style>
