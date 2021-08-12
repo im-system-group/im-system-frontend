@@ -25,7 +25,9 @@ import { apiRequest } from './utils'
 export default {
   name: 'App',
 
-  mixins: [pwaUpdate],
+  mixins: [
+    pwaUpdate
+  ],
 
   created() {
     // localStorage global setting init
