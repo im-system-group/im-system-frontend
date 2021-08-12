@@ -26,6 +26,8 @@ export default {
     // We use `updateExists` to control whatever alert, toast, dialog, etc we want to use
     // To alert the user there is an update they need to refresh for
     updateAvailable(event) {
+      
+      console.log('可以更新啦')
       this.registration = event.detail
       this.updateExists = true
     },
