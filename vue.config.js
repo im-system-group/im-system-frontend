@@ -30,6 +30,7 @@ module.exports = {
         },
         msTileColor: '#3d403f',
         //assetsVersion: '0.020173',
+        /*
         appleMobileWebAppCapable: 'yes',
         workboxPluginMode: 'InjectManifest',
         workboxOptions: {
@@ -39,7 +40,7 @@ module.exports = {
             importScripts:"https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js"
             //importScripts: 'https://storage.googleapis.com/workbox-cdn/releases/6.1.1/workbox-sw.js'
             // ...other Workbox options...
-        },
+        },*/
     },
     
     css: {
