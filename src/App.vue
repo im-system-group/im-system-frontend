@@ -1,14 +1,31 @@
 <template>
   <router-view />
+
+  <!-- PWA Update Notification v-if="updateExists" -->
+  <BaseModal v-if="updateExists">
+    <div class="modal-border-line top"></div>
+
+    <div class="modal-card-container">
+      <h2>iM System 有新版本！</h2>
+      <p>我們已經自動下載好，點擊更新會自動更新網站！</p>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-button" @click="refreshApp">更新</button>
+    </div>
+  </BaseModal>
 </template>
 
 <script>
+import pwaUpdate from '@/mixins/update'
 import { apiRequest } from './utils'
 
 
 
 export default {
   name: 'App',
+
+  mixins: [pwaUpdate],
 
   created() {
     // localStorage global setting init

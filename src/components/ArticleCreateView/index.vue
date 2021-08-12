@@ -48,17 +48,17 @@
   </div>
 
   <!-- file size warning Modal -->
-    <BaseModal v-if="warningModal">
-      <div class="modal-border-line top"></div>
+  <BaseModal v-if="warningModal">
+    <div class="modal-border-line top"></div>
 
-      <div class="modal-card-container">
-        <h2>檔案大小不能超過 5 MB</h2>
-      </div>
+    <div class="modal-card-container">
+      <h2>檔案大小不能超過 5 MB</h2>
+    </div>
 
-      <div class="modal-actions">
-        <button class="modal-button" @click="warningModal = false">了解</button>
-      </div>
-    </BaseModal>
+    <div class="modal-actions">
+      <button class="modal-button" @click="warningModal = false">了解</button>
+    </div>
+  </BaseModal>
 
   <div class="scale-click back-button" @click="$emit('back')" />
 </template>
