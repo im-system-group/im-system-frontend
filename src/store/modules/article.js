@@ -14,6 +14,7 @@ const getters = {
 }
 
 const actions = {
+    // 將留言加入到列表
     async loadItem({ commit }, { id }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false });
@@ -50,6 +51,8 @@ const actions = {
             console.log(err)
         }
     },
+
+    // 載入留言
     async loadComments({ commit }, { id }) {
         try {
             commit('set', { isCommentsLoading: true, isCommentsLoaded: false })
@@ -62,7 +65,9 @@ const actions = {
                 content: structuredItem.content,
                 userName: structuredItem.author.name,
                 userAvatarUrl: structuredItem.author.avatar || '/img/def_picture.jpg',
-                userColor: structuredItem.author.color || '#fff'
+                userColor: structuredItem.author.color || '#fff',
+                isDeleted: structuredItem.isDeleted,
+                authorId: structuredItem.author.id
             }));
 
             //commit('pushItems', { comments })
@@ -72,6 +77,8 @@ const actions = {
             console.log(err)
         }
     },
+
+    // 新增留言
     async addComment({ dispatch }, { id, content }) {
         try {
             await apiRequest.post(
@@ -93,6 +100,8 @@ const actions = {
             console.log(err)
         }
     },
+
+    // 讚
     async likeItem({ commit, state }, { id }) {
         const item = state.item
 
@@ -136,6 +145,8 @@ const actions = {
             console.log(err)
         }
     },
+
+    // 刪除文章
     async delArticle({ commit, state }, { id }) {
         try {
             await apiRequest.delete(`articles/${id}`,
@@ -157,6 +168,8 @@ const actions = {
             console.log(err)
         }
     },
+
+    // 離開文章時，刪除暫存資料
     dropItemAndComments({ commit }) {
         commit('set', {
             item: null,

@@ -90,5 +90,9 @@
 			"content": "内容を入力してください"
 		},
 		"post": "公開"
-	}
+	},
+  "pwa": {
+    "title": "",
+    "description": ""
+  }
 }

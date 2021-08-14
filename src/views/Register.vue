@@ -212,16 +212,6 @@ export default {
   height: 240px;
 }
 
-.register-content-form textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.register-content-form textarea::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .register-done-button {
   cursor: pointer;
   user-select: none;
@@ -282,16 +272,6 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-}
-</style>
-
-<style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
 }
 </style>
 

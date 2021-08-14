@@ -2,10 +2,7 @@
   <div v-if="article !== null" class="article-container">
     <div class="article-less-info">
       <div class="article-poster">
-        <div
-          class="article-poster-avatar"
-          :style="`background-image: url(${article.userAvatarUrl}); border-color: ${article.userColor}; color: ${article.userColor};`"
-        />
+        <Avatar :src="article.userAvatarUrl" :color="article.userColor" type="poster" />
         <div
           class="article-poster-name"
           :title="article.userName"
@@ -13,11 +10,8 @@
           :style="`color: ${article.userColor};`"
         />
       </div>
-
       <div class="article-top-border" />
-
-      <div class="article-title" v-text="article.title" />
-
+      <div class="article-title" v-text="articleTitle" />
       <div :class="{ 'article-likes': true, active: article.isLiked }">
         <div
           class="article-like-thumb-container"
@@ -28,70 +22,74 @@
         <div class="article-likes-count" v-text="article.likesCount" />
       </div>
     </div>
+    <!-- article content -->
     <div class="article-content-and-comments-container">
       <img
         v-if="article.imageUrl"
         :src="article.imageUrl"
         style="max-width: calc(100% - 186px); margin-bottom: 10px"
       />
-      <div class="article-content" v-text="article.content" />
+      <div class="article-content" v-text="articleContent" />
+      <!-- 留言 -->
       <div class="article-comments">
-        <div
-          class="article-comment-container"
+        <Commenter
           v-for="comment in comments"
           :key="comment.id"
-        >
-          <div class="article-commenter">
-            <div
-              class="article-commenter-avatar"
-              :style="`background-image: url(${comment.userAvatarUrl}); border-color: ${comment.userColor};`"
-            />
-          </div>
-          <div class="article-comment">
-            <div
-              class="article-commenter-name"
-              v-html="comment.userName"
-              :style="`color: ${comment.userColor};`"
-            />
-            <div class="article-comment-content" v-text="comment.content" />
-          </div>
-        </div>
-        <div class="article-comment-container" v-if="user">
-          <div class="article-commenter">
-            <div
-              class="article-commenter-avatar"
-              :style="`background-image: url(${user.avatarUrl}); border-color: ${user.color}; color: ${user.color};`"
-            />
-          </div>
-          <div class="article-comment">
-            <div class="article-commenter-name">
-              {{ $t("article.youHint") }}
-            </div>
-            <textarea
-              class="article-comment-content"
-              ref="commentTextBox"
-              :placeholder="$t('article.comment')"
-              rows="1"
-            ></textarea>
-          </div>
-        </div>
+          :comment="comment"
+          :articleId="article.id"
+        />
+        <!-- 新留言 -->
+        <newComment
+          v-if="user"
+          @add-comment="add-comment"
+        ></newComment>
       </div>
     </div>
   </div>
-  <!-- TODO:edit button -->
-  <div v-if="login" class="scale-click edit-button" @click="$emit('edit')" />
+
+  <!-- Remove Modal -->
+  <BaseModal v-if="removeModal">
+    <div class="modal-card-container">
+      <h2 class="modal-header">刪除文章</h2>
+      <p>確定要刪除這則文章嗎？</p>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-button action" @click="$emit('del');removeModal = false;">確認</button>
+      <button class="modal-button" @click="removeModal = false">取消</button>
+    </div>
+  </BaseModal>
+
+  <!-- Edit Modal -->
+  <BaseModal v-if="editModal">
+    <div class="modal-card-container">
+      <h2 class="modal-header">編輯文章</h2>
+      <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="newArticleTitle" required />
+      <textarea v-model="newArticleContent" style="margin-top: 1em;">
+      </textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-button action" @click="editedDone();editModal = false;">確認</button>
+      <button class="modal-button" @click="editModal = false">取消</button>
+    </div>
+  </BaseModal>
+
+  <!-- 按鈕群 -->
   <div class="scale-click back-button" @click="$emit('back')" />
-  <div v-if="login" class="scale-click del-button" @click="$emit('del')" />
+  <div v-if="login" class="scale-click edit-button" @click="editModal = true" />
+  <div v-if="login" class="scale-click del-button" @click="removeModal = true" />
 </template>
 
-<script>
-export default {
-  data: () => ({
-    handleCommentTextBoxKeyDown: null,
-    handleCommentTextBoxInput: null,
-    login: false,
-  }),
 
+
+<script>
+import { mapActions } from 'vuex'
+import { apiRequest } from '@/utils'
+
+import Avatar from './Avatar';
+import Commenter from './Commenter';
+import newComment from './newComment';
+
+export default {
   name: "article-view",
 
   emits: [
@@ -99,113 +97,81 @@ export default {
     "back",
     "del",
     "edit",
-    "addComment"
+    "add-comment"
   ],
 
   props: ["article", "comments", "user"],
 
-  updated() {
-    if (this.$refs.commentTextBox) {
-      if (!this.handleCommentTextBoxInput) {
-        this.handleCommentTextBoxInput = () => {
-          this.$refs.commentTextBox.style.height = "auto";
+  components: {
+    Avatar,
+    Commenter,
+    newComment
+  },
 
-          this.$refs.commentTextBox.style.height =
-            this.$refs.commentTextBox.scrollHeight + "px";
-        };
+  data() {
+    return {
+      handleCommentTextBoxKeyDown: null,
+      handleCommentTextBoxInput: null,
 
-        this.$refs.commentTextBox.addEventListener(
-          "input",
-          this.handleCommentTextBoxInput
-        );
+      articleTitle: this.article.title,
+      articleContent: this.article.content,
+      newArticleTitle:  this.article.title,
+      newArticleContent:  this.article.content,
+
+      removeModal: false,
+      editModal: false,
+    }
+  },
+
+  computed: {
+    login() {
+      // 檢查登入
+      if (this.article.authorId === window.memberId) {
+        return true;
+      } else {
+        return false;
       }
+    }
+  },
 
-      if (!this.handleCommentTextBoxKeyDown) {
-        this.handleCommentTextBoxKeyDown = (event) => {
-          if (
-            event.keyCode === 13 &&
-            this.$refs.commentTextBox.value.replace(/\n| |\t/g, "")
-          ) {
-            if (
-              !event.shiftKey &&
-              this.$refs.commentTextBox.selectionEnd ===
-                this.$refs.commentTextBox.value.length
-            ) {
-              event.preventDefault();
-              this.$emit("add-comment", this.$refs.commentTextBox.value);
-              this.$refs.commentTextBox.value = "";
-              this.handleCommentTextBoxInput();
-            }
+  methods: {
+    ...mapActions("articles", [
+      "editItem"
+    ]),
+
+    // 編輯文章送出
+    async editedDone() {
+      let articleId = this.article.id;
+      let newTitle = this.newArticleTitle;
+      let newContent = this.newArticleContent;
+
+      this.articleTitle = newTitle;
+      this.articleContent = newContent;
+
+      // 編輯文章送出
+      await apiRequest.post(`/articles/${articleId}`, 
+        Object.entries({
+          title: newTitle,
+          content: newContent,
+          _method: 'PATCH'
+        }).reduce((formData, [name, value]) => (formData.append(name, value), formData), new FormData()),
+        {
+          headers: {
+            "Authorization": `Bearer ${window.TOKEN}`,
+            "Content-Type": 'multipart/form-data'
           }
-        };
-
-        this.$refs.commentTextBox.addEventListener(
-          "keydown",
-          this.handleCommentTextBoxKeyDown
-        );
-      }
-    }
-  },
-
-  mounted() {
-    if (this.article.authorId === window.memberId) {
-      this.login = true;
-    } else {
-      this.login = false;
-    }
-    //console.log(this.login);
-    this.$forceUpdate();
-  },
-  
-  beforeUnmount() {
-    if (this.$refs.commentTextBox) {
-      this.$refs.commentTextBox.removeEventListener(
-        "input",
-        this.handleCommentTextBoxInput
+        }
       );
 
-      this.$refs.commentTextBox.removeEventListener(
-        "keydown",
-        this.handleCommentTextBoxKeyDown
-      );
+      // 文章列表更新標題
+      this.editItem({
+        id: articleId,
+        title: newTitle
+      })
     }
   },
-
 };
 </script>
-
-<style>
-.back-button {
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-}
-
-.back-button {
-  background-image: url(/img/article-images/back_button.svg);
-  left: 15px;
-}
-
-.del-button {
-  background-image: url(/img/article-images/del_button.svg);
-  /* left: calc(100vw -20px); */
-
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-  right: 16px;
-
-  border: 2.5px solid #fff;
-  border-radius: 999px;
-  background-position: center;
-}
-</style>
 
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
@@ -244,14 +210,6 @@ img {
 </style>
 
 <style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
-}
-
 .article-container {
   margin: 5px auto 0;
   width: calc(100% - 10px);
@@ -272,17 +230,6 @@ img {
   margin-left: 5px;
   width: 81px;
   height: 95px;
-}
-
-.article-poster-avatar {
-  width: 64px;
-  height: 64px;
-  margin: 15px auto 2px;
-  border-radius: 64px;
-  border-width: 2.5px;
-  border-color: #fff;
-  border-style: solid;
-  background-size: 100%;
 }
 
 .article-poster-name {
@@ -335,7 +282,8 @@ img {
   background-color: rgba(81, 128, 144, 0.6);
   margin-left: 0.5px;
   margin-right: 6px;
-  transition: all 0.5s;
+  transition: all .12s;
+  box-shadow: 0 0 0.25em rgba(0, 0, 0, 0.5);
   cursor: pointer;
   font-size: 16px;
   color: rgb(140, 228, 230);
@@ -345,7 +293,7 @@ img {
 }
 
 .article-like-thumb-container:active {
-  transform: scale(0.7);
+  transform: scale(0.8);
 }
 
 .article-likes-count {
@@ -391,7 +339,7 @@ img {
 }
 </style>
 
-<style scoped>
+<style>
 .article-content-and-comments-container {
   margin-left: 92px;
   padding: 10px 40px 0px;
@@ -401,20 +349,11 @@ img {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.article-content-and-comments-container::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.article-content-and-comments-container::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .article-content {
   color: #fff;
   font-size: 18px;
   margin-bottom: 15px;
+  line-height: 1.9;
 }
 
 .article-content,
@@ -441,17 +380,6 @@ img {
   margin-right: 5px;
   width: 81px;
   height: 64px;
-}
-
-.article-commenter-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
-  border-width: 2.5px;
-  border-color: #fff;
-  border-style: solid;
-  background-size: cover;
-  background-position: center;
 }
 
 .article-commenter-name {

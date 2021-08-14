@@ -11,13 +11,26 @@
         <input type="text" :placeholder="$t('articleCreate.form.title')" v-model="title" required />
         <textarea :placeholder="$t('articleCreate.form.content')" v-model="content" required></textarea>
       </div>
+
+      
+      <img
+        v-if="previewImage"
+        class="img-preview"
+        :src="filePreviewUrl"
+      />
+      
       <div class="article-create-upload-form">
         <label class="plus-block" for="upload-file">
           <span
             :class="`mdi mdi-${$refs.imageFile && $refs.imageFile.files[0] ? 'image' : 'plus'}`"
           ></span>
         </label>
-        <input id="upload-file" type="file" ref="imageFile" />
+        <input
+          id="upload-file"
+          type="file"
+          ref="imageFile"
+          @change="readFile"
+        />
         <div class="plus-block">
           <span class="mdi mdi-close"></span>
         </div>
@@ -29,24 +42,53 @@
         <span v-if="loading" class="blink">LOADING...</span>
         <span v-else>{{ $t('articleCreate.post')}}</span>
       </div>
+
     </div>
     <div class="article-create-bottom-border"></div>
   </div>
+
+  <!-- file size warning Modal -->
+  <BaseModal v-if="warningModal">
+    <div class="modal-border-line top"></div>
+
+    <div class="modal-card-container">
+      <h2>檔案大小不能超過 5 MB</h2>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-button" @click="warningModal = false">了解</button>
+    </div>
+  </BaseModal>
+
   <div class="scale-click back-button" @click="$emit('back')" />
 </template>
 
+
+
 <script>
 export default {
-  data: () => ({
-    loading: false,
-    title: "",
-    content: "",
-    fileChangeHandler: null,
-  }),
+  name: "article-create-view",
+  
+  // fix vue 3 emit warning
+  emits: [
+    'create',
+    'back'
+  ],
+
+  data() {
+    return {
+      loading: false,
+      title: "",
+      content: "",
+      warningModal: false,
+      filePreviewUrl: "",
+      previewImage: false
+    }
+  },
+  
   methods: {
     create() {
-      if(this.loading === false)
-      {
+      if(this.loading === false) {
         this.loading = true;
 
         this.$emit("create", {
@@ -56,20 +98,31 @@ export default {
         });
       }
     },
-  },
-  name: "article-create-view",
-  props: [],
-  mounted() {
-    this.$refs.imageFile.addEventListener(
-      "change",
-      (this.fileChangeHandler = () => {
-        this.$forceUpdate();
-      })
-    );
-  },
-  beforeUnmount() {
-    this.$refs.imageFile.removeEventListener("change", this.fileChangeHandler);
-  },
+    readFile() {
+      let filesLength = this.$refs.imageFile.files.length;
+      this.filesLength = filesLength;
+  
+      if(filesLength !== 0) {
+        let file = this.$refs.imageFile.files[0]
+        let sizeInBytes = file.size;
+        let sizeInMB = (sizeInBytes / (1024*1024)).toFixed(2);
+
+        if(sizeInMB > 5) {
+          //console.log('檔案大小超過 5MB')
+          this.warningModal = true
+        } else {
+          if (/.(jpg|jpeg|png|gif)$/i.test(file.type)) {
+            this.previewImage = true
+            this.filePreviewUrl = URL.createObjectURL(this.$refs.imageFile.files[0]);
+          } else {
+            this.previewImage = false
+          }
+        }
+      } else {
+        this.previewImage = false
+      }
+    },
+  }
 };
 </script>
 
@@ -160,6 +213,15 @@ export default {
   display: none;
 }
 
+.img-preview {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
 .article-create-content-form {
   margin: 10px auto 0px;
   border: 2px rgba(255, 255, 255, 0.4) solid;
@@ -199,16 +261,6 @@ export default {
 .article-create-content-form textarea {
   font-size: 16px;
   height: 240px;
-}
-
-.article-create-content-form textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.article-create-content-form textarea::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
 }
 
 .article-create-upload-form {
@@ -256,22 +308,6 @@ export default {
 }
 </style>
 
-<style>
-.back-button {
-  background-size: 64px;
-  background-repeat: no-repeat;
-  width: 64px;
-  height: 64px;
-  position: fixed;
-  bottom: 15px;
-}
-
-.back-button {
-  background-image: url(/img/article-images/back_button.svg);
-  left: 15px;
-}
-</style>
-
 <style scoped>
 /*@import "https://fonts.googleapis.com/css2?family=Electrolize&family=Noto+Sans+TC&family=Noto+Sans+JP&family=Noto+Sans+KR&display=swap";*/
 
@@ -292,15 +328,5 @@ img {
   position: absolute;
   top: 0;
   left: 0;
-}
-</style>
-
-<style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
 }
 </style>

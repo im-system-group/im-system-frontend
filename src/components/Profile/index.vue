@@ -209,16 +209,6 @@ export default {
   height: 240px;
 }
 
-.profile-content-form textarea::-webkit-scrollbar {
-  width: 8px;
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.profile-content-form textarea::-webkit-scrollbar-thumb {
-  border-radius: 2px;
-  background-color: rgb(255, 255, 255);
-}
-
 .profile-done-button {
   cursor: pointer;
   user-select: none;
@@ -256,16 +246,6 @@ export default {
 .back-button {
   background-image: url(/img/article-images/back_button.svg);
   left: 15px;
-}
-</style>
-
-<style scoped>
-.scale-click {
-  transition: all 0.5s;
-}
-
-.scale-click:active {
-  transform: scale(0.7);
 }
 </style>
 

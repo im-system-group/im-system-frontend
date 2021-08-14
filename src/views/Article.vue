@@ -21,7 +21,6 @@
       @back="$router.back('/articles')"
       @del="deleteArticle"
       @edit="editArticle"
-      @add-comment="addArticleComment"
     />
   </div>
 </template>
@@ -54,38 +53,35 @@ export default {
       "delArticleFromArticles"
     ]),
     ...mapActions("article", [
+      "set",
       "loadItem",
       "loadComments",
       "likeItem",
-      "addComment",
       "dropItemAndComments",
       "delArticle"
     ]),
     ...mapMutations("article", [
       "set"
     ]),
+    ...mapActions("articles", {
+      articlesLike:"likeItem"
+    }),
     ...mapActions("profile", {
       loadProfile: "loadItem",
       editArticle: "editArticle",
     }),
-    addArticleComment(content) {
-      const { id } = this.$route.params;
-      this.addComment({ id, content });
-    },
     likeArticle() {
       const { id } = this.$route.params;
       this.likeItem({ id });
+      // 更新文章列表的 like
+      this.articlesLike({ id })
     },
     deleteArticle() {
-      //alert('Coming Soon!');
-      var _confirm = confirm("確定要刪除嗎？");
-      if (_confirm) {
-         const { id } = this.$route.params;
-         console.log({ id });
-         this.delArticle({ id });
-         this.delArticleFromArticles({ id });
-         this.$router.push("/articles");
-      }
+      const { id } = this.$route.params;
+      console.log({ id });
+      this.delArticle({ id });
+      this.delArticleFromArticles({ id });
+      this.$router.push("/articles");
     },
     editArticle() {
       alert('Coming Soon!')
@@ -110,7 +106,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .lds-spinner {
   margin: 0 auto;
   margin-top: 10vh;

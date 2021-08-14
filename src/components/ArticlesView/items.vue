@@ -4,10 +4,8 @@
     @click="!source.isDeleted && redirectToArticle(source.id)"
   >
     <div class="articles-poster">
-      <div
-        class="articles-poster-avatar"
-        :style="`background-image: url(${source.userAvatarUrl}); border-color: ${source.userColor}; color: ${source.userColor};`"
-      />
+      <Avatar :src="source.userAvatarUrl" :color="source.userColor" />
+
       <div
         class="articles-poster-name"
         :title="source.userName"
@@ -45,20 +43,24 @@
 
 <script>
 import { mapActions } from "vuex";
+import Avatar from './Avatar'
 
 export default {
   name: 'article-item',
+
   props: {
     index: { // index of current item
       type: Number
     },
     source: {
-      type: Object,
-      default () {
-        return {}
-      }
+      type: Object
     }
   },
+
+  components: {
+    Avatar
+  },
+
   methods: {
     ...mapActions("articles", ["likeItem"]),
   
@@ -69,7 +71,6 @@ export default {
     likeArticle(id) {
       this.likeItem({ id })
     }
-  
   }
 }
 </script>

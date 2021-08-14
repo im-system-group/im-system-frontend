@@ -43,12 +43,12 @@ const actions = {
             return false
         }
     },
-    async login({ commit, state }, { account, password }) {
+
+    async login({ commit, state, dispatch }, { account, password }) {
         try {
             commit('set', { isItemLoading: true, isItemLoaded: false })
 
-            const response = await apiRequest.post(
-                `login`,
+            let loginData = await apiRequest.post(`login`,
                 Object.entries({
                     account: account,
                     password: password,
@@ -60,31 +60,27 @@ const actions = {
                 }
             )
 
-            const item = response.data.data
+            let loginedData = loginData.data.data
+            let memberToken = loginedData.token
 
-            //window.TOKEN = item.token
-            
-            // set token into localStorage
-            window.localStorage.setItem('token_v1', item.token)
-            state.localStorageToken = item.token
+            window.localStorage.setItem('token_v1', memberToken)
+            state.localStorageToken = memberToken
+            commit('set', { item: loginedData, isItemLoading: false, isItemLoaded: false })
 
-        
-
-            commit('set', { item, isItemLoading: false, isItemLoaded: false })
-
-            
             // get memberId
-           await apiRequest.get(`member`, {
+            await apiRequest.get(`member`, {
                 headers: {
-                    "Authorization": `Bearer ${item.token}`
+                    "Authorization": `Bearer ${memberToken}`
                 },
             }).then((res) =>{
                 let memberId = res.data.data.id
-                
-                console.log(memberId)
+
+                window.memberId = memberId
                 // set memberId into localStorage
                 window.localStorage.setItem('identity_id_v1', memberId)
                 state.localStorageMemberId = memberId
+
+                dispatch('loadItem')
             })
 
         }
@@ -93,6 +89,7 @@ const actions = {
             commit('set', { isItemLoading: false, isItemLoaded: false })
         }
     },
+
     async logout({ state }) {
         try {
             //commit('set', { isItemLoading: true, isItemLoaded: false })
@@ -112,6 +109,7 @@ const actions = {
             console.log(err)
         }
     },
+
     async updateItem({ commit, state }, { name, email, password, newPassword, imageFile }) {
         try {
             await apiRequest.post(

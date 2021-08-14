@@ -39,12 +39,12 @@
           <input
             type="radio"
             name="language"
-            id="language-zh"
-            value="zh"
+            id="language-zh-TW"
+            value="zh-TW"
             v-model="language"
-            v-on:change="setLang('zh')"
+            v-on:change="setLang('zh-TW')"
           />
-          <label class="language" for="language-zh">中</label>
+          <label class="language" for="language-zh-TW">中</label>
           <input
             type="radio"
             name="language"
@@ -391,7 +391,7 @@
           <li>
             <a href="#about-us">{{ $t("portal.footer.aboutUs") }}</a>
           </li>
-          <li style="color: #444">v1.3.8-2</li>
+          <li style="color: #444">v{{ appVersion }}</li>
         </ul>
       </nav>
     </footer>
@@ -403,11 +403,14 @@ import { /*mapState,*/ mapActions /* , mapMutations */ } from "vuex";
 
 export default {
 
-  data: () => ({
-    mobile: false,
-    version: "3.0",
-    language: localStorage.getItem("footmark-lang") || "zh",
-  }),
+  data() {
+    return {
+      appVersion: process.env.VUE_APP_VERSION,
+      mobile: false,
+      version: "3.0",
+      language: localStorage.getItem("footmark-lang") || "zh-TW",
+    }
+  },
 
   methods: {
     ...mapActions("profile", ["loadItem"]),
@@ -433,43 +436,73 @@ export default {
         view.webkitRequestFullscreen();
       }
     },
+
+    async initPage() {
+      try {
+        document.createEvent("TouchEvent");
+        this.mobile = false;
+      } catch (e) {
+        this.mobile = true;
+      }
+
+      if (window.innerWidth < window.innerHeight) {
+        var element = document.createElement("div");
+        element.className = "rotate-hint";
+        document.body.append(element);
+        element.onclick = () => element.remove();
+        setTimeout(element.onclick, 3 * 1000);
+      }
+
+      try {
+        const response = await this.loadItem();
+
+        if (response) {
+          //alert(this.$t("已登入"));
+          this.$router.push("/articles");
+        } else {
+          //alert('未登入')
+        }
+      } catch (err) {
+        console.log("error");
+        //alert(this.$t("profile.update.fail"));
+      }
+    },
+  
+    initLanguage() {
+      let browserLang = navigator.language;
+      let localStorageLang = localStorage.getItem("footmark-lang");
+
+      // if local save lang is null
+      if(!localStorageLang) {
+        // user language check
+        if (/^zh\b/.test(browserLang)) {
+          // 中文
+          this.setLang('zh-TW')
+        } else if (/^ja\b/.test(browserLang)){
+          // 日本語
+          this.setLang('jp')
+        } else if (/^ko\b/.test(browserLang)){
+          // 韓語
+          this.setLang('ko')
+        } else {
+          // English
+          this.setLang('en')
+        }
+      } else {
+        this.setLang(localStorageLang)
+      }
+
+    },
+
     setLang(value) {
       this.$i18n.locale = value;
       localStorage.setItem("footmark-lang", value);
     },
   },
 
-  async mounted() {
-    this.$i18n.locale = localStorage.getItem("footmark-lang") || "zh";
-
-    try {
-      document.createEvent("TouchEvent");
-      this.mobile = false;
-    } catch (e) {
-      this.mobile = true;
-    }
-
-    if (window.innerWidth < window.innerHeight) {
-      var element = document.createElement("div");
-      element.className = "rotate-hint";
-      document.body.append(element);
-      element.onclick = () => element.remove();
-      setTimeout(element.onclick, 3 * 1000);
-    }
-
-    try {
-      const response = await this.loadItem();
-      
-      if (response) {
-        //alert(this.$t("已登入"));
-        this.$router.push("/articles");
-      } else {
-        //alert('未登入')
-      }
-    } catch (err) {
-      console.log("error");
-      //alert(this.$t("profile.update.fail"));
-    }
+  mounted() {
+    this.initLanguage()
+    this.initPage()
   },
 };
 </script>

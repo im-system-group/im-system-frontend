@@ -89,5 +89,9 @@
       "content": "請輸入內容"
     },
     "post": "發表文章"
+  },
+  "pwa": {
+    "title": "iM System 有新版本！",
+    "description": "我們已經自動下載好，點擊更新會自動更新網站！"
   }
 }
