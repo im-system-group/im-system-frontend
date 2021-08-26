@@ -348,7 +348,7 @@
             stroke-linecap="round"
           />
         </svg>
-        <img class="avatar" />
+        <img class="avatar" :src="item?.avatarUrl"/>
       </div>
       <div class="shared-layout">
         <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720">
@@ -363,10 +363,18 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "login-v24",
+
+  computed: {
+    ...mapState("profile", ["item"])
+  },
+
   async mounted() {
     const main = require("./scripts/main").default;
+
     await main(
       form =>
         new Promise((resolve, reject) => {
