@@ -1,5 +1,5 @@
 <template>
-  <div class="article-comment-container">
+  <div class="article-comment-container" :class="{ 'disabled': commentData.isUploading }">
     <div class="article-commenter">
       <Avatar :src="commentData.userAvatarUrl" :color="commentData.userColor" type="comment" />
     </div>
@@ -7,15 +7,20 @@
     <div class="article-comment">
       <div
         class="article-commenter-name"
-        v-html="commentData.userName"
+        v-text="commentData.userName"
         :style="`color: ${commentData.userColor};`"
       />
 
-      <template v-if="commentData.isDeleted">
-        <div class="article-comment-content">
+      <div
+        v-if="commentData.isDeleted"
+        class="article-comment-content"
+      >
         [該留言已刪除]
-        </div>
-      </template>
+      </div>
+      
+      <div class="article-comment-content" v-else-if="commentData.isUploading">
+        {{ commentContent }}
+      </div>
 
       <template v-else>
         <!-- 回應內容
@@ -29,7 +34,7 @@
             class="article-comment-content"
             :placeholder="$t('article.comment')"
             @keyup="keyUp"
-            @keydown="keyDown"
+            @keydown.stop="keyDown"
             ref="commentTextBox"
             rows="1"
           >
@@ -39,12 +44,11 @@
             <button class="cancel-button" @click="editMode = false">取消</button>
           </div>
         </template>
-
         <!-- 顯示模式 -->
         <template v-else>
           <div class="article-comment-content" v-text="commentContent" />
 
-          <div class="comment-edit-container" v-if="commentData.userName === user.name">
+          <div class="comment-edit-container" v-if="user !== null && commentData.userName === user.name">
             <button class="comment-button comment-edit" @click="edit"></button>
             <button class="comment-button comment-delete" @click="removeModal = !removeModal"></button>
           </div>
@@ -93,7 +97,7 @@ export default {
       commentContent: this.comment.content,
       commentData: this.comment,
 
-      user: this.$store.state.profile.item,
+      user: this.$store.state.profile.item || null,
       editMode: false,
       pressShift: false,
       removeModal: false
@@ -169,6 +173,11 @@ export default {
       if (event.key === "Shift") {
         this.pressShift = true
       }
+      
+      // Enter 編輯完成不斷行
+      if (!this.pressShift && event.key === "Enter") {
+        event.preventDefault()
+      }
     }
   }
 }
@@ -177,6 +186,11 @@ export default {
 <style scoped>
 textarea {
   font-family: "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "Roboto";
+}
+
+/* 留言傳送中的頭明效果 */
+.article-comment-container.disabled {
+  opacity: .8;
 }
 
 .comment-edit-container {

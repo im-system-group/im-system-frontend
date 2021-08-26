@@ -1,5 +1,5 @@
 <template>
-  <!-- new comments -->
+  <!-- new comment -->
   <div class="article-comment-container">
     <div class="article-commenter">
       <Avatar :src="user.avatarUrl" :color="user.color" type="comment" />
@@ -54,7 +54,7 @@ export default {
 
     addArticleComment(content) {
       const { id } = this.$route.params;
-      this.addComment({ id, content });
+      this.addComment({ id, content, user: this.user });
     },
 
     keyUp(event) {
@@ -81,6 +81,10 @@ export default {
       //console.log('key down')
       if (event.key === "Shift") {
         this.pressShift = true
+      }
+      // Enter 編輯完成不斷行
+      if (!this.pressShift && event.key === "Enter") {
+        event.preventDefault()
       }
     }
   }
