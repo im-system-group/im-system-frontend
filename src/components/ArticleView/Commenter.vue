@@ -39,12 +39,11 @@
             <button class="cancel-button" @click="editMode = false">取消</button>
           </div>
         </template>
-
         <!-- 顯示模式 -->
         <template v-else>
           <div class="article-comment-content" v-text="commentContent" />
 
-          <div class="comment-edit-container" v-if="commentData.userName === user.name">
+          <div class="comment-edit-container" v-if="user !== null && commentData.userName === user.name">
             <button class="comment-button comment-edit" @click="edit"></button>
             <button class="comment-button comment-delete" @click="removeModal = !removeModal"></button>
           </div>
@@ -93,7 +92,7 @@ export default {
       commentContent: this.comment.content,
       commentData: this.comment,
 
-      user: this.$store.state.profile.item,
+      user: this.$store.state.profile.item || null,
       editMode: false,
       pressShift: false,
       removeModal: false
