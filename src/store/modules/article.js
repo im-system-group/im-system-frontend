@@ -79,8 +79,23 @@ const actions = {
     },
 
     // 新增留言
-    async addComment({ dispatch }, { id, content }) {
+    async addComment({ commit, state, dispatch }, { id, content, user }) {
         try {
+            // 建立一個還未正式傳送的 comments 
+            // 來當作傳送提示
+            let cacheComments = state.comments
+            cacheComments.push({
+                id: id,
+                content: content,
+                userName: user.name,
+                userAvatarUrl: user.avatarUrl,
+                userColor: user.color,
+                authorId: user.id,
+                isDeleted: false,
+                isUploading: true,
+            })
+            commit('set', { comments: cacheComments })
+            
             await apiRequest.post(
                 `articles/${id}/comments`,
                 Object.entries({
