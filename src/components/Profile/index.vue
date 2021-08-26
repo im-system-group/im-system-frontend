@@ -30,32 +30,51 @@
       </div>
       <div class="profile-bottom-border"></div>
     </div>
+
+    <!-- file size warning Modal -->
+    <BaseModal v-if="warningModal">
+      <div class="modal-border-line top"></div>
+
+      <div class="modal-card-container">
+        <h2>檔案大小不能超過 5 MB</h2>
+      </div>
+
+      <div class="modal-actions">
+        <button class="modal-button" @click="warningModal = false">了解</button>
+      </div>
+    </BaseModal>
+
     <div class="scale-click back-button" @click="$emit('back')" />
   </div>
 </template>
 
 <script>
+import mixinsUtils from '@/mixins/utils';
+
 export default {
   name: "profile",
 
   props: ["name", "email", "avatarUrl", "color"],
 
+  mixins: [mixinsUtils],
+
   data() {
     return {
+      loading: false,
+      warningModal: false,
+
       userName: this.name,
       userEmail: this.email,
-
-      loading: false,
       password: "",
       newPassword: "",
       newAvatarUrl: "",
+      newAvatarFile: null,
     }
   },
 
   methods: {
     update() {
-      if(this.loading === false)
-      {
+      if(this.loading === false) {
         this.loading = true;
 
         this.$emit("update", {
@@ -63,17 +82,40 @@ export default {
           email: this.userEmail,
           password: this.password,
           newPassword: this.newPassword,
-          imageFile: this.newAvatarUrl,
+          imageFile: this.newAvatarFile,
         });
       }
     },
 
     onFileChange(e) {
-      const file = e.target.files[0];
-      this.newAvatarUrl = URL.createObjectURL(file);
-    }
-  },
+      let filesLength = e.target.files.length;
+      this.filesLength = filesLength;
+  
+      if(filesLength !== 0) {
+        let file = e.target.files[0]
 
+        // file size check
+        let sizeInBytes = file.size;
+        let sizeInMB = (sizeInBytes / (1024*1024)).toFixed(2);
+
+        let newFileName = this.makeRandomString(32);
+        file = new File([file], newFileName, {
+            type: file.type,
+            lastModified: file.lastModified,
+        });
+
+        if(sizeInMB > 5) {
+          //console.log('檔案大小超過 5MB')
+          this.warningModal = true
+        } else {
+          if (/.(jpg|jpeg|png|gif)$/i.test(file.type)) {
+            this.newAvatarFile = file;
+            this.newAvatarUrl = URL.createObjectURL(file);
+          }
+        }
+      }
+    }
+  }
 };
 </script>
 
