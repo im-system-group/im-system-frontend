@@ -376,6 +376,7 @@ img {
 }
 
 .article-commenter {
+  display: flex;
   margin-left: 5px;
   margin-right: 5px;
   width: 81px;
