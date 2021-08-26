@@ -80,7 +80,7 @@ const actions = {
                 window.localStorage.setItem('identity_id_v1', memberId)
                 state.localStorageMemberId = memberId
 
-                dispatch('loadItem')
+                return dispatch('loadItem')
             })
 
         }
